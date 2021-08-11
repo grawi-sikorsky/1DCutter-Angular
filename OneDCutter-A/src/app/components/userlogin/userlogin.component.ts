@@ -22,9 +22,11 @@ export class UserloginComponent implements OnInit {
   doLogin()
   {
     let resp = this.service.login(this.username, this.password);
+    console.log(this.username + " " + this.password);
     resp.subscribe(data => {
       this.router.navigate(["/home"])
-      console.log(data);
+      console.log("data"+data);
+      this.service.authenticated = true;
     })
   }
 

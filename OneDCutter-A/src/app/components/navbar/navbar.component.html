@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <div sec:authorize="isAnonymous()">
+    <div [hidden]="zalogowany()">
       <a class="loginbtn btn btn-primary btn-sm" routerLink="register" ><i class="fas fa-user-plus"></i> Rejestruj
         waść</a>
       <a class="loginbtn btn btn-success btn-sm" routerLink="login" ><i class="fas fa-sign-in-alt"></i> Loguj waść</a>
