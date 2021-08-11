@@ -13,7 +13,7 @@ export class TestServiceService {
   }
 
   public getJson() : Observable<JsonExchangeRates>{
-    return this.httpClient.get<JsonExchangeRates>('https://openexchangerates.org/api/latest.json?app_id=8011116e5aaa43698b0eb4dc6cb18ba8');
+    return this.httpClient.get<JsonExchangeRates>('https://printo3d.pl/latest.json');
   }
 }
 
