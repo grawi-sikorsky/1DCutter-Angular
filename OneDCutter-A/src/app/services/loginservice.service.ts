@@ -17,7 +17,7 @@ export class LoginserviceService {
 
     console.log(headers);
     console.log();
-    return this.http.post("http://localhost:8080/login",{headers, responseType:'text'});  // responseType:'text' as 'json'
+    return this.http.get("http://localhost:8080/login",{headers, responseType:'text'});  // responseType:'text' as 'json'
   }
 
   public getUsers()

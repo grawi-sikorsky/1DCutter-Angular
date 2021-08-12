@@ -1,1 +1,51 @@
-<p>userregister works!</p>
+<div class="container">
+  <div class="row">
+
+    <!-- Main Content -->
+    <div class="loginformclass">
+    <section class="vh-100">
+      <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-md-9 col-lg-6 col-xl-5">
+            <img src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-login-form/draw2.png"
+              class="img-fluid" alt="Sample image">
+          </div>
+
+          <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+            <form control="" class="form-group" method="POST" th:action="@{/register}">
+
+              <!-- Username input -->
+              <div class="form-outline mb-4">
+                <input type="text" class="form-control form-control-lg" name="username" id="username"
+                  placeholder="Username" autofocus="true" />
+                <label class="form-label" for="username">Username</label>
+              </div>
+
+              <!-- Password input -->
+              <div class="form-outline mb-3">
+                <input type="password" class="form-control form-control-lg" name="password" id="password"
+                  placeholder="Password" />
+                <label class="form-label" for="password">Password</label>
+              </div>
+
+              <!-- Email input -->
+              <div class="form-outline mb-3">
+                <input type="email" class="form-control form-control-lg" name="email" id="email"
+                  placeholder="Email" />
+                <label class="form-label" for="password">Email</label>
+              </div>
+
+              <div class="text-center text-lg-start mt-4 pt-2">
+                <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;"><i class="fas fa-check"></i>Zarejestruj </button>
+
+                <p>Masz już konto? <a routerLink="../login">Zaloguj się tutaj.</a></p>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    </div>
+  </div>
+</div>
