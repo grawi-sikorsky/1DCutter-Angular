@@ -30,7 +30,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     HttpClientModule
   ],
-  providers: [UserserviceService],
+  providers: [UserserviceService,UserloginComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
