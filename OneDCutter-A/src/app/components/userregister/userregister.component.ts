@@ -10,10 +10,10 @@ import { LoginserviceService } from 'src/app/services/loginservice.service';
 })
 export class UserregisterComponent implements OnInit {
 
-  username:string;
-  password:string;
-  email:string;
-  tempUser:User;
+  username:string = '';
+  password:string = '';
+  email:string = '';
+  tempUser:User = {};
 
   constructor(private uService:LoginserviceService, private router:Router) { }
 
