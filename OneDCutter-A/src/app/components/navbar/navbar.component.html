@@ -3,23 +3,23 @@
   <div class="container-fluid navi">
     <!-- Navbar brand -->
     <a class="navbar-brand" routerLink="home" ><i class="fas fa-home"></i> Home</a>
-    <a class="navbar-brand" routerLink="register"><i class="fas fa-dice"></i> 1D Cut Optimizer</a>
+    <a class="navbar-brand" routerLink="1dcut"><i class="fas fa-dice"></i> 1D Cut Optimizer</a>
     <a class="navbar-brand" routerLink="dupa"><i class="fas fa-briefcase"></i> 2D Cut Optimizer</a>
     <a class="navbar-brand" routerLink="test"><i class="fas fa-briefcase"></i> Test</a>
 
-    <div class="userDropMenu" sec:authorize="hasAuthority('KIEP')">
-      <div class="dropdown">
+    <div class="userDropMenu">
+      <div class="dropdown" [hidden]="!zalogowany()">
         <a href="#" class="dropdown-toggle " role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           <img class="userDropMenuImg" src="/assets/img/avatar_januszcoin.png">
           <span th:text=" 'Witoj, ' + ${#authentication.getPrincipal().getUsername()} + '!' "></span>
         </a>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-          <li> <a class="dropdown-item" href="/profile"><i class="fas fa-user"></i> Majne profajl</a></li>
+          <li> <a class="dropdown-item" [routerLink]="['/profile']"><i class="fas fa-user"></i> Majne profajl</a></li>
           <li> <a class="dropdown-item" href="#"><i class="fas fa-smoking"></i> Szmeterling</a></li>
           <li> <a class="dropdown-item" href="#"><i class="fas fa-cogs"></i> Krankenwagen</a></li>
           <li> <hr class="dropdown-divider"></li>
-          <li> <a  class="dropdown-item"><i class="fas fa-sign-out-alt"></i>Wychodzę, bo nie zniesę</a></li>
+          <li> <a class="dropdown-item" [routerLink]="['/login']" ><i class="fas fa-sign-out-alt"></i>Wychodzę, bo nie zniesę</a></li>
         </ul>
       </div>
     </div>

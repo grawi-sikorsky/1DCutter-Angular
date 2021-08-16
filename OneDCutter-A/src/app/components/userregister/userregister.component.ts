@@ -22,25 +22,30 @@ export class UserregisterComponent implements OnInit {
 
   doRegister()
   {
-    // this.uService.register(this.username, this.password, this.email).subscribe(
-    //   data =>
-    //   {
-    //     this.router.navigate(["/login"]);
-    //   });
     console.log("Loginservice: Register:");
     console.log(this.username + this.password + this.email);
     this.tempUser.username = this.username;
     this.tempUser.password = this.password;
     this.tempUser.email = this.email;
+    
     console.log(this.tempUser);
-
 
     let resp = this.uService.register(this.tempUser);
 
-    resp.subscribe(temp => {
-      this.router.navigate(["/login"]);
-      //localStorage.setItem('currentUser', JSON.stringify(temp));
-      //console.log( localStorage.getItem('currentUser') );
+    resp.subscribe(returnData => {
+      if(returnData === true)
+      {
+        this.router.navigate(["/login"]);
+        console.log(returnData);
+        console.log("User added..");
+      }
+      else
+      {
+        this.router.navigate(["/register"]);
+        console.log(returnData);
+        console.log("User exists..")
+      }
+      
     });
   
   }

@@ -13,6 +13,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { UserserviceService } from './services/userservice.service';
 import { FormsModule } from '@angular/forms';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { CutterComponent } from './components/cutter/cutter.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     UserloginComponent,
     UserregisterComponent,
     FooterComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    CutterComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,193 @@
+<div class="container">
+  <div class="row">
+    <div class=col-sm-3 id="addRowsHere">
+
+
+<!--
+      <div class="accordion" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+              Surowiec
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+            <div class="accordion-body">
+
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
+              Formatki do cięcia
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
+            <div class="accordion-body">
+
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true" aria-controls="panelsStayOpen-collapseThree">
+              Ustawienia
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
+            <div class="accordion-body">
+              Szerkość piły / rzaz / 
+            </div>
+          </div>
+        </div>
+      </div>
+-->
+              <!-- STOCK ------------------------------------------------------->
+              <button type="button" id="add-stock-btn" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i>
+                Dodaj surowiec</button>
+
+              <form id="leftform" control="" class="form-group" method="POST" th:action="@{/1dcut}">
+
+                <table id="stockTable" class="table">
+                  <label>Surowiec </label>
+                  <tr>
+                    <th> Dlugość materiału </th>
+                    <th> Ilość </th>
+                    <th> </th>
+                  </tr>
+
+                  <tr th:each="instance,iterStat : ${stocklist}" th:id="'stock-table' + ${iterStat.index}"
+                    th:class="'stock-table' + ${iterStat.index}">
+                    <td>
+                      <input type="number" name="in_stocklength" id="in_stocklength"
+                        th:value="${instance.stockLenght}">
+                    </td>
+                    <td>
+                      <input type="number" name="in_stockcount" id="in_stockcount" th:value="${instance.stockPcs}">
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-sm btn-danger" id="bt" value="Delete"
+                        onclick="removeRowStock(this)">Usuń</button>
+                    </td>
+                  </tr>
+                </table>
+                <!-- STOCK ------------------------------------------------------->
+
+              <!-- CUTSSSSS ------------------------------------------------------->
+                <button type="button" id="add-btn" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Dodaj
+                  formatkę</button>
+                <table id="cutTable" class="table">
+                  <label>Formatki </label>
+                  <tr>
+                    <th> Dlugość odcinka </th>
+                    <th> Ilość </th>
+                    <th> </th>
+                  </tr>
+
+                  <tr th:each="instance,iterStat : ${cuttlistmap}" th:id="'unit-table' + ${iterStat.index}"
+                    th:class="'unit-table' + ${iterStat.index}">
+                    <td>
+                      <input type="number" name="in_pclength" id="in_pclength" th:value="${instance.cutLenght}">
+                    </td>
+                    <td>
+                      <input type="number" name="in_pcscount" id="in_pcscount" th:value="${instance.cutPcs}">
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-sm btn-danger" id="bt" value="Delete" onclick="removeRowCuts(this)">Usuń</button>
+                    </td>
+                  </tr>
+                </table>
+                <button id="opti" class="btn btn-lg btn-primary btn-block" type="submit"><i class="fas fa-check"></i> Optymalizuj
+                </button>
+                </form>
+                <!-- CUTSSSSS ------------------------------------------------------->
+
+    </div>
+
+
+    <!-- PRAWAAAA -->
+    
+    <div class="col-sm-8">
+      <div class="wynikicol">
+        <div class="col-sm">
+          <label> Dostepna dlugosc pretow: </label><span th:text=" ${stockLen}"></span>
+        </div>
+        <div class="col-sm">
+          <label> Dostepna ilosc pretow: </label><span th:text=" ${stockPcs}"></span>
+        </div>
+        <div class="col-sm">
+          <label> Ilosc potrzebnego materialu: </label><span th:text=" ${stockneed}"></span>
+        </div>
+        <div class="col-sm">
+          <label> Procent odpadu: </label><span th:text=" ${wasteproc} + ' %'"></span>
+        </div>
+        <div class="progress">
+          <div class="progress-bar bg-success" role="progressbar" th:style="'width:'+ ${usedproc} + '%' "
+            th:text=" 'Wykorzystano: ' + ${usedproc} + ' %' ">
+            Free Space
+          </div>
+          <div class="progress-bar bg-warning" role="progressbar" th:style="'width:'+ ${wasteproc} + '%' "
+            th:text=" 'Odpad: ' + ${wasteproc} + ' %' ">
+            Warning
+          </div>
+        </div>
+        <div class="col-sm">
+          <label> Wymagane odcinki: </label><span th:text=" ${cuts}"></span>
+        </div>
+        <div class="col-sm">
+        </div>
+        <div class="col-sm">
+          <label> ------------------------------------------------------- </label>
+        </div>
+        <div class="col-sm">
+          <label> Wyniki: </label>
+          <option th:each="instance : ${wyniki}" th:value="${instance}" th:text="${instance}" th:name="wyniki"></option>
+        </div>
+
+        <div class="progress probar" th:each="bars : ${resultbars}">
+          <div th:each="bar : ${bars}" class="cutbar progress-bar bg-success" role="progressbar" th:style="'width:'+ ${bar.barWithProc} + '%' " th:text="${bar.barText}">
+            Free Space
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+
+  // delete TABLE row function.
+  function removeRowCuts(oButton) {
+    var empTab = document.getElementById('cutTable');
+    empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // button -> td -> tr.
+  }
+
+  // delete TABLE row function.
+  function removeRowStock(oButton) {
+    var empTab = document.getElementById('stockTable');
+    empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // button -> td -> tr.
+  }
+
+
+  jQuery(function ($) {
+    var $button = $('#add-btn'),
+      $row = $('.unit-table0').clone();
+
+    $button.click(function () {
+      $row.clone().insertBefore($('#unit-table0').attr("class", "dupa"));
+    });
+  });
+
+  jQuery(function ($) {
+    var $button = $('#add-stock-btn'),
+      $row = $('.stock-table0').clone();
+
+    $button.click(function () {
+      $row.clone().insertBefore($('#stock-table0').attr("class", "dupa"));
+    });
+  });
+
+</script>

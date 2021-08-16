@@ -1,5 +1,4 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { templateSourceUrl } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 
@@ -21,6 +20,31 @@ export class LoginserviceService {
     console.log();
     return this.http.get<User>("http://localhost:8080/login", {headers} );
     //.subscribe(utmp => this.currentUser = utmp);  // responseType:'text' as 'json'
+  }
+
+  public logout()
+  {
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('isLogged');
+    this.authenticated=false;
+  }
+
+  public isLogged()
+  {
+    let logged = JSON.parse(localStorage.getItem('isLogged') || '{}');
+
+    console.log("zalogowany: " + logged);
+
+    if(logged === true)
+    {
+      console.log("logged");
+      return true;
+    }
+    else
+    {
+      console.log("not logged");
+      return false;
+    }
   }
 
   public getUsers()

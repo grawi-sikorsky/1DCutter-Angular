@@ -5,3 +5,11 @@
   height: -webkit-calc(100% - 100px); /* Chrome, Safari */
   height: calc(100% - 100px); /* IE9+ and future browsers */
 }
+.check-login-btn
+{
+  padding-right: 6px;
+}
+.btn-submitlogreg
+{
+  margin-bottom: 15px;
+}

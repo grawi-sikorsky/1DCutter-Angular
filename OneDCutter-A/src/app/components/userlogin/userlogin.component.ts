@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { LoginserviceService } from '../../services/loginservice.service';
 
@@ -12,42 +11,37 @@ import { LoginserviceService } from '../../services/loginservice.service';
 })
 export class UserloginComponent implements OnInit {
 
-  username:string;
-  password:string;
+  username:string='';
+  password:string='';
   message:any;
   currentUser?:User;
   isLoggedIn?:boolean;
 
-  constructor(private service:LoginserviceService, private router:Router) { }
+  constructor(private loginService:LoginserviceService, private router:Router) { }
 
   ngOnInit(): void {
+    this.loginService.authenticated=false;
+    this.loginService.logout();
   }
 
   doLogin()
   {
-    let resp = this.service.login(this.username, this.password);
+    let resp = this.loginService.login(this.username, this.password);
     console.log(this.username + " " + this.password);
 
     resp.subscribe(temp => {
-      this.currentUser = temp;
+      this.currentUser = temp; // mozna out?
       console.log(this.currentUser);
-      this.service.authenticated = true;
+      this.loginService.authenticated = true;
+
       this.router.navigate(["/home"]);
+
       localStorage.setItem('currentUser', JSON.stringify(temp));
+      localStorage.setItem('isLogged', JSON.stringify(true));
+
       console.log( localStorage.getItem('currentUser') );
+      console.log( localStorage.getItem('isLogged') );
     });
-
-    // resp.subscribe(data => {
-    //   this.currentUser = data;
-    //   console.log(this.currentUser.password);
-    //   this.router.navigate(["/home"])
-
-    //   console.log("data"+data);
-    //   this.service.authenticated = true;
-    //   console.log("user from sub: " + this.currentUser);
-    // })
-    
-    //this.service.authenticated = true;
   }
 
   showUserData()
@@ -55,9 +49,4 @@ export class UserloginComponent implements OnInit {
     console.log("showUserData: " + this.currentUser);
   }
   
-  // public findAll(): Observable<User[]>
-  // {
-  //   return this.http.get<User[]>(this.UsersURL);
-  // }
-
 }

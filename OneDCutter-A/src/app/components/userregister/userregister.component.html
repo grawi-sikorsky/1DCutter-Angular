@@ -3,7 +3,7 @@
 
     <!-- Main Content -->
     <div class="loginformclass">
-    <section class="vh-100">
+
       <div class="container-fluid h-custom">
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col-md-9 col-lg-6 col-xl-5">
@@ -22,10 +22,10 @@
 
               <!-- Password input -->
               <div class="form-outline mb-3">
-                <input type="password" class="form-control form-control-lg" [(ngModel)]="password" name="password" id="password"
-                  placeholder="Password" />
+                <input type="password" class="form-control form-control-lg" [(ngModel)]="password" name="password" id="password" placeholder="Password" required="true"/>
                 <label class="form-label" for="password"> Password</label>
               </div>
+              <!-- <div [hidden]="username.valid || username.pristine" class="alert alert-danger"> Name is required </div> -->
 
               <!-- Email input -->
               <div class="form-outline mb-3">
@@ -35,16 +35,18 @@
               </div>
 
               <div class="text-center text-lg-start mt-4 pt-2">
-                <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;"><i class="fas fa-check"></i>Zarejestruj </button>
+                <button type="submit" class="btn btn-primary btn-lg btn-submitlogreg" style="padding-left: 2.5rem; padding-right: 2.5rem;"><i class="fas fa-check check-login-btn" ></i> Zarejestruj </button>
 
-                <p>Masz już konto? <a routerLink="../login">Zaloguj się tutaj.</a></p>
+                <p>Masz już konto? <a routerLink="../login"> Zaloguj się tutaj.</a></p>
               </div>
 
             </form>
           </div>
         </div>
       </div>
-    </section>
     </div>
+
+
+
   </div>
 </div>
