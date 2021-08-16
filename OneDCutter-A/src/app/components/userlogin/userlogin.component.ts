@@ -16,6 +16,7 @@ export class UserloginComponent implements OnInit {
   password:string;
   message:any;
   currentUser?:User;
+  isLoggedIn?:boolean;
 
   constructor(private service:LoginserviceService, private router:Router) { }
 
@@ -27,7 +28,14 @@ export class UserloginComponent implements OnInit {
     let resp = this.service.login(this.username, this.password);
     console.log(this.username + " " + this.password);
 
-    resp.subscribe(temp => {this.currentUser = temp});
+    resp.subscribe(temp => {
+      this.currentUser = temp;
+      console.log(this.currentUser);
+      this.service.authenticated = true;
+      this.router.navigate(["/home"]);
+      localStorage.setItem('currentUser', JSON.stringify(temp));
+      console.log( localStorage.getItem('currentUser') );
+    });
 
     // resp.subscribe(data => {
     //   this.currentUser = data;
@@ -38,13 +46,13 @@ export class UserloginComponent implements OnInit {
     //   this.service.authenticated = true;
     //   console.log("user from sub: " + this.currentUser);
     // })
-
-    console.log("user from sub: " + this.currentUser);
+    
+    //this.service.authenticated = true;
   }
 
   showUserData()
   {
-    console.log("user from sub: " + this.currentUser);
+    console.log("showUserData: " + this.currentUser);
   }
   
   // public findAll(): Observable<User[]>

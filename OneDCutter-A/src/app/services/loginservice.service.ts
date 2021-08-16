@@ -1,4 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { templateSourceUrl } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 
@@ -9,7 +10,7 @@ export class LoginserviceService {
 
   authenticated = false;
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) {  }
 
   public login(username:string, password:string)
   {
@@ -28,6 +29,11 @@ export class LoginserviceService {
     let password="kloc";
     const headers = new HttpHeaders({Authorization:'Basic ' + btoa(username+":"+password)});
     return this.http.get("http://localhost:8080/getUsers",{headers} );
+  }
+
+  public register(user:User)
+  {
+    return this.http.post<User>("http://localhost:8080/register", user );
   }
 
 }

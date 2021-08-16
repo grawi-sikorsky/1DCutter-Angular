@@ -12,6 +12,7 @@ import { UserregisterComponent } from './components/userregister/userregister.co
 import { FooterComponent } from './components/footer/footer.component';
 import { UserserviceService } from './services/userservice.service';
 import { FormsModule } from '@angular/forms';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { FormsModule } from '@angular/forms';
     NavbarComponent,
     UserloginComponent,
     UserregisterComponent,
-    FooterComponent
+    FooterComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
