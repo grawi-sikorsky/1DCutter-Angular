@@ -24,7 +24,7 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
               <h6 class="mb-2 text-primary">Twoje dane</h6>
             </div>
-            <form method="POST" class="profileupdate" (ngSubmit)="updateUser()">
+            <form class="profileupdate" (ngSubmit)="updateUser()">
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="form-group">
                   <label for="username">Nazwa użytkownika</label>
@@ -40,13 +40,13 @@
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="form-group">
                   <label for="phone">Telefon</label>
-                  <input type="text" class="form-control" id="phone" name="phone" value="{{currentUser.phone}}" placeholder="Telefon">
+                  <input type="text" class="form-control" id="phone" name="phone" value="{{currentUser.phone}}" [(ngModel)]="phone" placeholder="Telefon">
                 </div>
               </div>
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="form-group">
                   <label for="website">Website URL</label>
-                  <input type="url" class="form-control" id="website" name="website" value="{{currentUser.website}}" placeholder="Strona WWW">
+                  <input type="url" class="form-control" id="website" name="website" value="{{currentUser.website}}" [(ngModel)]="website" placeholder="Strona WWW">
                 </div>
               </div>
               <div class="row gutters">

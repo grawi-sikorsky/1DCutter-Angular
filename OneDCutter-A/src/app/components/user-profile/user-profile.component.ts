@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
-import { UserserviceService } from '../../services/userservice.service';
+import { LoginserviceService } from '../../services/loginservice.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -10,8 +10,10 @@ import { UserserviceService } from '../../services/userservice.service';
 export class UserProfileComponent implements OnInit {
 
   currentUser:User;
+  phone:String;
+  website:String;
 
-  constructor(private uService:UserserviceService) 
+  constructor(private uService:LoginserviceService) 
   {
     this.currentUser = JSON.parse( localStorage.getItem('currentUser') ! );
   }
@@ -24,6 +26,12 @@ export class UserProfileComponent implements OnInit {
   updateUser()
   {
     console.log("USER UPDATE:");
+    let response = this.uService.updateUser(this.phone, this.website);
+
+    response.subscribe(data =>
+      {
+        //console.log(data);
+      });
     // TODO
   }
 }

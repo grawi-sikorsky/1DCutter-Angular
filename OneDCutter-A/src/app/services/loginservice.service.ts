@@ -60,4 +60,10 @@ export class LoginserviceService {
     return this.http.post<User>("http://localhost:8080/register", user );
   }
 
+  public updateUser(phone:String, website:String)
+  {
+    console.log("update user: " + phone + " " + website);
+    return this.http.post<boolean>("http://localhost:8080/profile", {phone, website} )
+  }
+
 }
