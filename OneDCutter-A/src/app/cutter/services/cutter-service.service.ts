@@ -8,9 +8,14 @@ import { FirstFit } from '../models/first-fit';
 export class CutterServiceService {
 
   listStock?:FirstFit[];
+  ordero:any;
 
   constructor(private http:HttpClient) { }
 
+  public sendOrder( /* przydalby sie typ */ )
+  {
+    return this.http.post<any>("http://localhost:8080/1dcut", this.ordero);
+  }
 
   public getCutResult()
   {

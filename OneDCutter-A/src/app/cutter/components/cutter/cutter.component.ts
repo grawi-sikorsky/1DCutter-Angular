@@ -13,7 +13,7 @@ export class CutterComponent implements OnInit {
   constructor(private cutService:CutterServiceService) {  }
 
   listStock?:FirstFit[];
-
+  orderity:any;
 
   ngOnInit(): void 
   { 
@@ -23,6 +23,14 @@ export class CutterComponent implements OnInit {
         console.log("return data: " + JSON.stringify(returnData));
         this.listStock = returnData;
         console.log("listStock:" + JSON.stringify( this.listStock ));
+    });
+
+    let respo2 = this.cutService.sendOrder();
+    respo2.subscribe(
+      returnData => {
+        console.log("return data: " + JSON.stringify(returnData));
+        this.orderity = returnData;
+        console.log("listStock:" + JSON.stringify( this.orderity ));
     });
   }
 
