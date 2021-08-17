@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { UserProfileComponent } from './oprawa/components/user-profile/user-profile.component';
 import { CutterComponent } from './cutter/components/cutter/cutter.component';
 import { CutterServiceService } from './cutter/services/cutter-service.service';
+//import { FirstFitComponent } from './cutter/models/first-fit/first-fit.component';
 
 
 @NgModule({

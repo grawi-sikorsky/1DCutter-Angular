@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CutterServiceService } from '../../services/cutter-service.service';
+import { FirstFit } from '../../models/first-fit';
 
 @Component({
   selector: 'app-cutter',
@@ -11,7 +12,7 @@ export class CutterComponent implements OnInit {
 
   constructor(private cutService:CutterServiceService) {  }
 
-  listStock?:string[];
+  listStock?:FirstFit[];
 
 
   ngOnInit(): void 
@@ -27,7 +28,7 @@ export class CutterComponent implements OnInit {
 
   public costam()
   {
-    this.listStock?.entries();
+    //this.listStock?.entries();
   }
 
 

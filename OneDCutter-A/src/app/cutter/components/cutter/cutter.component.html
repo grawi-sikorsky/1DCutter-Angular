@@ -144,16 +144,19 @@
           <option th:each="instance : ${wyniki}" th:value="${instance}" th:text="${instance}" th:name="wyniki"></option>
         </div>
 
-        <div class="progress probar" th:each="bars : ${resultbars}">
-          <div th:each="bar : ${bars}" class="cutbar progress-bar bg-success" role="progressbar" th:style="'width:'+ ${bar.barWithProc} + '%' " th:text="${bar.barText}">
+        <div class="progress probar" *ngFor="let stock of listStock">
+          <div class="cutbar progress-bar bg-success" role="progressbar" th:style="'width:'+ ${bar.barWithProc} + '%' " th:text="${bar.barText}">
             Free Space
           </div>
         </div>
 
         <div>
           <tr *ngFor="let stock of listStock">
-            <td *ngFor="let st of stock">
-              {{st}}
+            <td>
+              {{stock.stockLenght}}: | 
+            </td>
+            <td>
+              {{stock.cuts}}
             </td>
           </tr>
         </div>
