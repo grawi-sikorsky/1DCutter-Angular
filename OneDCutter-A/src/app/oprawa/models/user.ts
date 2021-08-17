@@ -10,6 +10,6 @@ export class User {
   enabled?: string;
   accountNonExpired?: boolean;
   credentialsNonExpired?: boolean;
-  authorities?: string;
+  authorities?: string[];
   accountNonLocked?: boolean;
 }

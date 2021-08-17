@@ -33,16 +33,14 @@ export class LoginserviceService {
   {
     let logged = JSON.parse(localStorage.getItem('isLogged') || '{}');
 
-    console.log("zalogowany: " + logged);
-
     if(logged === true)
     {
-      console.log("logged");
+      //console.log("logged");
       return true;
     }
     else
     {
-      console.log("not logged");
+      //console.log("not logged");
       return false;
     }
   }
@@ -60,10 +58,10 @@ export class LoginserviceService {
     return this.http.post<User>("http://localhost:8080/register", user );
   }
 
-  public updateUser(phone:String, website:String)
+  public updateUser(user:User)
   {
-    console.log("update user: " + phone + " " + website);
-    return this.http.post<boolean>("http://localhost:8080/profile", {phone, website} )
+    console.log("UpdateUser(User): " +  JSON.stringify(user));
+    return this.http.post<boolean>("http://localhost:8080/profile", user );
   }
 
 }

@@ -47,9 +47,9 @@
               <button type="button" id="add-stock-btn" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i>
                 Dodaj surowiec</button>
 
-              <form id="leftform" control="" class="form-group" method="POST" th:action="@{/1dcut}">
+              <form id="leftform" control="" class="form-group">
 
-                <table id="stockTable" class="table">
+                <table id="stockTable" class="table table-striped table-hover">
                   <label>Surowiec </label>
                   <tr>
                     <th> Dlugość materiału </th>
@@ -60,15 +60,14 @@
                   <tr th:each="instance,iterStat : ${stocklist}" th:id="'stock-table' + ${iterStat.index}"
                     th:class="'stock-table' + ${iterStat.index}">
                     <td>
-                      <input type="number" name="in_stocklength" id="in_stocklength"
+                      <input class="form-control" type="number" name="in_stocklength" id="in_stocklength"
                         th:value="${instance.stockLenght}">
                     </td>
                     <td>
-                      <input type="number" name="in_stockcount" id="in_stockcount" th:value="${instance.stockPcs}">
+                      <input class="form-control" type="number" name="in_stockcount" id="in_stockcount" th:value="${instance.stockPcs}">
                     </td>
                     <td>
-                      <button type="button" class="btn btn-sm btn-danger" id="bt" value="Delete"
-                        onclick="removeRowStock(this)">Usuń</button>
+                      <button type="button" class="btn btn-sm btn-danger" id="bt" value="Delete" onclick="removeRowStock(this)">Usuń</button>
                     </td>
                   </tr>
                 </table>
@@ -88,10 +87,10 @@
                   <tr th:each="instance,iterStat : ${cuttlistmap}" th:id="'unit-table' + ${iterStat.index}"
                     th:class="'unit-table' + ${iterStat.index}">
                     <td>
-                      <input type="number" name="in_pclength" id="in_pclength" th:value="${instance.cutLenght}">
+                      <input class="form-control" type="number" name="in_pclength" id="in_pclength" th:value="${instance.cutLenght}">
                     </td>
                     <td>
-                      <input type="number" name="in_pcscount" id="in_pcscount" th:value="${instance.cutPcs}">
+                      <input class="form-control" type="number" name="in_pcscount" id="in_pcscount" th:value="${instance.cutPcs}">
                     </td>
                     <td>
                       <button type="button" class="btn btn-sm btn-danger" id="bt" value="Delete" onclick="removeRowCuts(this)">Usuń</button>
@@ -149,6 +148,14 @@
           <div th:each="bar : ${bars}" class="cutbar progress-bar bg-success" role="progressbar" th:style="'width:'+ ${bar.barWithProc} + '%' " th:text="${bar.barText}">
             Free Space
           </div>
+        </div>
+
+        <div>
+          <tr *ngFor="let stock of listStock">
+            <td *ngFor="let st of stock">
+              {{st}}
+            </td>
+          </tr>
         </div>
       </div>
     </div>

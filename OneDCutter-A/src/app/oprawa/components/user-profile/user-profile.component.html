@@ -12,6 +12,7 @@
               </div>
               <h5 class="user-name"> {{currentUser.username}} </h5>
               <h6 class="user-email"> {{currentUser.email}} </h6>
+              <h6 class="user-role"> {{currentUser.role}} </h6>
             </div>
           </div>
         </div>
@@ -40,13 +41,13 @@
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="form-group">
                   <label for="phone">Telefon</label>
-                  <input type="text" class="form-control" id="phone" name="phone" value="{{currentUser.phone}}" [(ngModel)]="phone" placeholder="Telefon">
+                  <input type="text" class="form-control" id="phone" name="phone" [(ngModel)]="currentUser.phone">
                 </div>
               </div>
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="form-group">
                   <label for="website">Website URL</label>
-                  <input type="url" class="form-control" id="website" name="website" value="{{currentUser.website}}" [(ngModel)]="website" placeholder="Strona WWW">
+                  <input type="url" class="form-control" id="website" name="website" [(ngModel)]="currentUser.website">
                 </div>
               </div>
               <div class="row gutters">
