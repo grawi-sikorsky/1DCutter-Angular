@@ -13,8 +13,6 @@ export class CutterServiceService {
 
   listStock?:FirstFit[];
   ordero:any;
-  resultBars:ResultBarsModule[];
-  data:any;
 
   constructor(private http:HttpClient) { }
 
@@ -30,19 +28,24 @@ export class CutterServiceService {
 
   public getResultBars()// : Observable<ResultBar[]>
   {
-    return this.http.get<ResultBarsModule[]>("http://localhost:8080/cut")
-    .pipe(
-      map((attributes: ResultBarsModule[]) => {
-          return attributes.map((attribute) => {
-              attribute.pieces = attribute.pieces
-                  .map((option: ResultBar) => {
-                      return option;
-              });
-              return attribute;
-          });
-      })
-    );
+    return this.http.get<ResultBarsModule[]>("http://localhost:8080/cut");
+    // .pipe(
+    //   map((attributes: ResultBarsModule[]) => {
+    //       return attributes.map((attribute) => {
+    //           attribute.pieces = attribute.pieces
+    //               .map((option: ResultBar) => {
+    //                   return option;
+    //           });
+    //           return attribute;
+    //       });
+    //   })
+    // );
 
+  }
+
+  public getResults()
+  {
+    return this.http.get<ResultBarsModule[]>("http://localhost:8080/result")
   }
 
 }

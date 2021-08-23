@@ -18,7 +18,6 @@ export class CutterComponent implements OnInit {
   listStock?:FirstFit[];
   orderity:any;
   resultBars:ResultBarsModule[];
-  resultBar:ResultBar[];
 
   ngOnInit(): void 
   { 
@@ -38,7 +37,7 @@ export class CutterComponent implements OnInit {
     //     console.log("listStock:" + JSON.stringify( this.orderity ));
     // });
 
-    let respo3 = this.cutService.getResultBars();
+    let respo3 = this.cutService.getResults();
     
     respo3.subscribe(
       riturndata => {

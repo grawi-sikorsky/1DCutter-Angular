@@ -163,7 +163,7 @@
           <div *ngFor="let bar of resultBars" >
             <div>
               <div class="progress probar">
-                <div  *ngFor="let pcs of bar.pieces" class="cutbar progress-bar bg-success"  [ngStyle]="{'width': pcs.barWidthProc +'%'}" role="progressbar" text="${bar.barText}">
+                <div  *ngFor="let pcs of bar.resultBarPieces" class="cutbar progress-bar bg-success"  [ngStyle]="{'width': pcs.barWidthProc +'%'}" role="progressbar" text="${bar.barText}">
                   {{pcs.barText}}
                 </div>
               </div>
