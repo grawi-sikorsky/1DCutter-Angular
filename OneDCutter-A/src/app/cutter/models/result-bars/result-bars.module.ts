@@ -3,16 +3,12 @@ import { CommonModule } from '@angular/common';
 
 
 
-@NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
-})
-export class ResultBarsModule { 
-  resultBar:ResultBar[];
+export class ResultBarsModule {
+  public pieces:ResultBar[];
 }
+
 export class ResultBar { 
-  barWithProc: string;
-  barText: string;
+  public barWidthProc: string;
+  public barText: string;
 }
+

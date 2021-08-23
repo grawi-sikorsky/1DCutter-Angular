@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FirstFit } from '../models/first-fit';
-import { ResultBarsModule } from '../models/result-bars/result-bars.module';
+import { ResultBar, ResultBarsModule } from '../models/result-bars/result-bars.module';
+import { catchError, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +13,8 @@ export class CutterServiceService {
 
   listStock?:FirstFit[];
   ordero:any;
-  resultBars:ResultBarsModule;
+  resultBars:ResultBarsModule[];
+  data:any;
 
   constructor(private http:HttpClient) { }
 
@@ -24,9 +28,21 @@ export class CutterServiceService {
     return this.http.get<FirstFit[]>("http://localhost:8080/1dcut" );
   }
 
-  public getResultBars()
+  public getResultBars()// : Observable<ResultBar[]>
   {
-    return this.http.get<ResultBarsModule>("http://localhost:8080/cut" );
+    return this.http.get<ResultBarsModule[]>("http://localhost:8080/cut")
+    .pipe(
+      map((attributes: ResultBarsModule[]) => {
+          return attributes.map((attribute) => {
+              attribute.pieces = attribute.pieces
+                  .map((option: ResultBar) => {
+                      return option;
+              });
+              return attribute;
+          });
+      })
+    );
+
   }
 
 }

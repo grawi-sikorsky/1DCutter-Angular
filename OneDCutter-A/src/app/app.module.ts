@@ -36,7 +36,7 @@ import { ResultBarsModule } from './cutter/models/result-bars/result-bars.module
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ResultBarsModule
+    //ResultBarsModule
   ],
   providers: [UserserviceService,CutterServiceService],
   bootstrap: [AppComponent]

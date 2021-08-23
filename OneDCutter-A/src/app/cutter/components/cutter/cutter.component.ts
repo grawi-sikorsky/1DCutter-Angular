@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CutterServiceService } from '../../services/cutter-service.service';
 import { FirstFit } from '../../models/first-fit';
-import { ResultBarsModule } from '../../models/result-bars/result-bars.module';
+import { ResultBarsModule, ResultBar } from '../../models/result-bars/result-bars.module';
+import { map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-cutter',
@@ -15,7 +17,8 @@ export class CutterComponent implements OnInit {
 
   listStock?:FirstFit[];
   orderity:any;
-  resultBars:ResultBarsModule;
+  resultBars:ResultBarsModule[];
+  resultBar:ResultBar[];
 
   ngOnInit(): void 
   { 
@@ -36,6 +39,7 @@ export class CutterComponent implements OnInit {
     // });
 
     let respo3 = this.cutService.getResultBars();
+    
     respo3.subscribe(
       riturndata => {
         console.log("return data3: " + JSON.stringify(riturndata));
