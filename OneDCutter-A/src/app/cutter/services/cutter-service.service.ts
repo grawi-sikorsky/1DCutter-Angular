@@ -4,6 +4,7 @@ import { FirstFit } from '../models/first-fit';
 import { ResultBar, ResultBarsModule } from '../models/result-bars/result-bars.module';
 import { catchError, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { Cuts } from '../models/cuts';
 
 
 @Injectable({
@@ -12,14 +13,10 @@ import { Observable } from 'rxjs';
 export class CutterServiceService {
 
   listStock?:FirstFit[];
-  ordero:any;
+  //orderooo:Cuts;
 
   constructor(private http:HttpClient) { }
 
-  public sendOrder( /* przydalby sie typ */ )
-  {
-    return this.http.post<any>("http://localhost:8080/1dcut", this.ordero);
-  }
 
   public getCutResult()
   {
@@ -47,9 +44,23 @@ export class CutterServiceService {
   {
     return this.http.get<ResultBarsModule>("http://localhost:8080/result")
   }
+  
   public getResultsAsync() : Observable<ResultBarsModule>
   {
     return this.http.get<ResultBarsModule>("http://localhost:8080/result")
   }
+
+  public getCutsAsync() : Observable<Cuts>
+  {
+    console.log("GET CUTLIST ");
+    return this.http.get<Cuts>("http://localhost:8080/cut")
+  }
+
+  public sendOrder(orderooo:Cuts)
+  {
+    console.log("POST CUTLIST ");
+    return this.http.post("http://localhost:8080/cut", orderooo);
+  }
+
 
 }
