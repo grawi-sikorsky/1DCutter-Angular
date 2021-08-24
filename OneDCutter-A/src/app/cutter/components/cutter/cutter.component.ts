@@ -4,6 +4,7 @@ import { CutterServiceService } from '../../services/cutter-service.service';
 import { FirstFit } from '../../models/first-fit';
 import { ResultBarsModule, ResultBar } from '../../models/result-bars/result-bars.module';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -13,14 +14,17 @@ import { map } from 'rxjs/operators';
 })
 export class CutterComponent implements OnInit {
 
-  constructor(private cutService:CutterServiceService) {  }
+  constructor(private cutService:CutterServiceService) {     
+  }
 
   listStock?:FirstFit[];
   orderity:any;
-  resultBars:ResultBarsModule[];
+  results$ : Observable<ResultBarsModule>;    
 
   ngOnInit(): void 
   { 
+    this.getResultsAsync();
+
     // let respo = this.cutService.getCutResult();
     // respo.subscribe(
     //   returnData => {
@@ -37,21 +41,18 @@ export class CutterComponent implements OnInit {
     //     console.log("listStock:" + JSON.stringify( this.orderity ));
     // });
 
-    let respo3 = this.cutService.getResults();
-    
-    respo3.subscribe(
-      riturndata => {
-        console.log("return data3: " + JSON.stringify(riturndata));
-        this.resultBars = riturndata;
-        console.log("resultBars:" + JSON.stringify( this.resultBars ));
-    });
+
   }
 
-  public costam()
-  {
-    //this.listStock?.entries();
+  public getResultsAsync() 
+  {    
+    console.log("Async PAJP");
+    this.results$ = this.cutService.getResultsAsync();
+    console.log(this.results$);
   }
 
-
+  public addItem(): void {
+    this.groups.push({name: 'foo', items: 'bar});
+   }
 
 }

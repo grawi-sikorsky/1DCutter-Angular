@@ -28,7 +28,7 @@ export class CutterServiceService {
 
   public getResultBars()// : Observable<ResultBar[]>
   {
-    return this.http.get<ResultBarsModule[]>("http://localhost:8080/cut");
+    return this.http.get<ResultBarsModule>("http://localhost:8080/cut");
     // .pipe(
     //   map((attributes: ResultBarsModule[]) => {
     //       return attributes.map((attribute) => {
@@ -45,7 +45,11 @@ export class CutterServiceService {
 
   public getResults()
   {
-    return this.http.get<ResultBarsModule[]>("http://localhost:8080/result")
+    return this.http.get<ResultBarsModule>("http://localhost:8080/result")
+  }
+  public getResultsAsync() : Observable<ResultBarsModule>
+  {
+    return this.http.get<ResultBarsModule>("http://localhost:8080/result")
   }
 
 }

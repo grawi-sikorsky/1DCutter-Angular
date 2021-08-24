@@ -4,14 +4,19 @@ import { CommonModule } from '@angular/common';
 
 
 export class ResultBarsModule {
-  public resultBarPieces:ResultBar[];
-  public resultWaste: number;
-  public resultUsed: number;
-  public resultWasteProcent: number;
-  public resultNeededStock: number;
+  public resultBars?:ResultBar[];
+  public resultWaste?: number;
+  public resultUsed?: number;
+  public resultWasteProcent?: number;
+  public resultUsedProcent?: number;
+  public resultNeededStock?: number;
 }
 
-export class ResultBar { 
+export interface ResultBar {
+  resultBarPieces?: ResultBarPiece[];
+}
+
+export class ResultBarPiece { 
   public barWidthProc: string;
   public barText: string;
 }

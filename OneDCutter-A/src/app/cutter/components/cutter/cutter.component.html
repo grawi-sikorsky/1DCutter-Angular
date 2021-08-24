@@ -108,7 +108,7 @@
     <!-- PRAWAAAA -->
     
     <div class="col-sm-8">
-      <div class="wynikicol">
+      <div class="wynikicol" *ngIf="(results$ | async) as asyncResult">
         <div class="col-sm">
           <label> Dostepna dlugosc pretow: </label><span th:text=" ${stockLen}"></span>
         </div>
@@ -116,23 +116,21 @@
           <label> Dostepna ilosc pretow: </label><span th:text=" ${stockPcs}"></span>
         </div>
         <div class="col-sm">
-          <label> Ilosc potrzebnego materialu: </label><span th:text=" ${stockneed}"></span>
+          <label> Ilosc potrzebnego materialu: </label><span> {{asyncResult.resultUsed | number }}</span>
         </div>
         <div class="col-sm">
-          <label> Procent odpadu: </label><span th:text=" ${wasteproc} + ' %'"></span>
+          <label> Procent odpadu: </label><span> {{asyncResult.resultWasteProcent | number: '1.2-2' }} %</span>
         </div>
-        <div class="progress">
-          <div class="progress-bar bg-success" role="progressbar" th:style="'width:'+ ${usedproc} + '%' "
-            th:text=" 'Wykorzystano: ' + ${usedproc} + ' %' ">
-            Free Space
+        <div class="progress probar">
+          <div class="progress-bar bg-success cutbar" role="progressbar" [ngStyle]="{'width': asyncResult.resultUsedProcent +'%'}" th:text=" 'Wykorzystano: ' + ${usedproc} + ' %' ">
+            {{asyncResult.resultUsedProcent | number: '1.2-2' }} %
           </div>
-          <div class="progress-bar bg-warning" role="progressbar" th:style="'width:'+ ${wasteproc} + '%' "
-            th:text=" 'Odpad: ' + ${wasteproc} + ' %' ">
-            Warning
+          <div class="progress-bar bg-warning cutbar" role="progressbar" [ngStyle]="{'width': asyncResult.resultWasteProcent +'%'}" th:text=" 'Odpad: ' + ${wasteproc} + ' %' ">
+            {{asyncResult.resultWasteProcent | number: '1.2-2' }} %
           </div>
         </div>
         <div class="col-sm">
-          <label> Wymagane odcinki: </label><span th:text=" ${cuts}"></span>
+          <label> Wymagane odcinki: </label><span> {{asyncResult.resultNeededStock }} </span>
         </div>
         <div class="col-sm">
         </div>
@@ -145,7 +143,7 @@
         </div>
 
         <div class="progress probar" *ngFor="let stock of listStock">
-          <div class="cutbar progress-bar bg-success" role="progressbar" th:style="'width:'+ ${bar.barWithProc} + '%' " th:text="${bar.barText}">
+          <div class="cutbar progress-bar bg-success" role="progressbar"  th:text="${bar.barText}">
             Free Space
           </div>
         </div>
@@ -160,15 +158,20 @@
             </td>
           </tr>
 
-          <div *ngFor="let bar of resultBars" >
+          <div >
             <div>
-              <div class="progress probar">
-                <div  *ngFor="let pcs of bar.resultBarPieces" class="cutbar progress-bar bg-success"  [ngStyle]="{'width': pcs.barWidthProc +'%'}" role="progressbar" text="${bar.barText}">
-                  {{pcs.barText}}
+              <div class="progress probar" *ngFor="let bar of (asyncResult.resultBars)" >
+                <div *ngFor="let barpcs of bar.resultBarPieces" class="cutbar progress-bar bg-success"  [ngStyle]="{'width': barpcs.barWidthProc +'%'}" role="progressbar" >
+                  {{barpcs.barText}}
                 </div>
               </div>
             </div>
           </div>
+
+          <div> 
+            {{asyncResult.resultWaste | number }}
+          </div>
+
         </div>
       </div>
     </div>
