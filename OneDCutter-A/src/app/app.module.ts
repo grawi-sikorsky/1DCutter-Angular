@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,7 +17,7 @@ import { UserProfileComponent } from './oprawa/components/user-profile/user-prof
 import { CutterComponent } from './cutter/components/cutter/cutter.component';
 import { CutterServiceService } from './cutter/services/cutter-service.service';
 import { ResultBarsModule } from './cutter/models/result-bars/result-bars.module';
-//import { FirstFitComponent } from './cutter/models/first-fit/first-fit.component';
+
 
 
 @NgModule({
@@ -36,7 +37,7 @@ import { ResultBarsModule } from './cutter/models/result-bars/result-bars.module
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    //ResultBarsModule
+    ReactiveFormsModule,
   ],
   providers: [UserserviceService,CutterServiceService],
   bootstrap: [AppComponent]

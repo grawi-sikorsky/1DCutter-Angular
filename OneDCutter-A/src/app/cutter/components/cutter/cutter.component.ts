@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { CutterServiceService } from '../../services/cutter-service.service';
-import { FirstFit } from '../../models/first-fit';
-import { ResultBarsModule, ResultBar } from '../../models/result-bars/result-bars.module';
-import { map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Cuts, CutList } from '../../models/cuts';
+import { map } from 'rxjs/operators';
+import { Cuts, StockList } from '../../models/cuts';
+import { FirstFit } from '../../models/first-fit';
+import { ResultBarsModule } from '../../models/result-bars/result-bars.module';
+import { CutterServiceService } from '../../services/cutter-service.service';
+import { FormGroup, FormControl } from '@angular/forms';
 
 
 @Component({
@@ -23,10 +23,22 @@ export class CutterComponent implements OnInit {
   results$    : Observable<ResultBarsModule>;
   cuts$       : Observable<Cuts>;  
 
+  cutform     : FormGroup;
+
   ngOnInit(): void 
   { 
     this.getResultsAsync();
     this.getCutsAsync();
+
+    this.cutform = new FormGroup({
+      cutpcs  : new FormControl(""),
+      cutlen  : new FormControl(""),
+      stopcs  : new FormControl(""),
+      stolen  : new FormControl("")
+    })
+
+    
+    
 
     // let respo = this.cutService.getCutResult();
     // respo.subscribe(
@@ -63,14 +75,27 @@ export class CutterComponent implements OnInit {
 
   public convertToOrder()
   {
+
     //this.orderList = this.cuts$.pipe( map( e => e.cutList));
-    console.log(this.cuts$.pipe( map( e => e.cutList)));
+    this.cuts$
+      .pipe(
+        map(e=> {
+          return e
+        }))
+      .subscribe( e => {
+        this.orderList = e;
+        console.log("order"+this.orderList);
+        console.log("e:"+e);
+      });
+
+      console.log(this.orderList);
   }
 
   public submitOrder()
   {
     console.log("Submitting order...");
     this.convertToOrder();
+
     this.cutService.sendOrder(this.orderList);
 
     let resp = this.cutService.sendOrder(this.orderList);
@@ -78,12 +103,12 @@ export class CutterComponent implements OnInit {
     resp.subscribe(returnData => {
       if(returnData === true)
       {
-        console.log(returnData);
+        //console.log(returnData);
         console.log("Order Sended ok..");
       }
       else
       {
-        console.log(returnData);
+        //console.log(returnData);
         console.log("Order się zesrał..")
       }
     });
