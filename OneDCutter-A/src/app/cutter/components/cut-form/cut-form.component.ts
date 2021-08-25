@@ -59,7 +59,7 @@ export class CutFormComponent implements OnInit {
 
   public getCutsAsync() 
   {    
-    console.log("CutterComponent: CUTS Async PAJP");
+    console.log("CutForm: CUTS Async PAJP");
     this.cuts$ = this.cutService.getCutsAsync();
   }
 
@@ -73,7 +73,10 @@ export class CutFormComponent implements OnInit {
     resp.subscribe(returnData => {
         console.log("Order Sended ok..");
         this.cutterComp.getResultsAsync();
-        this.getCutsAsync();
+        //this.getCutsAsync();
+        console.log(returnData);
+        this.dynamicCutForm = returnData;
+
     });
 
     if(!this.loginService.isLogged())

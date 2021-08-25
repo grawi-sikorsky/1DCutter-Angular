@@ -51,7 +51,7 @@ export class CutterServiceService {
   public sendOrder(orderList:Cuts)
   {
     console.log("CutterService: POST ORDER ");
-    return this.http.post("http://localhost:8080/cut", orderList);
+    return this.http.post<any>("http://localhost:8080/cut", orderList);
   }
 
 
