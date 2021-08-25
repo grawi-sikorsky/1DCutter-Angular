@@ -23,22 +23,11 @@ export class CutterComponent implements OnInit {
   results$    : Observable<ResultBarsModule>;
   cuts$       : Observable<Cuts>;  
 
-  cutform     : FormGroup;
 
   ngOnInit(): void 
   { 
     this.getResultsAsync();
     this.getCutsAsync();
-
-    this.cutform = new FormGroup({
-      cutpcs  : new FormControl(""),
-      cutlen  : new FormControl(""),
-      stopcs  : new FormControl(""),
-      stolen  : new FormControl("")
-    })
-
-    
-    
 
     // let respo = this.cutService.getCutResult();
     // respo.subscribe(
@@ -69,32 +58,11 @@ export class CutterComponent implements OnInit {
     this.cuts$ = this.cutService.getCutsAsync();
   }
 
-  public addItem(): void {
-    //this.groups.push({name: 'foo', items: 'bar});
-  }
 
-  public convertToOrder()
-  {
-
-    //this.orderList = this.cuts$.pipe( map( e => e.cutList));
-    this.cuts$
-      .pipe(
-        map(e=> {
-          return e
-        }))
-      .subscribe( e => {
-        this.orderList = e;
-        console.log("order"+this.orderList);
-        console.log("e:"+e);
-      });
-
-      console.log(this.orderList);
-  }
 
   public submitOrder()
   {
     console.log("Submitting order...");
-    this.convertToOrder();
 
     this.cutService.sendOrder(this.orderList);
 

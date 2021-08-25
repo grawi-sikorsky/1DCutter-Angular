@@ -1,0 +1,107 @@
+<div>
+
+  <div class="accordion" id="accordionPanelsStayOpenExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+          <div><i class="fas fa-layer-group"></i> Surowiec </div>
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+        <div class="accordion-body">
+
+          <!-- STOCK ------------------------------------------------------->
+          <button type="button" id="add-stock-btn" class="btn btn-sm btn-primary" (click)="addRowStock()"><i class="fas fa-plus"></i>
+            Dodaj</button>
+
+          <form id="stockform" control="" class="form-group" (ngSubmit)="submitOrder()" (ngModelChange)="change(dynamicFormArray)">
+
+
+            <table id="stockTable" class="table table-striped table-hover">
+              <tr>
+                <th> Dlugość materiału </th>
+                <th> Ilość </th>
+                <th> </th>
+              </tr>
+
+              <tr class="stock-table" *ngFor="let row of dynamicFormArray.stockList; let index = index" >
+
+                <td>
+                  <input class="form-control" type="number" [name]="index+'stolen'+row.stockLength" [(ngModel)]="row.stockLength" > 
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" [name]="index+'stopcs'+row.stockPcs" [(ngModel)]="row.stockPcs" >
+                </td>
+                <td>
+                  <button type="button" class="btn btn-sm btn-danger remove-btn" value="Delete" (click)="removeRowStock(index)"><i class="far fa-trash-alt"></i>Usuń</button>
+                </td>
+              </tr>
+            </table>
+          </form>
+            <!-- STOCK ---------------------------------------------------------->
+
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
+          <div><i class="fas fa-border-all"></i> Formatki do cięcia</div>
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
+        <div class="accordion-body">
+
+          <button type="button" id="add-btn" class="btn btn-sm btn-primary" (click)="addRowCuts(dynamicFormArray)" ><i class="fas fa-plus"></i>Dodaj</button>
+
+          <form id="cutform" control="" class="form-group" (ngSubmit)="submitOrder()" (ngModelChange)="change(dynamicFormArray)">
+          <!-- CUTSSSSS ------------------------------------------------------->
+          <table id="cutTable" class="table">
+            <tr>
+              <th> Dlugość odcinka </th>
+              <th> Ilość </th>
+              <th>
+                
+              </th>
+            </tr>
+
+            <tr id="unit-table" class="unit-table" *ngFor="let row of dynamicFormArray.cutList; let index=index" >
+              <td>
+                <input class="form-control" type="number" [name]="index+'cutlen'+ row.cutLength" [(ngModel)]="row.cutLength" (ngModelChange)="change(dynamicFormArray)">
+              </td>
+              <td>
+                <input class="form-control" type="number" [name]="index+'cutpcs'+ row.cutPcs" [(ngModel)]="row.cutPcs" (ngModelChange)="change(dynamicFormArray)">
+              </td>
+              <td>
+                <button type="button" class="btn btn-sm btn-danger remove-btn" value="Delete" (click)="removeRowCuts(index)" ><i class="far fa-trash-alt"></i> Usuń</button>
+              </td>
+            </tr>
+          </table>
+          <div class="btn-calc">
+            <button id="opti" class="btn btn-lg btn-success btn-block" type="submit"><i class="fas fa-play"></i> Oblicz!
+            </button>
+          </div>
+        </form>
+        <!-- CUTSSSSS ------------------------------------------------------->
+
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true" aria-controls="panelsStayOpen-collapseThree">
+          <div><i class="fas fa-cog"></i> Ustawienia</div>
+        </button>
+      </h2>
+      <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
+        <div class="accordion-body">
+
+          <span>Szerkość piły / rzaz: <input class="form-control" type="number"></span>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

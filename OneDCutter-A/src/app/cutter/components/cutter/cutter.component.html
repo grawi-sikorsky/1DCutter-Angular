@@ -1,115 +1,14 @@
 <div class="container">
   <div class="row">
-    <div class=col-sm-3 id="addRowsHere" *ngIf="(cuts$ | async) as asyncCuts">
+    
+
+    <div class=col-sm-4 id="addRowsHere" *ngIf="(cuts$ | async) as asyncCuts">
+      <app-cut-form></app-cut-form>
 
 
-<!--
-      <div class="accordion" id="accordionPanelsStayOpenExample">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-              Surowiec
-            </button>
-          </h2>
-          <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-            <div class="accordion-body">
 
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
-              Formatki do cięcia
-            </button>
-          </h2>
-          <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
-            <div class="accordion-body">
 
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true" aria-controls="panelsStayOpen-collapseThree">
-              Ustawienia
-            </button>
-          </h2>
-          <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
-            <div class="accordion-body">
-              Szerkość piły / rzaz / 
-            </div>
-          </div>
-        </div>
-      </div>
--->
-              <!-- STOCK ------------------------------------------------------->
-              <button type="button" id="add-stock-btn" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i>
-                Dodaj surowiec</button>
 
-              <form id="leftform" control="" class="form-group" [formGroup]="cutform" (ngSubmit)="submitOrder()">
-                
-
-                <table id="stockTable" class="table table-striped table-hover">
-                  <label>Surowiec </label>
-                  <tr>
-                    <th> Dlugość materiału </th>
-                    <th> Ilość </th>
-                    <th> </th>
-                  </tr>
-
-                  <tr th:id="'stock-table' + ${iterStat.index}" class="stock-table" *ngFor="let stock of asyncCuts.stockList; let index = index" >
-                    <td>
-                      <input class="form-control" type="number" [formControlName]="'in_stocklength' + index" [(ngModel)]="stock.stockLength" >
-                      
-                    </td>
-                    <td>
-                      <input class="form-control" type="number" [name]="'in_stockPcs' + index" [(ngModel)]="stock.stockPcs" >
-                    </td>
-                    <td>
-                      <button type="button" class="btn btn-sm btn-danger" id="bt" value="Delete" onclick="removeRowStock(this)">Usuń</button>
-                    </td>
-                  </tr>
-                </table>
-                <div>
-                  
-                </div>
-                <!-- STOCK ------------------------------------------------------->
-
-              <!-- CUTSSSSS ------------------------------------------------------->
-                <button type="button" id="add-btn" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Dodaj
-                  formatkę</button>
-                <table id="cutTable" class="table">
-                  <label>Formatki </label>
-                  <tr>
-                    <th> Dlugość odcinka </th>
-                    <th> Ilość </th>
-                    <th> </th>
-                  </tr>
-
-                  <tr th:id="'unit-table' + ${iterStat.index}" class="unit-table" *ngFor="let cut of asyncCuts.cutList; let index = index" >
-                    <td>
-                      <input class="form-control" type="number" [name]="'in_cutlength' + index" [(ngModel)]="cut.cutLength" (ngModelChange)="change(cut.cutLength)" >
-                    </td>
-                    <td>
-                      <input class="form-control" type="number" [name]="'in_cutPcs' + index" [(ngModel)]="cut.cutPcs" (ngModelChange)="change(cut.cutPcs)" >
-                    </td>
-                    <td>
-                      <button type="button" class="btn btn-sm btn-danger" id="bt" value="Delete" onclick="removeRowCuts(this)">Usuń</button>
-                    </td>
-                  </tr>
-                </table>
-                <button id="opti" class="btn btn-lg btn-primary btn-block" type="submit"><i class="fas fa-check"></i> Optymalizuj
-                </button>
-                </form>
-                <!-- CUTSSSSS ------------------------------------------------------->
-                <div *ngFor="let cut of asyncCuts.cutList">
-                  {{cut.cutLength}} : {{cut.cutPcs}}
-                </div>
-
-                <div *ngFor="let stock of asyncCuts.stockList">
-                  {{stock.stockLength}} : {{stock.stockPcs}}
-                </div>
     </div>
 
 
