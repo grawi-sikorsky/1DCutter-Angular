@@ -12,18 +12,14 @@ import { Cuts } from '../models/cuts';
 })
 export class CutterServiceService {
 
-  listStock?:FirstFit[];
-  //orderooo:Cuts;
-
   constructor(private http:HttpClient) { }
-
 
   public getCutResult()
   {
     return this.http.get<FirstFit[]>("http://localhost:8080/1dcut" );
   }
 
-  public getResultBars()// : Observable<ResultBar[]>
+  public getResultBars()
   {
     return this.http.get<ResultBarsModule>("http://localhost:8080/cut");
     // .pipe(
@@ -40,26 +36,22 @@ export class CutterServiceService {
 
   }
 
-  public getResults()
-  {
-    return this.http.get<ResultBarsModule>("http://localhost:8080/result")
-  }
-  
   public getResultsAsync() : Observable<ResultBarsModule>
   {
-    return this.http.get<ResultBarsModule>("http://localhost:8080/result")
+    console.log("CutterService: GET RESULT ASYNC ");
+    return this.http.get<ResultBarsModule>("http://localhost:8080/result");
   }
 
   public getCutsAsync() : Observable<Cuts>
   {
-    console.log("GET CUTLIST ");
-    return this.http.get<Cuts>("http://localhost:8080/cut")
+    console.log("CutterService: GET CUTLIST ASYNC ");
+    return this.http.get<Cuts>("http://localhost:8080/cut");
   }
 
-  public sendOrder(orderooo:Cuts)
+  public sendOrder(orderList:Cuts)
   {
-    console.log("POST CUTLIST ");
-    return this.http.post("http://localhost:8080/cut", orderooo);
+    console.log("CutterService: POST ORDER ");
+    return this.http.post("http://localhost:8080/cut", orderList);
   }
 
 

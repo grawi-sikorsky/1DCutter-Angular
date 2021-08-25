@@ -50,7 +50,9 @@ form#secform td{
 .table td{
 	padding: 1px!important;
 }
-
+#addRowsHere .btn-sm{
+	font-size: 10px;
+}
 
 .progress {
 	font-size: .65rem!important;

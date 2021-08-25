@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { LoginserviceService } from '../../../oprawa/services/loginservice.service';
 import { Cuts } from '../../models/cuts';
 import { CutterServiceService } from '../../services/cutter-service.service';
 import { CutterComponent } from '../cutter/cutter.component';
@@ -12,76 +13,115 @@ import { CutterComponent } from '../cutter/cutter.component';
 })
 export class CutFormComponent implements OnInit {
 
-  dynamicFormArray = <Cuts>{};
+  dynamicCutForm = <Cuts>{};
+  cuts$       : Observable<Cuts>;  
 
-  constructor(private http: HttpClient, private cutService:CutterServiceService, private cutterComp:CutterComponent) { 
-
-
-    this.cutService.getCutsAsync().subscribe( data => {
-      this.dynamicFormArray = data;
-      console.log(this.dynamicFormArray);
-    })
+  constructor(private http: HttpClient, private cutService:CutterServiceService, private cutterComp:CutterComponent, private loginService:LoginserviceService) 
+  { 
+    this.dynamicCutForm.cutList=[];
+    this.dynamicCutForm.stockList=[];
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void 
+  { 
+    //this.getCutsAsync();
 
+    if(this.loginService.isLogged() === true)
+    {
+      // jesli zalogowany pobieramy z api
+      this.cutService.getCutsAsync().subscribe( data => {
+        this.dynamicCutForm = data;
+        console.log(this.dynamicCutForm);
+      })
+    }
+    else
+    {
+      // jesli niezalogowany pobieramy z localstorage
+      let localCuts = JSON.parse( localStorage.getItem('localCuts') ! );
+      var localStock = JSON.parse( localStorage.getItem('localStock') ! );
+      if(localCuts != null && localStock != null)
+      {
+        console.log("not null");
+        this.dynamicCutForm.cutList = localCuts;
+        this.dynamicCutForm.stockList = localStock;
+      }
+      else // default
+      {
+        console.log("local cuts null");
+        this.dynamicCutForm.cutList.push({cutLength:225,cutPcs:5});
+        this.dynamicCutForm.stockList.push({stockLength:1000,stockPcs:10});
+        localStorage.setItem('localCuts',JSON.stringify(this.dynamicCutForm.cutList));
+        localStorage.setItem('localStock',JSON.stringify(this.dynamicCutForm.stockList));
+
+      }
+    }
   }
 
+  public getCutsAsync() 
+  {    
+    console.log("CutterComponent: CUTS Async PAJP");
+    this.cuts$ = this.cutService.getCutsAsync();
+  }
 
+  /** Wysyla zapytanie do api */
   public submitOrder()
   {
     console.log("Submitting order...");
 
-    //this.cutService.sendOrder(this.dynamicFormArray);
-
-    let resp = this.cutService.sendOrder(this.dynamicFormArray);
+    let resp = this.cutService.sendOrder(this.dynamicCutForm);
 
     resp.subscribe(returnData => {
-      if(returnData === true)
-      {
-        console.log(returnData);
         console.log("Order Sended ok..");
-        this.cutService.getResultsAsync();
         this.cutterComp.getResultsAsync();
-      }
-      else
-      {
-        console.log(returnData);
-        this.cutService.getResultsAsync();
-        this.cutterComp.getResultsAsync();
-      }
+        this.getCutsAsync();
     });
 
-    console.log(this.dynamicFormArray);
+    if(!this.loginService.isLogged())
+    {
+      localStorage.setItem('localCuts',JSON.stringify(this.dynamicCutForm.cutList));
+      localStorage.setItem('localStock',JSON.stringify(this.dynamicCutForm.stockList));
+    }
+    else
+    {
+      /* Gdy bedzie zalogowany? Z database? */
+    }
   }
 
   public change(item:any) 
   {
     console.log("o chuju złoty!: " + item);
-    this.dynamicFormArray=item;
+    this.dynamicCutForm=item;
   }
 
   public removeRowStock(index:any)
   {
-    console.log("remove index: " + index);
-    console.log(this.dynamicFormArray.stockList.splice(index,1));
+    this.dynamicCutForm.stockList.splice(index,1);
   }
   public removeRowCuts(index:any)
   {
-    console.log("remove index: " + index);
-    console.log(this.dynamicFormArray.cutList.splice(index,1));
-    console.log(this.dynamicFormArray.cutList);
+    this.dynamicCutForm.cutList.splice(index,1);
   }
   public addRowStock()
   {
-    console.log(this.dynamicFormArray.stockList.push({}));
+    if(this.loginService.isLogged() || this.dynamicCutForm.stockList.length < 2)
+    {
+      this.dynamicCutForm.stockList.push({stockLength:1000,stockPcs:10});
+    }
+    else
+    {
+      console.log("Niezalogowany, max 2!");
+    }
   }
-  public addRowCuts(cuts:Cuts)
+  public addRowCuts()
   {
-    this.dynamicFormArray.cutList.push({cutLength:0,cutPcs:0});
-    console.log(this.dynamicFormArray.cutList);
-    this.dynamicFormArray=cuts;
-    this.ngOnInit();
+    if(this.loginService.isLogged() || this.dynamicCutForm.cutList.length < 5)
+    {
+      this.dynamicCutForm.cutList.push({cutLength:100,cutPcs:1});
+    }
+    else
+    {
+      console.log("Niezalogowany, max 5!");
+    }
   }
 
 }

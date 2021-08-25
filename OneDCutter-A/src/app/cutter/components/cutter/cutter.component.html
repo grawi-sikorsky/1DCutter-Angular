@@ -1,26 +1,18 @@
 <div class="container-fluid">
   <div class="row">
-    
 
-    <div class=col-sm-3 id="addRowsHere" *ngIf="(cuts$ | async) as asyncCuts">
+    <div class=col-sm-3>
       <app-cut-form></app-cut-form>
-
-
-
-
-
     </div>
 
-
     <!-- PRAWAAAA -->
-    
     <div class="col-sm-9">
       <div class="wynikicol" *ngIf="(results$ | async) as asyncResult">
         <div class="col-sm">
-          <label> Dostepna dlugosc pretow: </label><span th:text=" ${stockLen}"></span>
+          <label> Dostepna dlugosc pretow: </label><span></span>
         </div>
         <div class="col-sm">
-          <label> Dostepna ilosc pretow: </label><span th:text=" ${stockPcs}"></span>
+          <label> Dostepna ilosc pretow: </label><span></span>
         </div>
         <div class="col-sm">
           <label> Ilosc potrzebnego materialu: </label><span> {{asyncResult.resultUsed | number }}</span>
@@ -29,11 +21,9 @@
           <label> Procent odpadu: </label><span> {{asyncResult.resultWasteProcent | number: '1.2-2' }} %</span>
         </div>
         <div class="progress probar">
-          <div class="progress-bar bg-success cutbar" role="progressbar" [ngStyle]="{'width': asyncResult.resultUsedProcent +'%'}" th:text=" 'Wykorzystano: ' + ${usedproc} + ' %' ">
-            {{asyncResult.resultUsedProcent | number: '1.2-2' }} %
+          <div class="progress-bar bg-success cutbar" role="progressbar" [ngStyle]="{'width': asyncResult.resultUsedProcent +'%'}" th:text=" 'Wykorzystano: ' + ${usedproc} + ' %' "> {{asyncResult.resultUsedProcent | number: '1.2-2' }} %
           </div>
-          <div class="progress-bar bg-warning cutbar" role="progressbar" [ngStyle]="{'width': asyncResult.resultWasteProcent +'%'}" th:text=" 'Odpad: ' + ${wasteproc} + ' %' ">
-            {{asyncResult.resultWasteProcent | number: '1.2-2' }} %
+          <div class="progress-bar bg-warning cutbar" role="progressbar" [ngStyle]="{'width': asyncResult.resultWasteProcent +'%'}" th:text=" 'Odpad: ' + ${wasteproc} + ' %' "> {{asyncResult.resultWasteProcent | number: '1.2-2' }} %
           </div>
         </div>
         <div class="col-sm">
@@ -46,75 +36,17 @@
         </div>
         <div class="col-sm">
           <label> Wyniki: </label>
-          <option th:each="instance : ${wyniki}" th:value="${instance}" th:text="${instance}" th:name="wyniki"></option>
         </div>
 
-        <div class="progress probar" *ngFor="let stock of listStock">
-          <div class="cutbar progress-bar bg-success" role="progressbar"  th:text="${bar.barText}">
-            Free Space
+
+        <div class="progress probar" *ngFor="let bar of (asyncResult.resultBars)">
+          <div *ngFor="let barpcs of bar.resultBarPieces" class="cutbar progress-bar bg-success"
+            [ngStyle]="{'width': barpcs.barWidthProc +'%'}" role="progressbar">
+            {{barpcs.barText}}
           </div>
         </div>
 
-        <div>
-          <tr *ngFor="let stock of listStock">
-            <td>
-              {{stock.stockLenght}}: | 
-            </td>
-            <td>
-              {{stock.cuts}}
-            </td>
-          </tr>
-
-          <div >
-            <div>
-              <div class="progress probar" *ngFor="let bar of (asyncResult.resultBars)" >
-                <div *ngFor="let barpcs of bar.resultBarPieces" class="cutbar progress-bar bg-success" [ngStyle]="{'width': barpcs.barWidthProc +'%'}" role="progressbar" >
-                  {{barpcs.barText}}
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-        </div>
       </div>
     </div>
   </div>
 </div>
-
-
-
-<script>
-
-  // delete TABLE row function.
-  function removeRowCuts(oButton) {
-    var empTab = document.getElementById('cutTable');
-    empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // button -> td -> tr.
-  }
-
-  // delete TABLE row function.
-  function removeRowStock(oButton) {
-    var empTab = document.getElementById('stockTable');
-    empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // button -> td -> tr.
-  }
-
-
-  jQuery(function ($) {
-    var $button = $('#add-btn'),
-      $row = $('.unit-table0').clone();
-
-    $button.click(function () {
-      $row.clone().insertBefore($('#unit-table0').attr("class", "dupa"));
-    });
-  });
-
-  jQuery(function ($) {
-    var $button = $('#add-stock-btn'),
-      $row = $('.stock-table0').clone();
-
-    $button.click(function () {
-      $row.clone().insertBefore($('#stock-table0').attr("class", "dupa"));
-    });
-  });
-
-</script>
