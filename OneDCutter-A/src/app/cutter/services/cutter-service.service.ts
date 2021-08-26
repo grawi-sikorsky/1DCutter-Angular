@@ -49,7 +49,7 @@ export class CutterServiceService {
   }
 
   // TODO Ogarnac JWT !!!
-  public sendOrder(orderList:Cuts, username:string, passwd:string)
+  public sendOrder(orderList:Cuts, username:string)
   {
     const headers = new HttpHeaders({Authorization:'Basic ' + btoa(username+":"+"kloc")});
 

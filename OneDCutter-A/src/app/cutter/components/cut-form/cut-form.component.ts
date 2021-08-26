@@ -37,6 +37,7 @@ export class CutFormComponent implements OnInit {
       this.currentUser = JSON.parse( localStorage.getItem('currentUser') ! );
       this.dynamicCutForm.cutList = this.currentUser.cutList!;
       this.dynamicCutForm.stockList = this.currentUser.stockList!;
+      this.dynamicCutForm.usernameOrder = this.currentUser.username!;
     }
     else
     {
@@ -79,7 +80,7 @@ export class CutFormComponent implements OnInit {
   {
     console.log("Submitting order...");
 
-    let resp = this.cutService.sendOrder(this.dynamicCutForm, this.currentUser.username!, this.currentUser.password!);
+    let resp = this.cutService.sendOrder(this.dynamicCutForm, this.currentUser.username!);
 
     resp.subscribe(returnData => {
         this.cutterComp.getResultsAsync();

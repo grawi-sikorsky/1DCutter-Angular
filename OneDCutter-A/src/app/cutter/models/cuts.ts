@@ -1,6 +1,7 @@
 
 
 export interface Cuts {
+  usernameOrder: string;
   cutList: CutList[];
   stockList: StockList[];
 }
