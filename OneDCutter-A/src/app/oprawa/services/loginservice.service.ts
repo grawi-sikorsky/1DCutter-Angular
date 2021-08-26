@@ -14,12 +14,11 @@ export class LoginserviceService {
   public login(username:string, password:string)
   {
     const headers = new HttpHeaders({Authorization:'Basic ' + btoa(username+":"+password)});
-    //return this.http.post("http://localhost:8080/login",{headers, responseType:'text' as 'json'} );
 
-    console.log(headers);
-    console.log();
+    // TODO OGARNAC JWT!!!
+    sessionStorage.setItem('head', JSON.stringify(headers));
+
     return this.http.get<User>("http://localhost:8080/login", {headers} );
-    //.subscribe(utmp => this.currentUser = utmp);  // responseType:'text' as 'json'
   }
 
   public logout()

@@ -1,10 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FirstFit } from '../models/first-fit';
-import { ResultBar, ResultBarsModule } from '../models/result-bars/result-bars.module';
-import { catchError, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Cuts } from '../models/cuts';
+import { FirstFit } from '../models/first-fit';
+import { ResultBarsModule } from '../models/result-bars/result-bars.module';
+
 
 
 @Injectable({
@@ -48,10 +48,13 @@ export class CutterServiceService {
     return this.http.get<Cuts>("http://localhost:8080/cut");
   }
 
-  public sendOrder(orderList:Cuts)
+  // TODO Ogarnac JWT !!!
+  public sendOrder(orderList:Cuts, username:string, passwd:string)
   {
+    const headers = new HttpHeaders({Authorization:'Basic ' + btoa(username+":"+"kloc")});
+
     console.log("CutterService: POST ORDER ");
-    return this.http.post<any>("http://localhost:8080/cut", orderList);
+    return this.http.post<any>("http://localhost:8080/cut", orderList, {headers});
   }
 
 

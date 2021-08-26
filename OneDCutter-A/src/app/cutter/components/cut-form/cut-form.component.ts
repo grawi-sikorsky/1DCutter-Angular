@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from 'src/app/oprawa/models/user';
 import { LoginserviceService } from '../../../oprawa/services/loginservice.service';
 import { Cuts } from '../../models/cuts';
 import { CutterServiceService } from '../../services/cutter-service.service';
@@ -14,7 +15,8 @@ import { CutterComponent } from '../cutter/cutter.component';
 export class CutFormComponent implements OnInit {
 
   dynamicCutForm = <Cuts>{};
-  cuts$       : Observable<Cuts>;  
+  cuts$         : Observable<Cuts>;
+  currentUser   : User={};
 
   constructor(private http: HttpClient, private cutService:CutterServiceService, private cutterComp:CutterComponent, private loginService:LoginserviceService) 
   { 
@@ -24,21 +26,24 @@ export class CutFormComponent implements OnInit {
 
   ngOnInit(): void 
   { 
-    //this.getCutsAsync();
-
     if(this.loginService.isLogged() === true)
     {
       // jesli zalogowany pobieramy z api
-      this.cutService.getCutsAsync().subscribe( data => {
-        this.dynamicCutForm = data;
-        console.log(this.dynamicCutForm);
-      })
+      // this.cutService.getCutsAsync().subscribe( data => {
+      //   this.dynamicCutForm = data;
+      //   console.log(this.dynamicCutForm);
+      // })
+
+      this.currentUser = JSON.parse( localStorage.getItem('currentUser') ! );
+      this.dynamicCutForm.cutList = this.currentUser.cutList!;
+      this.dynamicCutForm.stockList = this.currentUser.stockList!;
     }
     else
     {
       // jesli niezalogowany pobieramy z localstorage
       let localCuts = JSON.parse( localStorage.getItem('localCuts') ! );
       var localStock = JSON.parse( localStorage.getItem('localStock') ! );
+
       if(localCuts != null && localStock != null)
       {
         console.log("not null");
@@ -57,26 +62,31 @@ export class CutFormComponent implements OnInit {
     }
   }
 
+  /** NOT USED */
   public getCutsAsync() 
   {    
     console.log("CutForm: CUTS Async PAJP");
     this.cuts$ = this.cutService.getCutsAsync();
   }
 
-  /** Wysyla zapytanie do api */
+  /** 
+   * SUBMIT:
+   *  1. Wysyla zapytanie do api<p>
+   *  2. Pobiera Wyniki Async cutterComp.getResultsAsync();
+   *  3. Zwraca CUTLIST
+   *************************/
   public submitOrder()
   {
     console.log("Submitting order...");
 
-    let resp = this.cutService.sendOrder(this.dynamicCutForm);
+    let resp = this.cutService.sendOrder(this.dynamicCutForm, this.currentUser.username!, this.currentUser.password!);
 
     resp.subscribe(returnData => {
-        console.log("Order Sended ok..");
         this.cutterComp.getResultsAsync();
-        //this.getCutsAsync();
-        console.log(returnData);
         this.dynamicCutForm = returnData;
 
+        console.log("Order Sended ok..");
+        console.log(returnData);
     });
 
     if(!this.loginService.isLogged())
@@ -87,13 +97,11 @@ export class CutFormComponent implements OnInit {
     else
     {
       /* Gdy bedzie zalogowany? Z database? */
+      //Zapisujem do local current user
+      this.currentUser.cutList = this.dynamicCutForm.cutList;
+      this.currentUser.stockList = this.dynamicCutForm.stockList;
+      localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
     }
-  }
-
-  public change(item:any) 
-  {
-    console.log("o chuju złoty!: " + item);
-    this.dynamicCutForm=item;
   }
 
   public removeRowStock(index:any)
@@ -126,5 +134,4 @@ export class CutFormComponent implements OnInit {
       console.log("Niezalogowany, max 5!");
     }
   }
-
 }

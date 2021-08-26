@@ -28,9 +28,4 @@ export class CutterComponent implements OnInit {
     this.results$ = this.cutService.getResultsAsync();
   }
 
-  public change(item:any) 
-  {
-    console.log("CutterComponent: o chuju złoty!: " + item);
-  }
-
 }
