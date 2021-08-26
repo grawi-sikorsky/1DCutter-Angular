@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Cuts } from '../models/cuts';
 import { FirstFit } from '../models/first-fit';
 import { ResultBarsModule } from '../models/result-bars/result-bars.module';
+import { LoginserviceService } from '../../oprawa/services/loginservice.service';
 
 
 
@@ -12,7 +13,7 @@ import { ResultBarsModule } from '../models/result-bars/result-bars.module';
 })
 export class CutterServiceService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private Loginservice:LoginserviceService) { }
 
   public getCutResult()
   {
@@ -51,10 +52,16 @@ export class CutterServiceService {
   // TODO Ogarnac JWT !!!
   public sendOrder(orderList:Cuts, username:string)
   {
+    console.log("username: " + username);
     const headers = new HttpHeaders({Authorization:'Basic ' + btoa(username+":"+"kloc")});
 
     console.log("CutterService: POST ORDER ");
-    return this.http.post<any>("http://localhost:8080/cut", orderList, {headers});
+
+    if(this.Loginservice.isLogged()) 
+      return this.http.post<any>("http://localhost:8080/cut", orderList, {headers});
+    else 
+      return this.http.post<any>("http://localhost:8080/cutfree", orderList);
+    
   }
 
 
