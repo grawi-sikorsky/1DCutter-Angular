@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 
 export class ResultBarsModule {
   public resultBars?:ResultBar[];
+  public resultRemainingPieces?:ResultBar[];
   public resultWaste?: number;
   public resultUsed?: number;
   public resultWasteProcent?: number;
