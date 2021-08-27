@@ -30,7 +30,12 @@
           <label> Wymagane odcinki: </label><span> {{asyncResult.resultNeededStock }} </span>
         </div>
         <div class="col-sm">
-          <label> Pozostale odcinki: </label><span> {{asyncResult.resultRemainingPieces }} </span>
+          <label> Pozostale odcinki: </label>
+            <span *ngFor="let odcinki of asyncResult.resultRemainingPieces"> 
+              <span *ngFor="let odcinek of odcinki.resultBarPieces">
+                {{ odcinek.barText }}, 
+              </span>
+            </span>
         </div>
         <div class="col-sm">
         </div>
@@ -49,10 +54,13 @@
           </div>
         </div>
 
-        <div class="progress probar" *ngFor="let rem of (asyncResult.resultRemainingPieces)">
-          <div *ngFor="let re of rem.resultBarPieces" class="cutbar progress-bar bg-success"
-            [ngStyle]="{'width': re.barWidthProc +'%'}" role="progressbar">
-            {{re.barText}}
+        Pozostałe:
+        <div class="probar" *ngFor="let rem of (asyncResult.resultRemainingPieces)">
+          <div class="progress probar" *ngFor="let re of rem.resultBarPieces" class="cutbar progress-bar bg-danger"
+          [ngStyle]="{'width': re.barWidthProc +'%'}" role="progressbar" >
+            <div >
+              {{re.barText}}
+            </div>
           </div>
         </div>
 
