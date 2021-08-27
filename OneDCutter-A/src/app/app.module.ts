@@ -15,9 +15,7 @@ import { UserProfileComponent } from './oprawa/components/user-profile/user-prof
 import { UserloginComponent } from './oprawa/components/userlogin/userlogin.component';
 import { UserregisterComponent } from './oprawa/components/userregister/userregister.component';
 import { UserserviceService } from './oprawa/services/userservice.service';
-
-
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -38,6 +36,7 @@ import { UserserviceService } from './oprawa/services/userservice.service';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgbModule
   ],
   providers: [UserserviceService,CutterServiceService],
   bootstrap: [AppComponent]

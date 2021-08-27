@@ -4,6 +4,8 @@ export interface Cuts {
   usernameOrder: string;
   cutList: CutList[];
   stockList: StockList[];
+  optionSzrank: number;
+  optionStackResult: boolean;
 }
 
 export interface CutList {

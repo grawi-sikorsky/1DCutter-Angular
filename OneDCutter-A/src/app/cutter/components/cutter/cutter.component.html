@@ -21,9 +21,11 @@
           <label> Procent odpadu: </label><span> {{asyncResult.resultWasteProcent | number: '1.2-2' }} %</span>
         </div>
         <div class="progress probar">
-          <div class="progress-bar bg-success cutbar" role="progressbar" [ngStyle]="{'width': asyncResult.resultUsedProcent +'%'}" th:text=" 'Wykorzystano: ' + ${usedproc} + ' %' "> {{asyncResult.resultUsedProcent | number: '1.2-2' }} %
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" [ngStyle]="{'width': asyncResult.resultUsedProcent +'%'}"> 
+            {{asyncResult.resultUsedProcent | number: '1.2-2' }} %
           </div>
-          <div class="progress-bar bg-warning cutbar" role="progressbar" [ngStyle]="{'width': asyncResult.resultWasteProcent +'%'}" th:text=" 'Odpad: ' + ${wasteproc} + ' %' "> {{asyncResult.resultWasteProcent | number: '1.2-2' }} %
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning cutbar" role="progressbar" [ngStyle]="{'width': asyncResult.resultWasteProcent +'%'}"> 
+            {{asyncResult.resultWasteProcent | number: '1.2-2' }} %
           </div>
         </div>
         <div class="col-sm">

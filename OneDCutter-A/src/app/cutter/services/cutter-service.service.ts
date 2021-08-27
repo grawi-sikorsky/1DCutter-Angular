@@ -57,12 +57,10 @@ export class CutterServiceService {
 
     console.log("CutterService: POST ORDER ");
 
-    if(this.Loginservice.isLogged()) 
+    if(this.Loginservice.isLogged())
       return this.http.post<any>("http://localhost:8080/cut", orderList, {headers});
     else 
       return this.http.post<any>("http://localhost:8080/cutfree", orderList);
     
   }
-
-
 }
