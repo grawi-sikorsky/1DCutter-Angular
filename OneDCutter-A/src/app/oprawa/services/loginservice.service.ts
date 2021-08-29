@@ -8,12 +8,14 @@ import { User } from '../models/user';
 export class LoginserviceService {
 
   authenticated = false;
+  header:any;
 
   constructor(private http:HttpClient) {  }
 
   public login(username:string, password:string)
   {
     const headers = new HttpHeaders({Authorization:'Basic ' + btoa(username+":"+password)});
+    this.header = headers;
 
     // TODO OGARNAC JWT!!!
     sessionStorage.setItem('head', JSON.stringify(headers));
@@ -46,10 +48,7 @@ export class LoginserviceService {
 
   public getUsers()
   {
-    let username="kloc";
-    let password="kloc";
-    const headers = new HttpHeaders({Authorization:'Basic ' + btoa(username+":"+password)});
-    return this.http.get("http://localhost:8080/getUsers",{headers} );
+    return this.http.get("http://localhost:8080/getUsers",this.header );
   }
 
   public register(user:User)

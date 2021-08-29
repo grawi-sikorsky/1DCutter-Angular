@@ -16,6 +16,7 @@ import { UserloginComponent } from './oprawa/components/userlogin/userlogin.comp
 import { UserregisterComponent } from './oprawa/components/userregister/userregister.component';
 import { UserserviceService } from './oprawa/services/userservice.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CutOptionsComponent } from './cutter/components/cut-options/cut-options.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FooterComponent,
     UserProfileComponent,
     CutterComponent,
-    CutFormComponent
+    CutFormComponent,
+    CutOptionsComponent
   ],
   imports: [
     BrowserModule,

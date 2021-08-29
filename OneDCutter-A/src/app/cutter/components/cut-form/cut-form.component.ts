@@ -1,13 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { NgbPopoverConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/oprawa/models/user';
 import { LoginserviceService } from '../../../oprawa/services/loginservice.service';
 import { Cuts } from '../../models/cuts';
 import { CutterServiceService } from '../../services/cutter-service.service';
 import { CutterComponent } from '../cutter/cutter.component';
-import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-cut-form',
@@ -19,26 +17,17 @@ export class CutFormComponent implements OnInit {
   dynamicCutForm = <Cuts>{};
   cuts$         : Observable<Cuts>;
   currentUser   : User={};
-  canAddStock   : any;
-  canAddCuts    : any;
 
   constructor(private http: HttpClient, private cutService:CutterServiceService, private cutterComp:CutterComponent, public loginService:LoginserviceService) 
   { 
     this.dynamicCutForm.cutList=[];
     this.dynamicCutForm.stockList=[];
-    //this.btnlogged=this.loginService.isLogged();
   }
 
   ngOnInit(): void 
   {
     if(this.loginService.isLogged() === true)
     {
-      // jesli zalogowany pobieramy z api
-      // this.cutService.getCutsAsync().subscribe( data => {
-      //   this.dynamicCutForm = data;
-      //   console.log(this.dynamicCutForm);
-      // })
-
       this.currentUser = JSON.parse( localStorage.getItem('currentUser') ! );
       this.dynamicCutForm.cutList = this.currentUser.cutList!;
       this.dynamicCutForm.stockList = this.currentUser.stockList!;
@@ -66,13 +55,6 @@ export class CutFormComponent implements OnInit {
 
       }
     }
-  }
-
-  /** NOT USED */
-  public getCutsAsync() 
-  {    
-    console.log("CutForm: CUTS Async PAJP");
-    this.cuts$ = this.cutService.getCutsAsync();
   }
 
   /** 
@@ -121,7 +103,7 @@ export class CutFormComponent implements OnInit {
   }
   public addRowStock()
   {
-    if(this.canAdd())
+    if(this.canAddStock())
     {
       this.dynamicCutForm.stockList.push({stockLength:1000,stockPcs:10});
     }
@@ -132,7 +114,7 @@ export class CutFormComponent implements OnInit {
   }
   public addRowCuts()
   {
-    if(this.loginService.isLogged() || this.dynamicCutForm.cutList.length < 4)
+    if(this.canAddCut()) //this.loginService.isLogged() || this.dynamicCutForm.cutList.length < 4)
     {
       this.dynamicCutForm.cutList.push({cutLength:100,cutPcs:1});
     }
@@ -141,17 +123,19 @@ export class CutFormComponent implements OnInit {
       console.log("Niezalogowany, max 5!");
     }
   }
-  public canAdd()
+  public canAddStock()
   {
-    if(this.loginService.isLogged() || this.dynamicCutForm.cutList.length < 4 || this.dynamicCutForm.stockList.length < 1)
-    {
-
-      return true;
-    }
-    else
-    {
-      return false;
-    }
-    
+    if(this.loginService.isLogged() || this.dynamicCutForm.stockList.length < 1) { return true; }
+    else return false;
+  }
+  public canAddCut()
+  {
+    if(this.loginService.isLogged() || this.dynamicCutForm.cutList.length < 4) { return true; }
+    else return false;
+  }
+  public deleteLocalStorage()
+  {
+    console.log("clear LS");
+    localStorage.clear();
   }
 }
