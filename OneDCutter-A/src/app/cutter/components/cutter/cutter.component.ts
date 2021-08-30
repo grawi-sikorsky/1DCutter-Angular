@@ -15,6 +15,7 @@ export class CutterComponent implements OnInit {
 
   results$    : Observable<ResultBarsModule>;
   results     : ResultBarsModule;
+  filtered    : ResultBarsModule;
 
 
   ngOnInit(): void 
@@ -32,23 +33,27 @@ export class CutterComponent implements OnInit {
     let res = this.cutService.getResults().subscribe(
       data => {
         this.results = data;
-        console.log(data);
-        this.compare();
-
+        this.stackSameBars();
       }
     );
   }
 
-  public compare()
+  public stackSameBars()
   {
-    let nowaLista = Array.from(this.results.resultBars!.reduce((map, obj) => map.set( obj.resultBarPieces, obj), new Map() ) .values() );
+    this.filtered = this.results;
+    this.filtered.resultBars?.forEach(e=>e.stackCount=0);
 
-    console.log(nowaLista);
-    //let newFormulalist =  formulalist.filter((v,i) => formulalist.findIndex(item => item.value == v.value) === i);
+    this.filtered.resultBars! = this.filtered.resultBars!.filter((value,index) => {
+      //value.stackCount=0;
+      const _thing = JSON.stringify(value);
 
-    //let nowaLista =  this.results.resultBars.filter((v,i) => this.results.resultBars.findIndex(item => item.resultBarPieces == v.resultBarPieces) === i);
+      return index === this.results.resultBars!.findIndex( obj => {
+        return JSON.stringify(obj) === _thing; 
+        
+      })
+    })
 
-
+    console.log(this.filtered);
   }
 
 }

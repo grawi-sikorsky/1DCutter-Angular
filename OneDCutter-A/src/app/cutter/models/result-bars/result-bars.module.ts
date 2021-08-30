@@ -15,6 +15,7 @@ export class ResultBarsModule {
 
 export interface ResultBar {
   resultBarPieces?: ResultBarPiece[];
+  stackCount:number;  // nie zwracana z API
 }
 
 export class ResultBarPiece { 
