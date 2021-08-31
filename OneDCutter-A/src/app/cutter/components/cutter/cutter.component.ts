@@ -65,9 +65,9 @@ export class CutterComponent implements OnInit {
 
   public stack2()
   {
-    this.clean = JSON.parse(JSON.stringify(this.results)); // TODO kierwa referencja... 
+    this.clean = JSON.parse(JSON.stringify(this.results));
     console.log(this.clean);
-    for(let i=0; i<this.results.resultBars!.length; i++)
+    for(let i=0; i<this.clean.resultBars!.length; i++)
     {
       debugger
       let duplindex:number[]=[];
