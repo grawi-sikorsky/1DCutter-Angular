@@ -7,7 +7,7 @@
 
     <!-- PRAWAAAA -->
     <div class="col-sm-9">
-      <div class="wynikicol" *ngIf="(results$ | async) as asyncResult">
+      <div class="wynikicol" *ngIf="(results) as asyncResult">
         <div class="col-sm">
           <label> Dostepna dlugosc pretow: </label><span></span>
         </div>
@@ -48,15 +48,26 @@
           <label> Wyniki: </label>
         </div>
 
-
-        <div class="progress probar" *ngFor="let bar of (asyncResult.resultBars)">
-          <div *ngFor="let barpcs of bar.resultBarPieces" class="cutbar progress-bar bg-success"
-            [ngStyle]="{'width': barpcs.barWidthProc +'%'}" role="progressbar">
-            {{barpcs.barText}}
+        <div *ngIf="!cutopt.optionStackResult" >
+          <div class="progress probar" *ngFor="let bar of (asyncResult.resultBars)">
+            <div *ngFor="let barpcs of bar.resultBarPieces" class="cutbar progress-bar bg-success"
+              [ngStyle]="{'width': barpcs.barWidthProc +'%'}" role="progressbar">
+              {{barpcs.barText}}
+            </div>
           </div>
         </div>
 
-        Pozostałe:
+        <div class="" *ngIf="cutService.cutOptions.optionStackResult">
+          <div class="progress probar" *ngFor="let bar of (clean.resultBars)">
+            Count: {{bar.stackCount}} : 
+            <div *ngFor="let barpcs of bar.resultBarPieces" class="cutbar progress-bar bg-success"
+              [ngStyle]="{'width': barpcs.barWidthProc +'%'}" role="progressbar">
+              {{barpcs.barText}}
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="asyncResult.resultRemainingPieces">Pozostałe:</div>
         <div class="probar" *ngFor="let rem of (asyncResult.resultRemainingPieces)">
           <div class="progress probar" *ngFor="let re of rem.resultBarPieces" class="cutbar progress-bar bg-danger"
           [ngStyle]="{'width': re.barWidthProc +'%'}" role="progressbar" >
@@ -66,16 +77,8 @@
           </div>
         </div>
 
-        <p>STACK:</p>
-        <!-- <div class="progress probar" *ngFor="let bar of (filtered.resultBars)">
-          Count: {{bar.stackCount}}
-          <div *ngFor="let barpcs of bar.resultBarPieces" class="cutbar progress-bar bg-success"
-            [ngStyle]="{'width': barpcs.barWidthProc +'%'}" role="progressbar">
-            {{barpcs.barText}}
-          </div>
-        </div> -->
 
-        <div class="row" *ngFor="let bar of (asyncResult.resultBars)">
+        <!-- <div class="row" *ngFor="let bar of (asyncResult.resultBars)">
           <div class="col-sm-1"> Count: {{bar.stackCount}} : </div>
           <div class="col-sm-10 progress probar">
             <div *ngFor="let barpcs of bar.resultBarPieces" class="cutbar progress-bar bg-success"
@@ -83,7 +86,7 @@
               {{barpcs.barText}}
             </div>
           </div>
-        </div>
+        </div> -->
 
       </div>
     </div>

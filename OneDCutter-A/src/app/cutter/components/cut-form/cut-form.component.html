@@ -94,15 +94,7 @@
             <button id="opti" class="btn btn-lg btn-success btn-block" type="submit"><i class="fas fa-play"></i> Oblicz!
             </button>
           </div>
-          <div class="freecalc">
-            <p style="text-align: center;">...</p>
-          </div>
         </form>
-
-        <div class="clearbtn">
-          <button id="opti" class="btn btn-lg btn-success btn-block" (click)="deleteLocalStorage()"><i class="fas fa-play"></i> ClearLS
-          </button>
-        </div>
         <!-- CUTSSSSS ------------------------------------------------------->
 
         </div>
@@ -116,7 +108,10 @@
       </h2>
       <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
         <div class="accordion-body">
-
+          <div class="clearbtn">
+            <button id="opti" class="btn btn-sm btn-success btn-block" (click)="deleteLocalStorage()"><i class="fas fa-play"></i> ClearLS
+            </button>
+          </div>
           <app-cut-options></app-cut-options>
 
         </div>

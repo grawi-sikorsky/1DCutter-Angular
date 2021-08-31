@@ -2,12 +2,12 @@
   <div class="input-group mb-3">
     <span class="input-group-text" id="basic-addon3">Szerkość piły / rzaz:</span>
     <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" type="number" name="optionSzrank" 
-            [(ngModel)]="cutOptions.optionSzrank" (ngModelChange)="onSubmitOptions()">
+            [(ngModel)]="cutopt.optionSzrank" (ngModelChange)="onSubmitOptions()">
   </div>
 
   <div class="form-check form-switch">
     <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="optionStack" 
-            [(ngModel)]="cutOptions.optionStackResult" (ngModelChange)="onSubmitOptions()">
+            [(ngModel)]="cutopt.optionStackResult" (ngModelChange)="onSubmitOptions()">
     <label class="form-check-label" for="flexSwitchCheckDefault">Grupuj identyczne wyniki</label>
   </div>
   <div class="form-check form-switch">

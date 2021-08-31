@@ -1,13 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { Cuts } from '../models/cuts';
-import { FirstFit } from '../models/first-fit';
-import { ResultBarsModule } from '../models/result-bars/result-bars.module';
-import { LoginserviceService } from '../../oprawa/services/loginservice.service';
+import { Observable } from 'rxjs';
 import { User } from 'src/app/oprawa/models/user';
+import { LoginserviceService } from '../../oprawa/services/loginservice.service';
 import { CutOptions } from '../models/cutoptions';
-import { debounceTime } from 'rxjs/operators';
+import { Cuts } from '../models/cuts';
+import { ResultBarsModule } from '../models/result-bars/result-bars.module';
 
 
 
@@ -17,7 +15,9 @@ import { debounceTime } from 'rxjs/operators';
 export class CutterServiceService {
 
   constructor(private http:HttpClient, private loginService:LoginserviceService) { }
+  // DATA
   cu:User={};
+  cutOptions = <CutOptions>{};
 
 
   public getResultsAsync() : Observable<ResultBarsModule>
