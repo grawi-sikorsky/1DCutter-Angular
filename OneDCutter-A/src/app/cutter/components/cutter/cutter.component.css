@@ -47,7 +47,7 @@ form#secform td{
 
 .progress {
 	font-size: .65rem!important;
-	background-color: #a9a9a9!important;
+	/*background-color: #a9a9a9!important;*/
 	border-radius: .35rem!important;
 }
 .probar{

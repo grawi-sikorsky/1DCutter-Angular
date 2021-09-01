@@ -1,4 +1,5 @@
 import { CutList, StockList } from '../../cutter/models/cuts';
+import { CutOptions } from '../../cutter/models/cutoptions';
 export class User {
 
   id?: string;
@@ -15,4 +16,5 @@ export class User {
   accountNonLocked?: boolean;
   cutList?:CutList[];
   stockList?:StockList[];
+  cutOptions?:CutOptions;
 }

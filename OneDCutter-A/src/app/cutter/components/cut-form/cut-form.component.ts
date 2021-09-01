@@ -37,7 +37,7 @@ export class CutFormComponent implements OnInit {
     {
       // jesli niezalogowany pobieramy z localstorage
       let localCuts = JSON.parse( localStorage.getItem('localCuts') ! );
-      var localStock = JSON.parse( localStorage.getItem('localStock') ! );
+      let localStock = JSON.parse( localStorage.getItem('localStock') ! );
 
       if(localCuts != null && localStock != null)
       {
@@ -52,7 +52,6 @@ export class CutFormComponent implements OnInit {
         this.dynamicCutForm.stockList.push({stockLength:1000,stockPcs:10});
         localStorage.setItem('localCuts',JSON.stringify(this.dynamicCutForm.cutList));
         localStorage.setItem('localStock',JSON.stringify(this.dynamicCutForm.stockList));
-
       }
     }
   }

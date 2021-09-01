@@ -17,12 +17,13 @@ export class CutterComponent implements OnInit {
   results$    : Observable<ResultBarsModule>;
   results     : ResultBarsModule;
   filtered    : ResultBarsModule;     // stackSameBars
-  clean       = <ResultBarsModule>{}; // stack2
-  cutopt      = <CutOptions>{};
+  stackedBars   = <ResultBarsModule>{}; // stack2
+  stackedRemain = <ResultBarsModule>{}; // stack3
+  cutopt        = <CutOptions>{};
 
   ngOnInit(): void 
   { 
-    this.getResultsAsync();
+    //this.getResultsAsync();
     this.getResults();
     this.cutopt=this.cutService.cutOptions;
   }
@@ -36,8 +37,7 @@ export class CutterComponent implements OnInit {
     let res = this.cutService.getResults().subscribe(
       data => {
         this.results = data;
-        //this.stackSameBars();
-        this.stack2();
+        this.stackResults();
       }
     );
   }
@@ -63,36 +63,74 @@ export class CutterComponent implements OnInit {
   }
 
 
-  public stack2()
+  public stackResults()
   {
-    this.clean = JSON.parse(JSON.stringify(this.results));
-    console.log(this.clean);
+    this.stackedBars = JSON.parse(JSON.stringify(this.results));
+    console.log(this.stackedBars);
 
-    for(let i=0; i<this.clean.resultBars!.length; i++)
+    for(let i=0; i<this.stackedBars.resultBars!.length; i++)
     {
-      debugger
       let duplindex:number[]=[];
 
-      for(let j=0; j<this.clean.resultBars!.length; j++)
+      for(let j=0; j<this.stackedBars.resultBars!.length; j++)
       {
-        if(JSON.stringify(this.clean.resultBars![i].resultBarPieces ) === JSON.stringify(this.clean.resultBars![j].resultBarPieces))
+        if(JSON.stringify(this.stackedBars.resultBars![i].resultBarPieces ) === JSON.stringify(this.stackedBars.resultBars![j].resultBarPieces))
         {
           duplindex.push(j);
         }
       }
 
       // zapisujemy ilosc duplikatow do elem. o najmniejszym indeksie
-      this.clean.resultBars![i].stackCount = duplindex.length;
+      this.stackedBars.resultBars![i].stackCount = duplindex.length;
 
       // usuwamy pozostale duplikaty zgodnie z tablica duplindex
       // wartosc poczatkowa to 1 bo pierwszy index jest indexem do ktorego zapisywalismy ilosc duplikatow
       // iterujemy od konca bo po splice pozostale indexy sie przesuwaja do gory
       for(let x=duplindex.length-1; x>0; x--)
       {
-        this.clean.resultBars!.splice(duplindex[x],1)
+        this.stackedBars.resultBars!.splice(duplindex[x],1)
       }
       // zerujemy tablice po skonczonej robocie..
       duplindex.length=0;
     }
+
+    this.stackRemain();
+  }
+
+  public stackRemain()
+  {
+    this.stackedRemain = JSON.parse(JSON.stringify(this.results));
+    console.log(this.stackedRemain);
+
+    for(let i=0; i<this.stackedRemain.resultRemainingPieces!.length; i++)
+    {
+      let duplindex:number[]=[];
+
+      for(let j=0; j<this.stackedRemain.resultRemainingPieces!.length; j++)
+      {
+        if(JSON.stringify(this.stackedRemain.resultRemainingPieces![i].resultBarPieces ) === JSON.stringify(this.stackedRemain.resultRemainingPieces![j].resultBarPieces))
+        {
+          duplindex.push(j);
+        }
+      }
+
+      // zapisujemy ilosc duplikatow do elem. o najmniejszym indeksie
+      this.stackedRemain.resultRemainingPieces![i].stackCount = duplindex.length;
+
+      // usuwamy pozostale duplikaty zgodnie z tablica duplindex
+      // wartosc poczatkowa to 1 bo pierwszy index jest indexem do ktorego zapisywalismy ilosc duplikatow
+      // iterujemy od konca bo po splice pozostale indexy sie przesuwaja do gory
+      for(let x=duplindex.length-1; x>0; x--)
+      {
+        this.stackedRemain.resultRemainingPieces!.splice(duplindex[x],1)
+      }
+      // zerujemy tablice po skonczonej robocie..
+      duplindex.length=0;
+    }
+  }
+
+  public isRemainBarsPresent(obj:any)
+  {
+    return (obj && (Object.keys(obj).length != 0));
   }
 }

@@ -42,13 +42,15 @@
         <div class="col-sm">
         </div>
         <div class="col-sm">
-          <label> ------------------------------------------------------- </label>
+          <hr/>
         </div>
         <div class="col-sm">
           <label> Wyniki: </label>
+          <hr/>
         </div>
-
-        <div class="container-fluid" *ngIf="!cutopt.optionStackResult" >
+        
+        <!-- NORMAL RESULT -->
+        <div class="container-fluid" *ngIf="!cutService.cutOptions.optionStackResult" >
           <div class="row" *ngFor="let bar of (asyncResult.resultBars)">
             <div class="progress probar">
               <div *ngFor="let barpcs of bar.resultBarPieces" class="cutbar progress-bar bg-success"
@@ -59,10 +61,11 @@
           </div>
         </div>
 
+        <!-- STACK RESULT -->
         <div class="container-fluid" *ngIf="cutService.cutOptions.optionStackResult">
-          <div class="row" *ngFor="let bar of (clean.resultBars)">
-            <div class="col-sm-1"> 
-              Count: {{bar.stackCount}} :  
+          <div class="row" *ngFor="let bar of (stackedBars.resultBars)">
+            <div class="col-sm-1" style="text-align: right;"> 
+              <strong> {{bar.stackCount}} x   </strong>
             </div>
             <div class="col-sm-11 progress probar">
               <div *ngFor="let barpcs of bar.resultBarPieces" class="cutbar progress-bar bg-success"
@@ -73,26 +76,63 @@
           </div>
         </div>
 
-        <div *ngIf="asyncResult.resultRemainingPieces">Pozostałe:</div>
-        <div class="probar" *ngFor="let rem of (asyncResult.resultRemainingPieces)">
-          <div class="progress probar" *ngFor="let re of rem.resultBarPieces" class="cutbar progress-bar bg-danger"
-          [ngStyle]="{'width': re.barWidthProc +'%'}" role="progressbar" >
-            <div >
-              {{re.barText}}
+
+
+
+        <div class="" *ngIf="isRemainBarsPresent(stackedRemain.resultRemainingPieces); else noRemainBars">
+
+          <div>
+            <hr/>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <i class="fas fa-exclamation-triangle"> </i>
+              <strong> Uwaga!</strong> Nie wszystkie wprowadzone odcinki zmieściły się na dostępnym surowcu!
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
           </div>
+
+          <!-- NORMAL REMAIN RESULT -->
+          <div class="container-fluid" *ngIf="!cutService.cutOptions.optionStackResult">
+            <p>Pozostałe odcinki niezoptymalizowane:</p>
+            <div class="probar" *ngFor="let rem of (asyncResult.resultRemainingPieces)">
+              <div class="progress probar" *ngFor="let re of rem.resultBarPieces" class="cutbar progress-bar bg-danger"
+              [ngStyle]="{'width': re.barWidthProc +'%'}" role="progressbar" >
+                <div >
+                  {{re.barText}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- STACK REMAIN RESULT -->
+          <div class="container-fluid" *ngIf="cutService.cutOptions.optionStackResult">
+            <p>Pozostałe odcinki niezoptymalizowane:</p>
+            <div class="row" *ngFor="let bar of (stackedRemain.resultRemainingPieces)">
+              <div class="col-sm-1" style="text-align: right;"> 
+                <strong> {{bar.stackCount}} x   </strong>
+              </div>
+              <div class="col-sm-11 probar">
+                <div *ngFor="let barpcs of bar.resultBarPieces" class="cutbar progress-bar bg-danger"
+                  [ngStyle]="{'width': barpcs.barWidthProc +'%'}" role="progressbar">
+                  {{barpcs.barText}}
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
-
-        <!-- <div class="row" *ngFor="let bar of (asyncResult.resultBars)">
-          <div class="col-sm-1"> Count: {{bar.stackCount}} : </div>
-          <div class="col-sm-10 progress probar">
-            <div *ngFor="let barpcs of bar.resultBarPieces" class="cutbar progress-bar bg-success"
-              [ngStyle]="{'width': barpcs.barWidthProc +'%'}" role="progressbar">
-              {{barpcs.barText}}
+        <ng-template #noRemainBars>
+          <div>
+            <hr/>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <i class="far fa-check-circle"></i>
+              <strong> Sukces!</strong> 
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
           </div>
-        </div> -->
+        </ng-template>
+
 
       </div>
     </div>
