@@ -28,8 +28,8 @@ export class CutOptionsComponent implements OnInit {
     if(this.loginService.isLogged() === true)
     {
       this.currentUser = JSON.parse( localStorage.getItem('currentUser') ! );
-      this.cutopt.optionStackResult = this.currentUser.cutOptions!.optionStackResult;
-      this.cutopt.optionSzrank = this.currentUser.cutOptions!.optionSzrank;
+      this.cutopt.optionStackResult = this.currentUser.orderModel!.cutOptions!.optionStackResult;
+      this.cutopt.optionSzrank = this.currentUser.orderModel!.cutOptions!.optionSzrank;
     }
     else
     {

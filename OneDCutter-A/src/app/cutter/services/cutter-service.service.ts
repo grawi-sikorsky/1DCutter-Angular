@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { User } from 'src/app/oprawa/models/user';
 import { LoginserviceService } from '../../oprawa/services/loginservice.service';
 import { CutOptions } from '../models/cutoptions';
-import { Cuts } from '../models/cuts';
+import { OrderModel } from '../models/ordermodel';
 import { ResultBarsModule } from '../models/result-bars/result-bars.module';
 
 
@@ -30,8 +30,10 @@ export class CutterServiceService {
   }
 
   // TODO Ogarnac JWT !!!
-  public sendOrder(orderList:Cuts, username:string)
+  public sendOrder(orderList:OrderModel, username:string)
   {
+    //test
+    orderList.cutOptions = this.cutOptions;
     console.log("headers from LS: " + this.loginService.header);
     console.log("CutterService: POST ORDER ");
     

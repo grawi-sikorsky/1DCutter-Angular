@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/oprawa/models/user';
 import { LoginserviceService } from '../../../oprawa/services/loginservice.service';
-import { Cuts } from '../../models/cuts';
+import { OrderModel } from '../../models/ordermodel';
 import { CutterServiceService } from '../../services/cutter-service.service';
 import { CutterComponent } from '../cutter/cutter.component';
 
@@ -14,8 +14,8 @@ import { CutterComponent } from '../cutter/cutter.component';
 })
 export class CutFormComponent implements OnInit {
 
-  dynamicCutForm = <Cuts>{};
-  cuts$         : Observable<Cuts>;
+  dynamicCutForm = <OrderModel>{};
+  cuts$         : Observable<OrderModel>;
   currentUser   : User={};
 
   constructor(private http: HttpClient, private cutService:CutterServiceService, private cutterComp:CutterComponent, public loginService:LoginserviceService) 
@@ -29,8 +29,8 @@ export class CutFormComponent implements OnInit {
     if(this.loginService.isLogged() === true)
     {
       this.currentUser = JSON.parse( localStorage.getItem('currentUser') ! );
-      this.dynamicCutForm.cutList = this.currentUser.cutList!;
-      this.dynamicCutForm.stockList = this.currentUser.stockList!;
+      this.dynamicCutForm.cutList = this.currentUser.orderModel!.cutList!;
+      this.dynamicCutForm.stockList = this.currentUser.orderModel!.stockList!;
       this.dynamicCutForm.usernameOrder = this.currentUser.username!;
     }
     else

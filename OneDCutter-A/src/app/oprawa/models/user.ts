@@ -1,4 +1,4 @@
-import { CutList, StockList } from '../../cutter/models/cuts';
+import { CutList, StockList, OrderModel } from '../../cutter/models/ordermodel';
 import { CutOptions } from '../../cutter/models/cutoptions';
 export class User {
 
@@ -14,6 +14,7 @@ export class User {
   credentialsNonExpired?: boolean;
   authorities?: string[];
   accountNonLocked?: boolean;
+  orderModel?:OrderModel;
   cutList?:CutList[];
   stockList?:StockList[];
   cutOptions?:CutOptions;

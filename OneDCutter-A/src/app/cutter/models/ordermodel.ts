@@ -1,9 +1,11 @@
+import { CutOptions } from './cutoptions';
 
 
-export interface Cuts {
-  usernameOrder: string;
+export interface OrderModel {
   cutList: CutList[];
   stockList: StockList[];
+  cutOptions: CutOptions;
+  usernameOrder: string;
   optionSzrank: number;
   optionStackResult: boolean;
 }
