@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
 
-    <div class=col-sm-3>
+    <div class="col-sm-3">
       <app-cut-form></app-cut-form>
     </div>
 
@@ -48,21 +48,27 @@
           <label> Wyniki: </label>
         </div>
 
-        <div *ngIf="!cutopt.optionStackResult" >
-          <div class="progress probar" *ngFor="let bar of (asyncResult.resultBars)">
-            <div *ngFor="let barpcs of bar.resultBarPieces" class="cutbar progress-bar bg-success"
-              [ngStyle]="{'width': barpcs.barWidthProc +'%'}" role="progressbar">
-              {{barpcs.barText}}
+        <div class="container-fluid" *ngIf="!cutopt.optionStackResult" >
+          <div class="row" *ngFor="let bar of (asyncResult.resultBars)">
+            <div class="progress probar">
+              <div *ngFor="let barpcs of bar.resultBarPieces" class="cutbar progress-bar bg-success"
+                [ngStyle]="{'width': barpcs.barWidthProc +'%'}" role="progressbar">
+                {{barpcs.barText}}
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="" *ngIf="cutService.cutOptions.optionStackResult">
-          <div class="progress probar" *ngFor="let bar of (clean.resultBars)">
-            Count: {{bar.stackCount}} : 
-            <div *ngFor="let barpcs of bar.resultBarPieces" class="cutbar progress-bar bg-success"
-              [ngStyle]="{'width': barpcs.barWidthProc +'%'}" role="progressbar">
-              {{barpcs.barText}}
+        <div class="container-fluid" *ngIf="cutService.cutOptions.optionStackResult">
+          <div class="row" *ngFor="let bar of (clean.resultBars)">
+            <div class="col-sm-1"> 
+              Count: {{bar.stackCount}} :  
+            </div>
+            <div class="col-sm-11 progress probar">
+              <div *ngFor="let barpcs of bar.resultBarPieces" class="cutbar progress-bar bg-success"
+                [ngStyle]="{'width': barpcs.barWidthProc +'%'}" role="progressbar">
+                {{barpcs.barText}}
+              </div>
             </div>
           </div>
         </div>

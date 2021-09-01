@@ -67,6 +67,7 @@ export class CutterComponent implements OnInit {
   {
     this.clean = JSON.parse(JSON.stringify(this.results));
     console.log(this.clean);
+
     for(let i=0; i<this.clean.resultBars!.length; i++)
     {
       debugger
@@ -74,7 +75,7 @@ export class CutterComponent implements OnInit {
 
       for(let j=0; j<this.clean.resultBars!.length; j++)
       {
-        if(JSON.stringify(this.clean.resultBars![j].resultBarPieces ) === JSON.stringify(this.results.resultBars![i].resultBarPieces))
+        if(JSON.stringify(this.clean.resultBars![i].resultBarPieces ) === JSON.stringify(this.clean.resultBars![j].resultBarPieces))
         {
           duplindex.push(j);
         }

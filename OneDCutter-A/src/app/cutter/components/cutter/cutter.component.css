@@ -51,8 +51,10 @@ form#secform td{
 	border-radius: .35rem!important;
 }
 .probar{
-	margin-top: 5px;
-	margin-bottom: 5px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	padding-left: 0px;
+	padding-right: 0px;
 }
 .wynikicol{
 	font-size: 13px;
