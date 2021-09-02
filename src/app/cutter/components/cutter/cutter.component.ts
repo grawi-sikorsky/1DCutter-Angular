@@ -22,12 +22,15 @@ export class CutterComponent implements OnInit {
   cutopt        = <CutOptions>{};
 
   ngOnInit(): void 
-  { 
+  {
     //this.getResultsAsync();
     //this.getResults();
     this.results = JSON.parse(localStorage.getItem('results')!);
-    this.stackResults();
-    this.stackRemain();
+    if(this.results != null)
+    {
+      this.stackResults();
+      this.stackRemain();
+    }
     this.cutopt=this.cutService.cutOptions;
   }
 
