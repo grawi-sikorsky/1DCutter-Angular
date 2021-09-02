@@ -15,7 +15,4 @@ export class User {
   authorities?: string[];
   accountNonLocked?: boolean;
   orderModel?:OrderModel;
-  cutList?:CutList[];
-  stockList?:StockList[];
-  cutOptions?:CutOptions;
 }

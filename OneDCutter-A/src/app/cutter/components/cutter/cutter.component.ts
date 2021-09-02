@@ -24,7 +24,10 @@ export class CutterComponent implements OnInit {
   ngOnInit(): void 
   { 
     //this.getResultsAsync();
-    this.getResults();
+    //this.getResults();
+    this.results = JSON.parse(localStorage.getItem('results')!);
+    this.stackResults();
+    this.stackRemain();
     this.cutopt=this.cutService.cutOptions;
   }
 
@@ -38,6 +41,7 @@ export class CutterComponent implements OnInit {
       data => {
         this.results = data;
         this.stackResults();
+        localStorage.setItem('results',JSON.stringify(data));
       }
     );
   }

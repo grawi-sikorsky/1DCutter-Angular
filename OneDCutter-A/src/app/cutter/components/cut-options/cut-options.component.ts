@@ -53,7 +53,6 @@ export class CutOptionsComponent implements OnInit {
 
   public onSubmitOptions()
   {
-    debugger
     this.subject.next();
     this.cutService.cutOptions = this.cutopt;
     console.log("cutService.cutOptions: " + JSON.stringify(this.cutService.cutOptions));
@@ -66,7 +65,7 @@ export class CutOptionsComponent implements OnInit {
     else
     {
       //Zapisujem do local current user
-      this.currentUser.cutOptions = this.cutopt;
+      this.currentUser.orderModel!.cutOptions = this.cutopt;
       localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
     }
   }

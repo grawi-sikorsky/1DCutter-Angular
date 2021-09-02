@@ -87,8 +87,8 @@ export class CutFormComponent implements OnInit {
     {
       /* Gdy bedzie zalogowany? Z database? */
       //Zapisujem do local current user
-      this.currentUser.cutList = this.dynamicCutForm.cutList;
-      this.currentUser.stockList = this.dynamicCutForm.stockList;
+      this.currentUser.orderModel!.cutList = this.dynamicCutForm.cutList;
+      this.currentUser.orderModel!.stockList = this.dynamicCutForm.stockList;
       localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
     }
   }
