@@ -26,17 +26,19 @@
               <tr>
                 <th> Dlugość materiału </th>
                 <th> Ilość </th>
-                <th> </th>
+                <th> Koszt / szt </th>
               </tr>
 
-              <tr class="stock-table" *ngFor="let row of dynamicCutForm.stockList; let index = index" >
+              <tr class="stock-table" *ngFor="let stockRow of dynamicCutForm.stockList; let index = index" >
 
                 <td>
-                  <input class="form-control" type="number" [name]="index+'stolen'+row.stockLength" [(ngModel)]="row.stockLength" > 
-
+                  <input class="form-control" type="number" [name]="index+'stolen'+stockRow.stockLength" [(ngModel)]="stockRow.stockLength" > 
                 </td>
                 <td>
-                  <input class="form-control" type="number" [name]="index+'stopcs'+row.stockPcs" [(ngModel)]="row.stockPcs" >
+                  <input class="form-control" type="number" [name]="index+'stopcs'+stockRow.stockPcs" [(ngModel)]="stockRow.stockPcs" >
+                </td>
+                <td>
+                  <input class="form-control" type="number" [name]="index+'stoprice'+stockRow.stockPrice" [(ngModel)]="stockRow.stockPrice" >
                 </td>
                 <td>
                   <button type="button" class="btn btn-sm btn-danger remove-btn" (click)="removeRowStock(index)"><i class="far fa-trash-alt"></i> Usuń

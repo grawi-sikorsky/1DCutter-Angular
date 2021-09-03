@@ -69,7 +69,6 @@ export class CutterComponent implements OnInit {
     console.log(this.filtered);
   }
 
-
   public stackResults()
   {
     this.stackedBars = JSON.parse(JSON.stringify(this.results));

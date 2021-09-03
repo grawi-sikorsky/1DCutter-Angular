@@ -20,5 +20,6 @@ export interface CutList {
 export interface StockList {
   stockLength?: number;
   stockPcs?: number;
+  stockPrice?:number;
 }
 
