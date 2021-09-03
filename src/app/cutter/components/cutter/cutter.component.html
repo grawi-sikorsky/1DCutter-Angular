@@ -7,16 +7,22 @@
 
     <!-- PRAWAAAA -->
     <div class="col-sm-9">
-      <div class="wynikicol" *ngIf="(results) as asyncResult">
+      <div class="col-sm">
+        <label> <i class="fas fa-calculator"></i> Wyniki: </label>
         <hr/>
- 
+      </div>
+
+      <div class="wynikicol" *ngIf="(results) as asyncResult"> 
         <div class="col-sm">
           <label> Całkowita ilosc potrzebnego materialu: </label><span> <strong> {{asyncResult.resultUsed }} </strong></span>
           
           <div *ngFor="let needstock of asyncResult.resultNeededStock | keyvalue">
-            <strong>{{needstock.value}} <i class="fas fa-times fa-sm"></i>  {{needstock.key}} </strong>
+            <label><strong>{{needstock.value}} <i class="fas fa-times fa-sm"></i>  {{needstock.key}} </strong></label>
           </div>
           <hr/>
+        </div>
+        <div class="col-sm">
+          <label> Ilość cięć: </label><span> <strong> {{asyncResult.resultCutCount | number }}</strong></span>
         </div>
         <div class="col-sm">
           <label> Procent odpadu: </label><span> <strong> {{asyncResult.resultWasteProcent | number: '1.2-2' }} % </strong></span>
@@ -50,7 +56,7 @@
           <hr/>
         </div>
         <div class="col-sm">
-          <label> <i class="far fa-list-alt"></i> Wyniki: </label>
+          <label> <i class="far fa-list-alt"></i> Wykaz cięć: </label>
           <hr/>
         </div>
         

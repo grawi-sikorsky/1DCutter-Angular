@@ -11,6 +11,7 @@ export class ResultBarsModule {
   public resultUsed?: number;
   public resultWasteProcent?: number;
   public resultUsedProcent?: number;
+  public resultCutCount?: number;
   public resultNeededStock?: ESMap<number,number>;
 }
 
