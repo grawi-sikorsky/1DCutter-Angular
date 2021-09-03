@@ -8,12 +8,8 @@
     <!-- PRAWAAAA -->
     <div class="col-sm-9">
       <div class="wynikicol" *ngIf="(results) as asyncResult">
-        <div class="col-sm">
-          <label> Dostepna dlugosc pretow: </label><span></span>
-        </div>
-        <div class="col-sm">
-          <label> Dostepna ilosc pretow: </label><span></span>
-        </div>
+        <hr/>
+ 
         <div class="col-sm">
           <label> Ilosc potrzebnego materialu: </label><span> {{asyncResult.resultUsed | number }}</span>
         </div>
