@@ -11,10 +11,18 @@
         <hr/>
  
         <div class="col-sm">
-          <label> Ilosc potrzebnego materialu: </label><span> {{asyncResult.resultUsed | number }}</span>
+          <label> Całkowita ilosc potrzebnego materialu: </label><span> <strong> {{asyncResult.resultUsed }} </strong></span>
+          
+          <div *ngFor="let needstock of asyncResult.resultNeededStock | keyvalue">
+            <strong>{{needstock.value}} <i class="fas fa-times fa-sm"></i>  {{needstock.key}} </strong>
+          </div>
+          <hr/>
         </div>
         <div class="col-sm">
-          <label> Procent odpadu: </label><span> {{asyncResult.resultWasteProcent | number: '1.2-2' }} %</span>
+          <label> Procent odpadu: </label><span> <strong> {{asyncResult.resultWasteProcent | number: '1.2-2' }} % </strong></span>
+        </div>
+        <div class="col-sm">
+          <label> Procent wykorzystanego surowca: </label><span> <strong> {{asyncResult.resultUsedProcent | number: '1.2-2' }} % </strong></span>
         </div>
         <div class="progress probar">
           <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" [ngStyle]="{'width': asyncResult.resultUsedProcent +'%'}"> 
@@ -24,8 +32,9 @@
             {{asyncResult.resultWasteProcent | number: '1.2-2' }} %
           </div>
         </div>
+        <hr/>
         <div class="col-sm">
-          <label> Wymagane odcinki: </label><span> {{asyncResult.resultNeededStock }} </span>
+          <label> Wymagane odcinki: </label><span> {{ asyncResult.resultNeededStock }} </span>
         </div>
         <div class="col-sm">
           <label> Pozostale odcinki: </label>
@@ -41,14 +50,17 @@
           <hr/>
         </div>
         <div class="col-sm">
-          <label> Wyniki: </label>
+          <label> <i class="far fa-list-alt"></i> Wyniki: </label>
           <hr/>
         </div>
         
         <!-- NORMAL RESULT -->
         <div class="container-fluid" *ngIf="!cutService.cutOptions.optionStackResult" >
           <div class="row" *ngFor="let bar of (asyncResult.resultBars)">
-            <div class="progress probar">
+            <div class="col-sm-1" style="text-align: right;"> 
+              ( {{bar.onStockLength}} ) 
+            </div>
+            <div class="col-sm-11 progress probar">
               <div *ngFor="let barpcs of bar.resultBarPieces" class="cutbar progress-bar bg-success"
                 [ngStyle]="{'width': barpcs.barWidthProc +'%'}" role="progressbar">
                 {{barpcs.barText}}
@@ -61,7 +73,7 @@
         <div class="container-fluid" *ngIf="cutService.cutOptions.optionStackResult">
           <div class="row" *ngFor="let bar of (stackedBars.resultBars)">
             <div class="col-sm-1" style="text-align: right;"> 
-              <strong> {{bar.stackCount}} x   </strong>
+              <strong>{{bar.stackCount}} <i class="fas fa-times fa-sm"></i> </strong>  ( {{bar.onStockLength}} ) 
             </div>
             <div class="col-sm-11 progress probar">
               <div *ngFor="let barpcs of bar.resultBarPieces" class="cutbar progress-bar bg-success"

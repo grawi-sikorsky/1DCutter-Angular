@@ -1,7 +1,7 @@
 <form id="optionsForm" control="" class="form-group"  ngDefaultControl (ngModelChange)="onSubmitOptions()">
   <div class="input-group mb-3">
     <span class="input-group-text" id="basic-addon3">Szerkość piły / rzaz:</span>
-    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" type="number" name="optionSzrank" 
+    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" type="number" name="optionSzrank"  min="0"
             [(ngModel)]="cutopt.optionSzrank" (ngModelChange)="onSubmitOptions()">
   </div>
 
