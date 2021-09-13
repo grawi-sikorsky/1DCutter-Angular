@@ -53,6 +53,12 @@ export class CutOptionsComponent implements OnInit {
 
   public onSubmitOptions()
   {
+    if(this.cutopt.optionSzrank === null )
+    {
+      this.cutopt.optionSzrank = 0;
+    }
+    console.log("onErease;");
+
     this.subject.next();
     this.cutService.cutOptions = this.cutopt;
     console.log("cutService.cutOptions: " + JSON.stringify(this.cutService.cutOptions));
@@ -84,6 +90,16 @@ export class CutOptionsComponent implements OnInit {
         );
       }
     );
+  }
+
+  public setZeroOnErease()
+  {
+    if (!this.cutopt.optionSzrank)
+    {
+      // trick polega na tym ze gdy jest "0" to ngmodel traktuje to jako ta sama wartosc, przez co okienko pozostaje puste po usunieciu wszystkeigo.. 
+      // -0 jak widac jest dla niego inna wartoscia przez co przypisuje -0 a potem zmienia sam na 0 w input field. Efekt osiadniety..
+      this.cutopt.optionSzrank = -0;
+    }
   }
 
 }
