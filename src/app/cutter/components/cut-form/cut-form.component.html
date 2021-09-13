@@ -32,7 +32,7 @@
               <tr class="stock-table" *ngFor="let stockRow of dynamicCutForm.stockList; let index = index" >
 
                 <td>
-                  <input class="form-control" type="number" [name]="index+'stolen'+stockRow.stockLength" [(ngModel)]="stockRow.stockLength" > 
+                  <input class="form-control" type="number" [id]="stockRow.idFront" [name]="index+'stolen'+stockRow.stockLength" [(ngModel)]="stockRow.stockLength" > 
                 </td>
                 <td>
                   <input class="form-control" type="number" [name]="index+'stopcs'+stockRow.stockPcs" [(ngModel)]="stockRow.stockPcs" >
