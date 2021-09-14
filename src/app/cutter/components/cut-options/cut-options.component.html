@@ -11,8 +11,9 @@
     <label class="form-check-label" for="flexSwitchCheckDefault">Grupuj identyczne wyniki</label>
   </div>
   <div class="form-check form-switch">
-    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" name="option1" checked >
-    <label class="form-check-label" for="flexSwitchCheckChecked" (ngModelChange)="onSubmitOptions()">Cośtam</label>
+    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" name="optionPrice" checked 
+            [(ngModel)]="cutopt.optionPrice" (ngModelChange)="onSubmitOptions()">
+    <label class="form-check-label" for="flexSwitchCheckChecked">Obliczaj koszty</label>
   </div>
   <div class="form-check form-switch">
     <input class="form-check-input" type="checkbox" id="flexSwitchCheckDisabled" name="option2" disabled >

@@ -30,6 +30,7 @@ export class CutOptionsComponent implements OnInit {
       this.currentUser = JSON.parse( localStorage.getItem('currentUser') ! );
       this.cutopt.optionStackResult = this.currentUser.orderModel!.cutOptions!.optionStackResult;
       this.cutopt.optionSzrank = this.currentUser.orderModel!.cutOptions!.optionSzrank;
+      this.cutopt.optionPrice = this.currentUser.orderModel!.cutOptions!.optionPrice;
     }
     else
     {
@@ -46,6 +47,7 @@ export class CutOptionsComponent implements OnInit {
         console.log("local options null");
         this.cutopt.optionStackResult = false;
         this.cutopt.optionSzrank = 0;
+        this.cutopt.optionPrice = false;
         localStorage.setItem('localOptions',JSON.stringify(this.cutopt));
       }
     }
@@ -53,12 +55,6 @@ export class CutOptionsComponent implements OnInit {
 
   public onSubmitOptions()
   {
-    if(this.cutopt.optionSzrank === null )
-    {
-      this.cutopt.optionSzrank = 0;
-    }
-    console.log("onErease;");
-
     this.subject.next();
     this.cutService.cutOptions = this.cutopt;
     console.log("cutService.cutOptions: " + JSON.stringify(this.cutService.cutOptions));

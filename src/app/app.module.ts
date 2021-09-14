@@ -17,6 +17,9 @@ import { UserregisterComponent } from './oprawa/components/userregister/userregi
 import { UserserviceService } from './oprawa/services/userservice.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CutOptionsComponent } from './cutter/components/cut-options/cut-options.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+
 
 @NgModule({
   declarations: [
@@ -38,8 +41,10 @@ import { CutOptionsComponent } from './cutter/components/cut-options/cut-options
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule,
   ],
+
   providers: [UserserviceService,CutterServiceService],
   bootstrap: [AppComponent]
 })

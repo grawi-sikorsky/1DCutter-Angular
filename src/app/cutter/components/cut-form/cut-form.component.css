@@ -23,14 +23,16 @@
 
 form#stockform input {
 	width: 95%;
-	height: 28px;
+	height: 24px;
+    font-size: 12px;
 }
 form#stockform td{
 	vertical-align: middle;
 }
 form#cutform input {
 	width: 95%;
-	height: 28px;
+	height: 24px;
+    font-size: 12px;
 }
 form#cutform td{
 	vertical-align: middle;
@@ -52,7 +54,7 @@ form#secform td{
 	padding: 1px!important;
 }
 #addRowsHere .btn-sm{
-	font-size: 10px;
+	font-size: 9px;
 }
 
 .progress {
@@ -96,4 +98,15 @@ form#secform td{
 .accordion-button{
 	padding-top: 10px;
 	padding-bottom: 10px;
+}
+
+::ng-deep .mat-form-field-infix
+{
+		width: auto!important;
+}
+::ng-deep .mat-form-field-suffix {
+	top: -4px!important;
+}
+::ng-deep .mat-form-field-prefix {
+	top: -4px!important;
 }

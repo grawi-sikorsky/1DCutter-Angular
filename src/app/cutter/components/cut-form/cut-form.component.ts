@@ -6,6 +6,7 @@ import { LoginserviceService } from '../../../oprawa/services/loginservice.servi
 import { OrderModel, StockList } from '../../models/ordermodel';
 import { CutterServiceService } from '../../services/cutter-service.service';
 import { CutterComponent } from '../cutter/cutter.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @Component({
   selector: 'app-cut-form',
@@ -18,7 +19,7 @@ export class CutFormComponent implements OnInit {
   cuts$         : Observable<OrderModel>;
   currentUser   : User={};
 
-  constructor(private http: HttpClient, private cutService:CutterServiceService, private cutterComp:CutterComponent, public loginService:LoginserviceService) 
+  constructor(private http: HttpClient, public cutService:CutterServiceService, private cutterComp:CutterComponent, public loginService:LoginserviceService) 
   { 
     this.dynamicCutForm.cutList=[];
     this.dynamicCutForm.stockList=[];
@@ -32,6 +33,7 @@ export class CutFormComponent implements OnInit {
       this.dynamicCutForm.cutList = this.currentUser.orderModel!.cutList!;
       this.dynamicCutForm.stockList = this.currentUser.orderModel!.stockList!;
       this.dynamicCutForm.usernameOrder = this.currentUser.username!;
+      this.dynamicCutForm.cutOptions = this.currentUser.orderModel!.cutOptions;
     }
     else
     {
@@ -49,9 +51,11 @@ export class CutFormComponent implements OnInit {
       {
         console.log("local cuts null");
         this.dynamicCutForm.cutList.push({cutLength:225,cutPcs:5});
-        this.dynamicCutForm.stockList.push({idFront:0, stockLength:1000,stockPcs:10});
+        this.dynamicCutForm.stockList.push({idFront:0, stockLength:1000, stockPcs:10, stockPrice:0});
+        //this.dynamicCutForm.cutOptions.
         localStorage.setItem('localCuts',JSON.stringify(this.dynamicCutForm.cutList));
         localStorage.setItem('localStock',JSON.stringify(this.dynamicCutForm.stockList));
+        //localStorage.setItem('localStock',JSON.stringify(this.dynamicCutForm.stockList));
       }
     }
   }
@@ -82,6 +86,7 @@ export class CutFormComponent implements OnInit {
     {
       localStorage.setItem('localCuts',JSON.stringify(this.dynamicCutForm.cutList));
       localStorage.setItem('localStock',JSON.stringify(this.dynamicCutForm.stockList));
+      localStorage.setItem('localOptions', JSON.stringify(this.dynamicCutForm.cutOptions));
     }
     else
     {
@@ -89,6 +94,7 @@ export class CutFormComponent implements OnInit {
       //Zapisujem do local current user
       this.currentUser.orderModel!.cutList = this.dynamicCutForm.cutList;
       this.currentUser.orderModel!.stockList = this.dynamicCutForm.stockList;
+      this.currentUser.orderModel! = this.dynamicCutForm; // to samo zamiast reszty ?
       localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
     }
   }
@@ -117,7 +123,7 @@ export class CutFormComponent implements OnInit {
     if(this.canAddStock())
     {
       let index = this.dynamicCutForm.stockList.length+1;
-      this.dynamicCutForm.stockList.push({idFront:index, stockLength:1000, stockPcs:10});
+      this.dynamicCutForm.stockList.push({idFront:index, stockLength:1000, stockPcs:10, stockPrice:0});
     }
     else
     {

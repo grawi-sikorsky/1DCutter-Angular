@@ -26,7 +26,7 @@
               <tr>
                 <th> Dlugość materiału </th>
                 <th> Ilość </th>
-                <th> Koszt / szt </th>
+                <th  *ngIf="cutService.cutOptions.optionPrice"> Koszt / szt </th>
               </tr>
 
               <tr class="stock-table" *ngFor="let stockRow of dynamicCutForm.stockList; let index = index" >
@@ -37,16 +37,17 @@
                 <td>
                   <input class="form-control" type="number" [name]="index+'stopcs'+stockRow.stockPcs" [(ngModel)]="stockRow.stockPcs" >
                 </td>
-                <td>
+                <td *ngIf="cutService.cutOptions.optionPrice">
                   <input class="form-control" type="number" [name]="index+'stoprice'+stockRow.stockPrice" [(ngModel)]="stockRow.stockPrice" >
                 </td>
                 <td>
-                  <button type="button" class="btn btn-sm btn-danger remove-btn" (click)="removeRowStock(index)"><i class="far fa-trash-alt"></i> Usuń
+                  <button type="button" class="btn btn-sm btn-danger remove-btn" (click)="removeRowStock(index)"><div><i class="far fa-trash-alt" ></i> Usuń </div>
                   </button>
                 </td>
               </tr>
             </table>
           </form>
+
             <!-- STOCK ---------------------------------------------------------->
 
         </div>

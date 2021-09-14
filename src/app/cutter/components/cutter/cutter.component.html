@@ -42,8 +42,8 @@
           </div>
         </div>
         <hr/>
-        <div class="col-sm">
-          <label> Wymagane odcinki: </label><span> {{ asyncResult.resultNeededStock }} </span>
+        <div class="col-sm" *ngIf="cutService.cutOptions.optionPrice" >
+          <label> Koszt sumaryczny: </label><span> {{ asyncResult.resultCostOveral }} </span>
         </div>
         <div class="col-sm">
           <label> Pozostale odcinki: </label>
