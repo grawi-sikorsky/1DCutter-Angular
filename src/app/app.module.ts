@@ -18,6 +18,7 @@ import { UserserviceService } from './oprawa/services/userservice.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CutOptionsComponent } from './cutter/components/cut-options/cut-options.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { JwtModule } from '@auth0/angular-jwt';
 
 
 
@@ -43,6 +44,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     NgbModule,
     BrowserAnimationsModule,
+    JwtModule,
   ],
 
   providers: [UserserviceService,CutterServiceService],
