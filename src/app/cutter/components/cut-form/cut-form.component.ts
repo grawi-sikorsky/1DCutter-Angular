@@ -70,7 +70,7 @@ export class CutFormComponent implements OnInit {
     let resp = this.cutService.sendOrder(this.dynamicCutForm, this.currentUser.username!);
 
     resp.subscribe(returnData => {
-        this.cutterComp.getResultsAsync();  // not used?
+        //this.cutterComp.getResultsAsync();  // not used?
         this.cutterComp.getResults();
         this.dynamicCutForm = returnData;
 
