@@ -6,7 +6,6 @@ import { LoginserviceService } from '../../../oprawa/services/loginservice.servi
 import { OrderModel, StockList } from '../../models/ordermodel';
 import { CutterServiceService } from '../../services/cutter-service.service';
 import { CutterComponent } from '../cutter/cutter.component';
-import {MatFormFieldModule} from '@angular/material/form-field';
 
 @Component({
   selector: 'app-cut-form',
