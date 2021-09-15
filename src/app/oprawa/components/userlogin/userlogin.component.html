@@ -11,7 +11,10 @@
 						</div>
 
 						<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-							<form control="" class="form-group" (ngSubmit)="doLoginJWT()" >
+							<form control="" class="form-group" (ngSubmit)="doLogin()" >
+								<div *ngIf="badcredentials" class="alert alert-danger" role="alert">
+									Niepoprawne dane logowania!
+								</div>
 
 								<!-- Username input -->
 								<div class="form-outline mb-4">

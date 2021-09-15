@@ -9,7 +9,6 @@ import { CutterComponent } from './cutter/components/cutter/cutter.component';
 import { CutterServiceService } from './cutter/services/cutter-service.service';
 import { FooterComponent } from './oprawa/components/footer/footer.component';
 import { NavbarComponent } from './oprawa/components/navbar/navbar.component';
-import { TestcompComponent } from './oprawa/components/testcomp/testcomp.component';
 import { UserListComponent } from './oprawa/components/user-list/user-list.component';
 import { UserProfileComponent } from './oprawa/components/user-profile/user-profile.component';
 import { UserloginComponent } from './oprawa/components/userlogin/userlogin.component';
@@ -19,13 +18,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CutOptionsComponent } from './cutter/components/cut-options/cut-options.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { JwtModule } from '@auth0/angular-jwt';
+import { GetuserdataComponent } from './oprawa/components/getuserdata/getuserdata.component';
 
 
+export function tokenGetter() {
+  return localStorage.getItem("jwtToken");
+}
 
 @NgModule({
   declarations: [
     AppComponent,
-    TestcompComponent,
     UserListComponent,
     NavbarComponent,
     UserloginComponent,
@@ -34,7 +36,8 @@ import { JwtModule } from '@auth0/angular-jwt';
     UserProfileComponent,
     CutterComponent,
     CutFormComponent,
-    CutOptionsComponent
+    CutOptionsComponent,
+    GetuserdataComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +48,14 @@ import { JwtModule } from '@auth0/angular-jwt';
     NgbModule,
     BrowserAnimationsModule,
     JwtModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => { return localStorage.getItem("jwtToken") },
+        allowedDomains: ["localhost:8080"],
+        disallowedRoutes: ["localhost:8080/auth/login"],
+      },
+    }),
+    
   ],
 
   providers: [UserserviceService,CutterServiceService],

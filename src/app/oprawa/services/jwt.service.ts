@@ -11,27 +11,28 @@ export class JwtService {
 
   public jwtLogin(username:string, password:string)
   {
-    return this.http.post<{access_token:  string}>('http://localhost:8080/auth/login', {username, password}) // TODO: tutaj podobnie jak wczesniej base encrypt pasuje zrobic zeby plain text nie lecial
+    return this.http.post<{jwtToken:  string}>('http://localhost:8080/auth/login', {username, password}) // TODO: tutaj podobnie jak wczesniej base encrypt pasuje zrobic zeby plain text nie lecial
     .pipe(tap(res => {
-      localStorage.setItem('access_token', res.access_token); 
+      if(res.jwtToken !== null)
+        localStorage.setItem('jwtToken', res.jwtToken);       
     }))
   }
 
   public jwtRegister(username:string, password:string, email:string)
   {
-    return this.http.post<{access_token: string}>('http://localhost:8080/auth/register', {username, password, email}) //tutaj podobnie jak wczesniej base encrypt pasuje zrobic zeby plain text nie lecial
+    return this.http.post<{jwtToken: string}>('http://localhost:8080/auth/register', {username, password, email}) //tutaj podobnie jak wczesniej base encrypt pasuje zrobic zeby plain text nie lecial
     .pipe(tap(res => {
       this.jwtLogin(username, password)
     }))
   }
 
-  public get isLogged(): boolean
+  public isLogged(): boolean
   {
-    return localStorage.getItem('access_token') !== null;
+    return localStorage.getItem('jwtToken') !== null;
   }
 
   public logout()
   {
-    localStorage.removeItem('access_token');
+    localStorage.removeItem('jwtToken');
   }
 }

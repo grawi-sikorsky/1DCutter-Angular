@@ -34,21 +34,17 @@ export class CutterServiceService {
   {
     //test
     orderList.cutOptions = this.cutOptions;
-    console.log("headers from LS: " + this.loginService.header);
+
     console.log("CutterService: POST ORDER ");
-    
     this.cu = JSON.parse(localStorage.getItem('currentUser')!);
     console.log(this.cu.username);
     console.log(this.cu.password);
 
-    const h = new HttpHeaders({Authorization:'Basic ' + btoa(this.cu.username+":"+ this.cu.password )});
-    console.log("header localstore:");
-    console.log(h);
+    console.log( localStorage.getItem('jwtToken'));
 
     if(this.loginService.isLogged())
     {
-      console.log(this.loginService.header);
-      return this.http.post<any>("http://localhost:8080/cut", orderList, this.loginService.header);
+      return this.http.post<any>("http://localhost:8080/cut", orderList);
     }
     else 
       return this.http.post<any>("http://localhost:8080/cutfree", orderList);
@@ -56,6 +52,6 @@ export class CutterServiceService {
 
   public sendOptions(cutOpt:CutOptions)
   {
-    return this.http.post<any>("http://localhost:8080/setoptions", cutOpt, this.loginService.header);
+    return this.http.post<any>("http://localhost:8080/setoptions", cutOpt);
   }
 }

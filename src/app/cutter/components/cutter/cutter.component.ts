@@ -24,7 +24,7 @@ export class CutterComponent implements OnInit {
   ngOnInit(): void 
   {
     //this.getResultsAsync();
-    //this.getResults();
+    this.getResults();
     this.results = JSON.parse(localStorage.getItem('results')!);
     if(this.results != null)
     {

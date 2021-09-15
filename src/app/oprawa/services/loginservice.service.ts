@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
+import { JwtService } from './jwt.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,47 +9,28 @@ import { User } from '../models/user';
 export class LoginserviceService {
 
   authenticated = false;
-  header:any;
+  token:any;
 
-  constructor(private http:HttpClient) {  }
+  constructor(private http:HttpClient, private jwtService:JwtService) {  }
 
   public login(username:string, password:string)
   {
-    const headers = new HttpHeaders({Authorization:'Basic ' + btoa(username+":"+password)});
-    this.header = headers;
-
-    // TODO OGARNAC JWT!!!
-    sessionStorage.setItem('head', JSON.stringify(headers));
-
-    return this.http.get<User>("http://localhost:8080/login", {headers} );
+    return this.jwtService.jwtLogin(username,password);
   }
 
   public logout()
   {
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('isLogged');
-    this.authenticated=false;
+    return this.jwtService.logout();
   }
 
   public isLogged()
   {
-    let logged = JSON.parse(localStorage.getItem('isLogged') || '{}');
-
-    if(logged === true)
-    {
-      //console.log("logged");
-      return true;
-    }
-    else
-    {
-      //console.log("not logged");
-      return false;
-    }
+    return this.jwtService.isLogged();
   }
 
   public getUsers()
   {
-    return this.http.get("http://localhost:8080/getUsers",this.header );
+    return this.http.get("http://localhost:8080/getUsers");
   }
 
   public register(user:User)

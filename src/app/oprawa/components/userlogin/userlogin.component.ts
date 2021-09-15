@@ -18,6 +18,7 @@ export class UserloginComponent implements OnInit {
   message:any;
   currentUser?:User;
   isLoggedIn?:boolean;
+  badcredentials?:boolean;
 
   constructor(private loginService:LoginserviceService, private jwtService:JwtService, private router:Router) { }
 
@@ -32,33 +33,19 @@ export class UserloginComponent implements OnInit {
     console.log(this.username + " " + this.password);
 
     resp.subscribe(temp => {
-      this.currentUser = temp; // mozna out?
-      console.log(this.currentUser);
-      this.loginService.authenticated = true;
-
-      this.router.navigate(["/home"]);
-
-      localStorage.setItem('currentUser', JSON.stringify(temp));
-      localStorage.setItem('isLogged', JSON.stringify(true));
-
-      console.log( localStorage.getItem('currentUser') );
-      console.log( localStorage.getItem('isLogged') );
-    });
-  }
-
-  doLoginJWT()
-  {
-    let resp = this.jwtService.jwtLogin(this.username, this.password);
-    console.log(this.username + " " + this.password);
-
-    resp.subscribe(temp => {
-      this.router.navigate(["/home"]);
-
-      localStorage.setItem('currentUser', JSON.stringify(temp));
-      localStorage.setItem('isLogged', JSON.stringify(true));
-
-      console.log( localStorage.getItem('currentUser') );
-      console.log( localStorage.getItem('isLogged') );
+      console.log(temp);
+      if(temp.jwtToken !== null)
+      {
+        this.loginService.authenticated = true;
+        this.badcredentials = false;
+        this.router.navigate(["/getuserdata"]);
+      }
+      else
+      {
+        console.log("BAD");
+        this.badcredentials = true;
+        this.loginService.authenticated = false;
+      }
     });
   }
 
