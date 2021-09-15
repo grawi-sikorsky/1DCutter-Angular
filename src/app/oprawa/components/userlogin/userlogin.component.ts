@@ -42,7 +42,7 @@ export class UserloginComponent implements OnInit {
       }
       else
       {
-        console.log("BAD");
+        console.log("BAD Credentials!");
         this.badcredentials = true;
         this.loginService.authenticated = false;
       }

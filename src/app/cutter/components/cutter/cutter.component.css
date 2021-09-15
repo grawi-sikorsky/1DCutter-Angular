@@ -63,3 +63,12 @@ form#secform td{
 	font-size: 13px;
 	font-weight: 600;
 }
+
+.price-results{
+	border-style: solid;
+	border-radius: 10px;
+	border-color: aliceblue;
+	padding: 16px;
+	margin: 16px;
+	background: #f7fbff;
+}

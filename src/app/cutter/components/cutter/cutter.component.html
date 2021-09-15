@@ -12,18 +12,28 @@
         <hr/>
       </div>
 
-      <div class="wynikicol" *ngIf="(results) as asyncResult"> 
-        <div class="col-sm">
-          <label> Całkowita ilosc potrzebnego materialu: </label><span> <strong> {{asyncResult.resultUsed }} </strong></span>
-          
-          <div *ngFor="let needstock of asyncResult.resultNeededStock | keyvalue">
-            <label><strong>{{needstock.value}} <i class="fas fa-times fa-sm"></i>  {{needstock.key}} </strong></label>
+      <div class="wynikicol" *ngIf="(results) as asyncResult">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="price-results">
+              <label> Całkowita ilosc potrzebnego materialu: </label><span> <strong> {{asyncResult.resultUsed }} </strong></span>
+              
+              <div *ngFor="let needstock of asyncResult.resultNeededStock | keyvalue">
+                <label><strong>{{needstock.value}} <i class="fas fa-times fa-sm"></i>  {{needstock.key}} </strong></label>
+              </div>
+            </div>
           </div>
-          <div>
-            <!-- A TUTEJ WYNIK KOSZTOW MATERIALOW -->
-            <button type="submit" class="btn btn-primary btn-lg btn-submitlogreg" style="padding-left: 2.5rem; padding-right: 2.5rem;">
-              <i class="fas fa-check check-login-btn" ></i>test
-            </button>
+
+          <div class="col-sm-6" *ngIf="cutService.cutOptions.optionPrice" >
+            <div class="price-results">
+              <label> <i class="fas fa-dollar-sign"></i> Podsumowanie kosztów: </label><p></p>
+              <div class="col-sm">
+                <label> Koszt niezbędnego materiału: </label><span> {{ asyncResult.resultCostOveral }}  <i class="fas fa-dollar-sign"></i></span>
+              </div>
+              <div class="col-sm">
+                <label> Koszt zużytego materiału: </label><span> {{ asyncResult.resultCostOveral }} </span>
+              </div>
+            </div>
           </div>
           <hr/>
         </div>
@@ -45,9 +55,8 @@
           </div>
         </div>
         <hr/>
-        <div class="col-sm" *ngIf="cutService.cutOptions.optionPrice" >
-          <label> Koszt sumaryczny: </label><span> {{ asyncResult.resultCostOveral }} </span>
-        </div>
+
+        
         <div class="col-sm">
           <label> Pozostale odcinki: </label>
             <span *ngFor="let odcinki of asyncResult.resultRemainingPieces"> 
@@ -62,8 +71,7 @@
           <hr/>
         </div>
         <div class="col-sm">
-          <label> <i class="far fa-list-alt"></i> Wykaz cięć: </label>
-          <hr/>
+          <label> <i class="far fa-list-alt"></i> Wykaz cięć: </label><p></p>
         </div>
         
         <!-- NORMAL RESULT -->

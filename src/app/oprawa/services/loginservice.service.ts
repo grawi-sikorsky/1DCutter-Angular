@@ -10,6 +10,7 @@ export class LoginserviceService {
 
   authenticated = false;
   token:any;
+  loggedUser?:User;
 
   constructor(private http:HttpClient, private jwtService:JwtService) {  }
 

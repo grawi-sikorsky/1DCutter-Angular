@@ -11,7 +11,7 @@ export class JwtService {
 
   public jwtLogin(username:string, password:string)
   {
-    return this.http.post<{jwtToken:  string}>('http://localhost:8080/auth/login', {username, password}) // TODO: tutaj podobnie jak wczesniej base encrypt pasuje zrobic zeby plain text nie lecial
+    return this.http.post<{jwtToken:  string}>('http://localhost:8080/auth/login', {username, password})
     .pipe(tap(res => {
       if(res.jwtToken !== null)
         localStorage.setItem('jwtToken', res.jwtToken);       
@@ -20,8 +20,9 @@ export class JwtService {
 
   public jwtRegister(username:string, password:string, email:string)
   {
-    return this.http.post<{jwtToken: string}>('http://localhost:8080/auth/register', {username, password, email}) //tutaj podobnie jak wczesniej base encrypt pasuje zrobic zeby plain text nie lecial
+    return this.http.post<{jwtToken: string}>('http://localhost:8080/auth/register', {username, password, email})
     .pipe(tap(res => {
+      // TODO: obsluzyc bledna i poprawna rejestracje
       this.jwtLogin(username, password)
     }))
   }

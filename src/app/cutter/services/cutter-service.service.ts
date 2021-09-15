@@ -37,10 +37,6 @@ export class CutterServiceService {
 
     console.log("CutterService: POST ORDER ");
     this.cu = JSON.parse(localStorage.getItem('currentUser')!);
-    console.log(this.cu.username);
-    console.log(this.cu.password);
-
-    console.log( localStorage.getItem('jwtToken'));
 
     if(this.loginService.isLogged())
     {
