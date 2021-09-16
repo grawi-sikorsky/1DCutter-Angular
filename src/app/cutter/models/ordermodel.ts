@@ -6,8 +6,6 @@ export interface OrderModel {
   stockList: StockList[];
   cutOptions: CutOptions;
   usernameOrder: string;
-  optionSzrank: number;       // out?
-  optionStackResult: boolean; // out?
 }
 
 export interface CutList {

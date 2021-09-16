@@ -15,10 +15,6 @@ import { ResultBarsModule } from '../models/result-bars/result-bars.module';
 export class CutterServiceService {
 
   constructor(private http:HttpClient, private loginService:LoginserviceService) { }
-  // DATA
-  cu:User={};
-  cutOptions = <CutOptions>{};
-
 
   public getResultsAsync() : Observable<ResultBarsModule>
   {
@@ -30,13 +26,9 @@ export class CutterServiceService {
   }
 
   // TODO Ogarnac JWT !!!
-  public sendOrder(orderList:OrderModel, username:string)
+  public sendOrder(orderList:OrderModel)
   {
-    //test
-    orderList.cutOptions = this.cutOptions;
-
     console.log("CutterService: POST ORDER ");
-    this.cu = JSON.parse(localStorage.getItem('currentUser')!);
 
     if(this.loginService.isLogged())
     {
@@ -46,8 +38,8 @@ export class CutterServiceService {
       return this.http.post<any>("http://localhost:8080/cutfree", orderList);
   }
 
-  public sendOptions(cutOpt:CutOptions)
+  public setOrder(orderList:OrderModel)
   {
-    return this.http.post<any>("http://localhost:8080/setoptions", cutOpt);
+    return this.http.post<any>("http://localhost:8080/setorder", orderList);
   }
 }

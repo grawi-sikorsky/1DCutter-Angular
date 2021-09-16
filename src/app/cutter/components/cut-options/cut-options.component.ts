@@ -6,6 +6,7 @@ import { CutOptions } from '../../models/cutoptions';
 import { CutterServiceService } from '../../services/cutter-service.service';
 import { LoginserviceService } from '../../../oprawa/services/loginservice.service';
 import { User } from 'src/app/oprawa/models/user';
+import { CutterComponent } from '../cutter/cutter.component';
 
 @Component({
   selector: 'app-cut-options',
@@ -14,61 +15,37 @@ import { User } from 'src/app/oprawa/models/user';
 })
 export class CutOptionsComponent implements OnInit {
 
-  constructor(private cutService:CutterServiceService, private loginService:LoginserviceService) 
+  constructor(private cutService:CutterServiceService, private loginService:LoginserviceService, public cutterComp:CutterComponent) 
   {
     this.submitDebounced();
-    this.cutopt = this.cutService.cutOptions;
   }
 
-  cutopt =<CutOptions>{};
+  //cutOptions  = <CutOptions>{};
   subject = new Subject();
-  currentUser   : User={};
 
-  ngOnInit(): void {
-    if(this.loginService.isLogged() === true)
-    {
-      this.currentUser = JSON.parse( localStorage.getItem('currentUser') ! );
-      this.cutopt.optionStackResult = this.currentUser.orderModel!.cutOptions!.optionStackResult;
-      this.cutopt.optionSzrank = this.currentUser.orderModel!.cutOptions!.optionSzrank;
-      this.cutopt.optionPrice = this.currentUser.orderModel!.cutOptions!.optionPrice;
-    }
-    else
-    {
-      // jesli niezalogowany pobieramy z localstorage
-      let localOptions = JSON.parse( localStorage.getItem('localOptions') ! );
-
-      if(localOptions != null)
-      {
-        console.log("options not null");
-        this.cutopt = localOptions;
-      }
-      else // default
-      {
-        console.log("local options null");
-        this.cutopt.optionStackResult = false;
-        this.cutopt.optionSzrank = 0;
-        this.cutopt.optionPrice = false;
-        localStorage.setItem('localOptions',JSON.stringify(this.cutopt));
-      }
-    }
+  ngOnInit(): void 
+  {
+    // this.loginService.$userStream.subscribe(data => {
+    //   this.cutterComp.orderModel.cutOptions = data.orderModel!.cutOptions;
+    // })
   }
 
   public onSubmitOptions()
   {
     this.subject.next();
-    this.cutService.cutOptions = this.cutopt;
-    console.log("cutService.cutOptions: " + JSON.stringify(this.cutService.cutOptions));
+    
+    console.log("loginService.cutOptions: " + JSON.stringify(this.cutterComp.orderModel!.cutOptions));
 
     if(!this.loginService.isLogged())
     {
-      localStorage.setItem('localOptions',JSON.stringify(this.cutopt));
-      console.log(this.cutopt);
+      localStorage.setItem('localOptions',JSON.stringify(this.cutterComp.orderModel.cutOptions));
+      console.log(this.cutterComp.orderModel.cutOptions);
     }
     else
     {
       //Zapisujem do local current user
-      this.currentUser.orderModel!.cutOptions = this.cutopt;
-      localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+      this.loginService.loggedUser.orderModel! = this.cutterComp.orderModel;
+      localStorage.setItem('currentUser', JSON.stringify(this.loginService.loggedUser));
     }
   }
 
@@ -77,7 +54,7 @@ export class CutOptionsComponent implements OnInit {
     this.subject.pipe( debounceTime(500) )
     .subscribe(
       () => {
-        this.cutService.sendOptions(this.cutopt)
+        this.cutService.setOrder(this.cutterComp.orderModel)
         .subscribe(
           data => {
             console.log("return data from send options:")
@@ -90,11 +67,11 @@ export class CutOptionsComponent implements OnInit {
 
   public setZeroOnErease()
   {
-    if (!this.cutopt.optionSzrank)
+    if (!this.cutterComp.orderModel.cutOptions.optionSzrank)
     {
       // trick polega na tym ze gdy jest "0" to ngmodel traktuje to jako ta sama wartosc, przez co okienko pozostaje puste po usunieciu wszystkeigo.. 
       // -0 jak widac jest dla niego inna wartoscia przez co przypisuje -0 a potem zmienia sam na 0 w input field. Efekt osiadniety..
-      this.cutopt.optionSzrank = -0;
+      this.cutterComp.orderModel.cutOptions.optionSzrank = -0;
     }
   }
 

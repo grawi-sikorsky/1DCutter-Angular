@@ -6,12 +6,13 @@
     <a class="navbar-brand" routerLink="1dcut"><i class="fas fa-th-list"></i> 1D Cut Optimizer</a>
     <a class="navbar-brand" routerLink="dupa"><i class="fas fa-briefcase"></i> 2D Cut Optimizer</a>
     <a class="navbar-brand" routerLink="test"><i class="fas fa-briefcase"></i> Test</a>
+    <button class="btn btn-info btn-xm" (click)="clearLS()" >ClearLS</button>
 
     <div class="userDropMenu">
       <div class="dropdown" [hidden]="!zalogowany()">
         <a href="#" class="dropdown-toggle " role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <img class="userDropMenuImg" src="/assets/img/avatar_seagull.png">
-          <span> Witaj, {{usr.username}}! </span>
+          <span> Witaj, {{username}}! </span>
         </a>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
           <li> <a class="dropdown-item" [routerLink]="['/profile']"><i class="fas fa-user"></i> Majne profajl</a></li>

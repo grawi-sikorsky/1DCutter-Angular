@@ -14,49 +14,17 @@ import { CutterComponent } from '../cutter/cutter.component';
 })
 export class CutFormComponent implements OnInit {
 
-  dynamicCutForm = <OrderModel>{};
-  cuts$         : Observable<OrderModel>;
-  currentUser   : User={};
+  //orderModelC = <OrderModel>{};
 
-  constructor(private http: HttpClient, public cutService:CutterServiceService, private cutterComp:CutterComponent, public loginService:LoginserviceService) 
+  constructor(private http: HttpClient, public cutService:CutterServiceService, public cutterComp:CutterComponent, public loginService:LoginserviceService) 
   { 
-    this.dynamicCutForm.cutList=[];
-    this.dynamicCutForm.stockList=[];
+    // this.orderModelC.cutList=[];
+    // this.orderModelC.stockList=[];
   }
 
   ngOnInit(): void 
   {
-    if(this.loginService.isLogged() === true)
-    {
-      this.currentUser = JSON.parse( localStorage.getItem('currentUser') ! );
-      this.dynamicCutForm.cutList = this.currentUser.orderModel!.cutList!;
-      this.dynamicCutForm.stockList = this.currentUser.orderModel!.stockList!;
-      this.dynamicCutForm.usernameOrder = this.currentUser.username!;
-      this.dynamicCutForm.cutOptions = this.currentUser.orderModel!.cutOptions;
-    }
-    else
-    {
-      // jesli niezalogowany pobieramy z localstorage
-      let localCuts = JSON.parse( localStorage.getItem('localCuts') ! );
-      let localStock = JSON.parse( localStorage.getItem('localStock') ! );
-
-      if(localCuts != null && localStock != null)
-      {
-        console.log("not null");
-        this.dynamicCutForm.cutList = localCuts;
-        this.dynamicCutForm.stockList = localStock;
-      }
-      else // default
-      {
-        console.log("local cuts null");
-        this.dynamicCutForm.cutList.push({cutLength:225,cutPcs:5});
-        this.dynamicCutForm.stockList.push({idFront:0, stockLength:1000, stockPcs:10, stockPrice:0});
-        //this.dynamicCutForm.cutOptions.
-        localStorage.setItem('localCuts',JSON.stringify(this.dynamicCutForm.cutList));
-        localStorage.setItem('localStock',JSON.stringify(this.dynamicCutForm.stockList));
-        //localStorage.setItem('localStock',JSON.stringify(this.dynamicCutForm.stockList));
-      }
-    }
+    //this.loginService.$userStream.subscribe( data => { this.orderModelC = data.orderModel!; } );
   }
 
   /** 
@@ -68,61 +36,58 @@ export class CutFormComponent implements OnInit {
   public submitOrder()
   {
     console.log("Submitting order...");
-    console.log(this.dynamicCutForm);
+    console.log(this.cutterComp.orderModel);
 
-    let resp = this.cutService.sendOrder(this.dynamicCutForm, this.currentUser.username!);
+    let resp = this.cutService.sendOrder(this.cutterComp.orderModel);
 
     resp.subscribe(returnData => {
-        //this.cutterComp.getResultsAsync();  // not used?
         this.cutterComp.getResults();
-        this.dynamicCutForm = returnData;
+        this.cutterComp.orderModel = returnData;
 
-        console.log("Order Sended ok..");
+        console.log("Order Sended ok.. return data: ");
         console.log(returnData);
     });
 
     if(!this.loginService.isLogged())
     {
-      localStorage.setItem('localCuts',JSON.stringify(this.dynamicCutForm.cutList));
-      localStorage.setItem('localStock',JSON.stringify(this.dynamicCutForm.stockList));
-      localStorage.setItem('localOptions', JSON.stringify(this.dynamicCutForm.cutOptions));
+      localStorage.setItem('localCuts',JSON.stringify(this.cutterComp.orderModel.cutList));
+      localStorage.setItem('localStock',JSON.stringify(this.cutterComp.orderModel.stockList));
+      localStorage.setItem('localOptions', JSON.stringify(this.cutterComp.orderModel.cutOptions));
     }
     else
     {
-      /* Gdy bedzie zalogowany? Z database? */
+      /* Gdy bedzie zalogowany? */
       //Zapisujem do local current user
-      this.currentUser.orderModel!.cutList = this.dynamicCutForm.cutList;
-      this.currentUser.orderModel!.stockList = this.dynamicCutForm.stockList;
-      this.currentUser.orderModel! = this.dynamicCutForm; // to samo zamiast reszty ?
-      localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+      this.loginService.loggedUser.orderModel = this.cutterComp.orderModel;
+      localStorage.setItem('currentUser', JSON.stringify(this.loginService.loggedUser));
     }
   }
 
   public removeRowStock(index:any)
   {
     // usuwamy reszte tablicy od indexu
-    let resztki = this.dynamicCutForm.stockList.splice(index);
+    let resztki = this.cutterComp.orderModel.stockList.splice(index);
 
     // splice zwraca tablice usunietych elementow, wiec kazdy element poza pierwszym (usuwanym) pakujemy z powrotem do tablicy
     resztki.shift(); // usuwa 1 element z tablicy resztek
     resztki.forEach(element => {
       element.idFront = element.idFront!-1;
-      this.dynamicCutForm.stockList.splice(index, 0, element)
+      this.cutterComp.orderModel.stockList.splice(index, 0, element)
       index++;
     });
     
-    console.log( this.dynamicCutForm.stockList );
+    console.log( this.cutterComp.orderModel.stockList );
   }
   public removeRowCuts(index:any)
   {
-    this.dynamicCutForm.cutList.splice(index,1);
+    this.cutterComp.orderModel.cutList.splice(index,1);
   }
   public addRowStock()
   {
     if(this.canAddStock())
     {
-      let index = this.dynamicCutForm.stockList.length+1;
-      this.dynamicCutForm.stockList.push({idFront:index, stockLength:1000, stockPcs:10, stockPrice:0});
+      let index = this.cutterComp.orderModel.stockList.length+1;
+      this.cutterComp.orderModel.stockList.push({idFront:index, stockLength:1000, stockPcs:10, stockPrice:0});
     }
     else
     {
@@ -131,9 +96,9 @@ export class CutFormComponent implements OnInit {
   }
   public addRowCuts()
   {
-    if(this.canAddCut()) //this.loginService.isLogged() || this.dynamicCutForm.cutList.length < 4)
+    if(this.canAddCut()) //this.loginService.isLogged() || this.cutterComp.orderModel.cutList.length < 4)
     {
-      this.dynamicCutForm.cutList.push({cutLength:100,cutPcs:1});
+      this.cutterComp.orderModel.cutList.push({cutLength:100,cutPcs:1});
     }
     else
     {
@@ -142,12 +107,12 @@ export class CutFormComponent implements OnInit {
   }
   public canAddStock()
   {
-    if(this.loginService.isLogged() || this.dynamicCutForm.stockList.length < 1) { return true; }
+    if(this.loginService.isLogged() || this.cutterComp.orderModel.stockList.length < 1) { return true; }
     else return false;
   }
   public canAddCut()
   {
-    if(this.loginService.isLogged() || this.dynamicCutForm.cutList.length < 4) { return true; }
+    if(this.loginService.isLogged() || this.cutterComp.orderModel.cutList.length < 4) { return true; }
     else return false;
   }
   public deleteLocalStorage()

@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CutOptions } from '../../models/cutoptions';
 import { ResultBarsModule } from '../../models/result-bars/result-bars.module';
 import { CutterServiceService } from '../../services/cutter-service.service';
+import { LoginserviceService } from '../../../oprawa/services/loginservice.service';
+import { CutFormComponent } from '../cut-form/cut-form.component';
+import { OrderModel } from '../../models/ordermodel';
+import { GetuserdataComponent } from '../../../oprawa/components/getuserdata/getuserdata.component';
 
 
 @Component({
@@ -12,26 +16,33 @@ import { CutterServiceService } from '../../services/cutter-service.service';
 })
 export class CutterComponent implements OnInit {
 
-  constructor(public cutService:CutterServiceService) {}
+  constructor(public cutService:CutterServiceService, public loginService:LoginserviceService, private getudata:GetuserdataComponent ) {
+    this.orderModel.cutList=[{cutLength:225,cutPcs:5}];
+    this.orderModel.stockList=[{idFront:0, stockLength:1000, stockPcs:10, stockPrice:0}];
+    this.orderModel.cutOptions={  id:0,
+                                  optionStackResult:false,
+                                  optionSzrank:0,
+                                  optionPrice:false }
+  }
 
   results$    : Observable<ResultBarsModule>;
   results     : ResultBarsModule;
   filtered    : ResultBarsModule;     // stackSameBars
   stackedBars   = <ResultBarsModule>{}; // stack2
   stackedRemain = <ResultBarsModule>{}; // stack3
-  cutopt        = <CutOptions>{};
-
+  orderModel    = <OrderModel>{};
+  
   ngOnInit(): void 
   {
-    //this.getResultsAsync();
+    this.prepareData();
     this.getResults();
+
     this.results = JSON.parse(localStorage.getItem('results')!);
     if(this.results != null)
     {
       this.stackResults();
       this.stackRemain();
     }
-    this.cutopt=this.cutService.cutOptions;
   }
 
   public getResultsAsync() 
@@ -136,5 +147,41 @@ export class CutterComponent implements OnInit {
   public isRemainBarsPresent(obj:any)
   {
     return (obj && (Object.keys(obj).length != 0));
+  }
+
+  public prepareData()
+  {
+    if(this.loginService.isLogged() === true)
+    {
+      this.loginService.getUserDataAsync().subscribe( data => { 
+        this.orderModel = data.orderModel!;
+        this.loginService.loggedUser = data;
+        localStorage.setItem('currentUser', JSON.stringify(data));
+      });
+    }
+    else
+    {
+      // jesli niezalogowany pobieramy z localstorage
+      let localOptions  = JSON.parse( localStorage.getItem('localOptions') ! );
+      let localCuts     = JSON.parse( localStorage.getItem('localCuts') ! );
+      let localStock    = JSON.parse( localStorage.getItem('localStock') ! );
+
+      if(localCuts != null && localStock != null && localOptions != null)
+      {
+        console.log("options not null");
+        this.orderModel.cutOptions    = localOptions;
+        this.orderModel.cutList       = localCuts;
+        this.orderModel.stockList     = localStock;
+      }
+      else // default
+      {
+        console.log("local options null");
+        localStorage.setItem('localCuts',JSON.stringify(this.orderModel.cutList));
+        localStorage.setItem('localStock',JSON.stringify(this.orderModel.stockList));
+        localStorage.setItem('localOptions',JSON.stringify(this.orderModel.cutOptions));
+      }
+      
+      this.loginService.loggedUser.orderModel  = this.orderModel;
+    }
   }
 }

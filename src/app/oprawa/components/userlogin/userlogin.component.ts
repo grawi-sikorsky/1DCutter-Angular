@@ -38,7 +38,7 @@ export class UserloginComponent implements OnInit {
       {
         this.loginService.authenticated = true;
         this.badcredentials = false;
-        this.router.navigate(["/getuserdata"]);
+        this.router.navigate(["/1dcut"]);
       }
       else
       {

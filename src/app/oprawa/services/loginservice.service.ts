@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { JwtService } from './jwt.service';
+import { GetuserdataComponent } from '../components/getuserdata/getuserdata.component';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +11,20 @@ import { JwtService } from './jwt.service';
 export class LoginserviceService {
 
   authenticated = false;
-  token:any;
-  loggedUser?:User;
+  token       :any;
+  loggedUser  :User={};
+  $userStream :Observable<User>;
 
-  constructor(private http:HttpClient, private jwtService:JwtService) {  }
+  constructor(private http:HttpClient, private jwtService:JwtService, private getuserdata:GetuserdataComponent) {  }
 
   public login(username:string, password:string)
   {
     return this.jwtService.jwtLogin(username,password);
+  }
+
+  public getUserDataAsync()
+  {
+    return this.$userStream = this.getuserdata.getUserData();
   }
 
   public logout()

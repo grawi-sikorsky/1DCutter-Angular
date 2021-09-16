@@ -12,18 +12,24 @@ import { LoginserviceService } from '../../services/loginservice.service';
 })
 export class GetuserdataComponent implements OnInit {
 
-  constructor(private router:Router, private http:HttpClient, private logService:LoginserviceService ) { }
+  constructor(private router:Router, private http:HttpClient ) { }
 
   ngOnInit(): void {
     console.log("next!");
 
     let temp = this.http.get<User>("http://localhost:8080/getuserdata");
     temp.subscribe( (e) => {
-      this.logService.loggedUser = e;
-      localStorage.setItem("currentUser", JSON.stringify(e));
+      localStorage.setItem('currentUser', JSON.stringify(e));
+      console.log("subscribed getuserdata copomnent init:");
+      console.log(e);
     });
 
-    this.router.navigate(["/1dcut"]);
+    // this.router.navigate(["/1dcut"]);
+  }
+
+  public getUserData()
+  {
+    return this.http.get<User>("http://localhost:8080/getuserdata");
   }
 
 }

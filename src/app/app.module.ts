@@ -58,7 +58,7 @@ export function tokenGetter() {
     
   ],
 
-  providers: [UserserviceService,CutterServiceService],
+  providers: [UserserviceService,CutterServiceService, GetuserdataComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

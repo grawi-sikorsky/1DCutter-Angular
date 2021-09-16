@@ -26,10 +26,10 @@
               <tr>
                 <th> Dlugość materiału </th>
                 <th> Ilość </th>
-                <th  *ngIf="cutService.cutOptions.optionPrice"> Koszt / szt </th>
+                <th  *ngIf="cutterComp.orderModel!.cutOptions.optionPrice"> Koszt / szt </th>
               </tr>
 
-              <tr class="stock-table" *ngFor="let stockRow of dynamicCutForm.stockList; let index = index" >
+              <tr class="stock-table" *ngFor="let stockRow of this.cutterComp.orderModel.stockList; let index = index" >
 
                 <td>
                   <input class="form-control" type="number" [id]="stockRow.idFront" [name]="index+'stolen'+stockRow.stockLength" [(ngModel)]="stockRow.stockLength" > 
@@ -37,7 +37,7 @@
                 <td>
                   <input class="form-control" type="number" [name]="index+'stopcs'+stockRow.stockPcs" [(ngModel)]="stockRow.stockPcs" >
                 </td>
-                <td *ngIf="cutService.cutOptions.optionPrice">
+                <td *ngIf="cutterComp.orderModel!.cutOptions.optionPrice">
                   <input class="form-control" type="number" [name]="index+'stoprice'+stockRow.stockPrice" [(ngModel)]="stockRow.stockPrice" >
                 </td>
                 <td>
@@ -79,7 +79,7 @@
               </th>
             </tr>
 
-            <tr id="unit-table" class="unit-table" *ngFor="let row of dynamicCutForm.cutList; let index=index" >
+            <tr id="unit-table" class="unit-table" *ngFor="let row of this.cutterComp.orderModel.cutList; let index=index" >
               <td>
                 <input class="form-control" type="number" [name]="index+'cutlen'+ row.cutLength" [(ngModel)]="row.cutLength" >
               </td>
