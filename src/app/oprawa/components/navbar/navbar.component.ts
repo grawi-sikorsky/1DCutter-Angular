@@ -9,50 +9,42 @@ import { LoginserviceService } from '../../services/loginservice.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  usr:User={};
-  $usr:Observable<User>;
-  $username:Observable<string>;
-  username:string;
+  localUser: User = {};
+  $usr: Observable<User>;
+  $username: Observable<string>;
+  username: string;
 
-  constructor(public loginService : LoginserviceService) {    
+  constructor(public loginService: LoginserviceService) {
   }
 
   ngOnInit(): void {
 
-    this.$usr = this.loginService.getUserDataAsync();
-    this.$usr.subscribe(data=>
-      {
-        this.username = data.username!;
-      })
+    // this.$usr = this.loginService.getUserDataAsync();
+    // this.$usr.subscribe(data => {
+    //   this.username = data.username!;
+    // })
 
-    this.loginService.getUserDataAsync().subscribe( data => { 
-      this.username = data.username!;
-      console.log(data);
-    
-    } );
+    // this.loginService.getUserDataAsync().subscribe(data => {
+    //   this.username = data.username!;
+    //   console.log(data);
+    // });
+
   }
 
-  zalogowany()
-  {
-    let cu = JSON.parse( localStorage.getItem('currentUser') ! );
-    if(cu != null)
-    {
-      this.usr = cu;
-      console.log(this.username);
-    }
-    else{ this.usr.username='Niezalogowany członku'; }
-  
-    return this.loginService.isLogged();
+  zalogowany() {
 
-    if(this.username)
-    {
+    this.localUser = JSON.parse(localStorage.getItem('currentUser')!);
+    if (this.localUser != null && ( this.localUser.username != this.username ) ) {
+      this.username = this.localUser.username!;
       console.log(this.username);
     }
 
+    console.log(this.username);
+
     return this.loginService.isLogged();
   }
-  clearLS()
-    {
-      localStorage.clear();
-    }
+
+  clearLS() {
+    localStorage.clear();
+  }
 }

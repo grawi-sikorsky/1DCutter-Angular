@@ -36,5 +36,6 @@ export class JwtService {
   {
     localStorage.removeItem('jwtToken');
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('results');
   }
 }

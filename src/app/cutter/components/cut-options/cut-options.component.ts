@@ -51,7 +51,7 @@ export class CutOptionsComponent implements OnInit {
 
   public submitDebounced()
   {
-    this.subject.pipe( debounceTime(500) )
+    this.subject.pipe( debounceTime(1000) )
     .subscribe(
       () => {
         this.cutService.setOrder(this.cutterComp.orderModel)

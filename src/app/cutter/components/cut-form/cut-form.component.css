@@ -37,6 +37,9 @@ form#cutform input {
 form#cutform td{
 	vertical-align: middle;
 }
+#addRowsHere{
+	margin-bottom: 50px;
+}
 #addRowsHere .btn-sm{
 	font-size: 10px;
 }

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { User } from 'src/app/oprawa/models/user';
 import { LoginserviceService } from '../../../oprawa/services/loginservice.service';
 import { OrderModel, StockList } from '../../models/ordermodel';
@@ -14,12 +15,11 @@ import { CutterComponent } from '../cutter/cutter.component';
 })
 export class CutFormComponent implements OnInit {
 
-  //orderModelC = <OrderModel>{};
+  subject = new Subject();
 
   constructor(private http: HttpClient, public cutService:CutterServiceService, public cutterComp:CutterComponent, public loginService:LoginserviceService) 
   { 
-    // this.orderModelC.cutList=[];
-    // this.orderModelC.stockList=[];
+    this.submitDebounced();
   }
 
   ngOnInit(): void 
@@ -63,6 +63,28 @@ export class CutFormComponent implements OnInit {
     }
   }
 
+  public submitDebounced()
+  {
+    this.subject.pipe( debounceTime(2000) )
+    .subscribe(
+      () => {
+        this.cutService.setOrder(this.cutterComp.orderModel)
+        .subscribe(
+          data => {
+            console.log("return data from send ordermodel:")
+            console.log(data);
+          }
+        );
+      }
+    );
+  }
+
+  public test()
+  {
+    console.log("test");
+    this.subject.next();
+  }
+
   public removeRowStock(index:any)
   {
     // usuwamy reszte tablicy od indexu
@@ -75,12 +97,14 @@ export class CutFormComponent implements OnInit {
       this.cutterComp.orderModel.stockList.splice(index, 0, element)
       index++;
     });
-    
+
+    this.subject.next();
     console.log( this.cutterComp.orderModel.stockList );
   }
   public removeRowCuts(index:any)
   {
     this.cutterComp.orderModel.cutList.splice(index,1);
+    this.subject.next();
   }
   public addRowStock()
   {
@@ -93,6 +117,7 @@ export class CutFormComponent implements OnInit {
     {
       console.log("Niezalogowany, max 1!");
     }
+    this.subject.next();
   }
   public addRowCuts()
   {
@@ -104,6 +129,7 @@ export class CutFormComponent implements OnInit {
     {
       console.log("Niezalogowany, max 5!");
     }
+    this.subject.next();
   }
   public canAddStock()
   {
