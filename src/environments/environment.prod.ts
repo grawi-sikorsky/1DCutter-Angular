@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  API_URL: 'https://onedcutter.herokuapp.com'
+  API_URL: 'onedcutter.herokuapp.com'
 };
