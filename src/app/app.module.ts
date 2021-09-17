@@ -16,10 +16,10 @@ import { UserregisterComponent } from './oprawa/components/userregister/userregi
 import { UserserviceService } from './oprawa/services/userservice.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CutOptionsComponent } from './cutter/components/cut-options/cut-options.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtModule } from '@auth0/angular-jwt';
 import { GetuserdataComponent } from './oprawa/components/getuserdata/getuserdata.component';
-
+import { environment } from 'src/environments/environment';
 
 export function tokenGetter() {
   return localStorage.getItem("jwtToken");

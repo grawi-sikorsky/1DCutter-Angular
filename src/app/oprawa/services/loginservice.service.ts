@@ -4,11 +4,14 @@ import { User } from '../models/user';
 import { JwtService } from './jwt.service';
 import { GetuserdataComponent } from '../components/getuserdata/getuserdata.component';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginserviceService {
+
+  private API_URL = environment.API_URL;
 
   authenticated = false;
   token       :any;
@@ -39,18 +42,18 @@ export class LoginserviceService {
 
   public getUsers()
   {
-    return this.http.get("http://localhost:8080/getUsers");
+    return this.http.get(this.API_URL + "/getUsers");
   }
 
   public register(user:User)
   {
-    return this.http.post<User>("http://localhost:8080/register", user );
+    return this.http.post<User>( this.API_URL + "/register", user );
   }
 
   public updateUser(user:User)
   {
     console.log("UpdateUser(User): " +  JSON.stringify(user));
-    return this.http.post<boolean>("http://localhost:8080/profile", user );
+    return this.http.post<boolean>(this.API_URL + "/profile", user );
   }
 
 }

@@ -70,7 +70,7 @@ export class CutOptionsComponent implements OnInit {
     if (!this.cutterComp.orderModel.cutOptions.optionSzrank)
     {
       // trick polega na tym ze gdy jest "0" to ngmodel traktuje to jako ta sama wartosc, przez co okienko pozostaje puste po usunieciu wszystkeigo.. 
-      // -0 jak widac jest dla niego inna wartoscia przez co przypisuje -0 a potem zmienia sam na 0 w input field. Efekt osiadniety..
+      // -0 jak widac jest dla niego inna wartoscia przez co przypisuje -0 a potem zmienia sam na 0 w input field. Efekt osiagniety..
       this.cutterComp.orderModel.cutOptions.optionSzrank = -0;
     }
   }
