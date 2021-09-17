@@ -31,6 +31,7 @@ export class CutterServiceService {
   public sendOrder(orderList:OrderModel)
   {
     console.log("CutterService: POST ORDER ");
+    console.warn(this.API_URL);
 
     if(this.loginService.isLogged())
     {
