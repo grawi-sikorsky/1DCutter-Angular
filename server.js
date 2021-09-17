@@ -4,9 +4,6 @@ const path = require('path');
 
 const app = express();
 
-app.options('*', cors()) // include before other routes
-
-
 // Serve only the static files form the dist directory
 app.use(express.static('./dist/OneDCutter-A'));
 
