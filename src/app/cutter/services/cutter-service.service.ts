@@ -6,7 +6,7 @@ import { LoginserviceService } from '../../oprawa/services/loginservice.service'
 import { CutOptions } from '../models/cutoptions';
 import { OrderModel } from '../models/ordermodel';
 import { ResultBarsModule } from '../models/result-bars/result-bars.module';
-
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -14,15 +14,17 @@ import { ResultBarsModule } from '../models/result-bars/result-bars.module';
 })
 export class CutterServiceService {
 
+  private API_URL = environment.API_URL;
+
   constructor(private http:HttpClient, private loginService:LoginserviceService) { }
 
   public getResultsAsync() : Observable<ResultBarsModule>
   {
-    return this.http.get<ResultBarsModule>("https://onedcutter.herokuapp.com:8080/result");
+    return this.http.get<ResultBarsModule>( this.API_URL + "/result");
   }
   public getResults()
   {
-    return this.http.get<ResultBarsModule>("https://onedcutter.herokuapp.com:8080/result");
+    return this.http.get<ResultBarsModule>( this.API_URL + "/result");
   }
 
   // TODO Ogarnac JWT !!!
@@ -32,14 +34,14 @@ export class CutterServiceService {
 
     if(this.loginService.isLogged())
     {
-      return this.http.post<any>("https://onedcutter.herokuapp.com:8080/cut", orderList);
+      return this.http.post<any>( this.API_URL + "/cut", orderList);
     }
     else 
-      return this.http.post<any>("https://onedcutter.herokuapp.com:8080/cutfree", orderList);
+      return this.http.post<any>( this.API_URL + "/cutfree", orderList);
   }
 
   public setOrder(orderList:OrderModel)
   {
-    return this.http.post<any>("https://onedcutter.herokuapp.com:8080/setorder", orderList);
+    return this.http.post<any>( this.API_URL + "/setorder", orderList);
   }
 }
