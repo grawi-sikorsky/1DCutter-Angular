@@ -16,7 +16,6 @@ export class UserregisterComponent implements OnInit {
   tempUser:User = {};
   badcredentials:boolean;
 
-
   constructor(private uService:LoginserviceService, private router:Router) { }
 
   ngOnInit(): void {
