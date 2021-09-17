@@ -51,7 +51,7 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: () => { return localStorage.getItem("jwtToken"); },
-        allowedDomains: [ environment.API_URL ],
+        allowedDomains: [ environment.API_URL+":4023" ],
         disallowedRoutes: [ environment.API_URL + "/auth/login"]
       },
     }),
