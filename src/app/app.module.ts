@@ -51,8 +51,8 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: () => { return localStorage.getItem("jwtToken"); },
-        allowedDomains: [ environment.API_URL ],
-        disallowedRoutes: [ environment.API_URL + "/auth/login"]
+        allowedDomains: [ "onedcutter.herokuapp.com" ],
+        disallowedRoutes: [ "onedcutter.herokuapp.com/auth/login"]
       },
     }),
     
