@@ -32,13 +32,13 @@
               <tr class="stock-table" *ngFor="let stockRow of this.cutterComp.orderModel.stockList; let index = index" >
 
                 <td>
-                  <input class="form-control" type="number" [id]="stockRow.idFront" [name]="index+'stolen'+stockRow.stockLength" [(ngModel)]="stockRow.stockLength" (ngModelChange)="subject.next()" > 
+                  <input class="form-control" type="number" min="0" [id]="stockRow.idFront" [name]="index+'stolen'+stockRow.stockLength" [(ngModel)]="stockRow.stockLength" (ngModelChange)="subject.next()" > 
                 </td>
                 <td>
-                  <input class="form-control" type="number" [name]="index+'stopcs'+stockRow.stockPcs" [(ngModel)]="stockRow.stockPcs" (ngModelChange)="subject.next()" >
+                  <input class="form-control" type="number" min="0" [name]="index+'stopcs'+stockRow.stockPcs" [(ngModel)]="stockRow.stockPcs" (ngModelChange)="subject.next()" >
                 </td>
                 <td *ngIf="cutterComp.orderModel!.cutOptions.optionPrice">
-                  <input class="form-control" type="number" [name]="index+'stoprice'+stockRow.stockPrice" [(ngModel)]="stockRow.stockPrice" (ngModelChange)="subject.next()" >
+                  <input class="form-control" type="number" min="0" [name]="index+'stoprice'+stockRow.stockPrice" [(ngModel)]="stockRow.stockPrice" (ngModelChange)="subject.next()" >
                 </td>
                 <td>
                   <button type="button" class="btn btn-sm btn-danger remove-btn" (click)="removeRowStock(index)"><div><i class="far fa-trash-alt" ></i> Usuń </div>
@@ -81,10 +81,10 @@
 
             <tr id="unit-table" class="unit-table" *ngFor="let row of this.cutterComp.orderModel.cutList; let index=index" >
               <td>
-                <input class="form-control" type="number" [name]="index+'cutlen'+ row.cutLength" [(ngModel)]="row.cutLength" (ngModelChange)="subject.next()" >
+                <input class="form-control" type="number" min="0" [name]="index+'cutlen'+ row.cutLength" [(ngModel)]="row.cutLength" (ngModelChange)="subject.next()" >
               </td>
               <td>
-                <input class="form-control" type="number" [name]="index+'cutpcs'+ row.cutPcs" [(ngModel)]="row.cutPcs" (ngModelChange)="subject.next()" >
+                <input class="form-control" type="number" min="0" [name]="index+'cutpcs'+ row.cutPcs" [(ngModel)]="row.cutPcs" (ngModelChange)="subject.next()" >
               </td>
               <td>
                 <button type="button" class="btn btn-sm btn-danger remove-btn" (click)="removeRowCuts(index)">
