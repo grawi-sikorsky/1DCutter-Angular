@@ -39,18 +39,18 @@ export class LoginserviceService {
 
   public getUsers()
   {
-    return this.http.get("http://localhost:8080/getUsers");
+    return this.http.get("https://onedcutter.herokuapp.com:8080/getUsers");
   }
 
   public register(user:User)
   {
-    return this.http.post<User>("http://localhost:8080/register", user );
+    return this.http.post<User>("https://onedcutter.herokuapp.com:8080/register", user );
   }
 
   public updateUser(user:User)
   {
     console.log("UpdateUser(User): " +  JSON.stringify(user));
-    return this.http.post<boolean>("http://localhost:8080/profile", user );
+    return this.http.post<boolean>("https://onedcutter.herokuapp.com:8080/profile", user );
   }
 
 }

@@ -18,11 +18,11 @@ export class CutterServiceService {
 
   public getResultsAsync() : Observable<ResultBarsModule>
   {
-    return this.http.get<ResultBarsModule>("http://localhost:8080/result");
+    return this.http.get<ResultBarsModule>("https://onedcutter.herokuapp.com:8080/result");
   }
   public getResults()
   {
-    return this.http.get<ResultBarsModule>("http://localhost:8080/result");
+    return this.http.get<ResultBarsModule>("https://onedcutter.herokuapp.com:8080/result");
   }
 
   // TODO Ogarnac JWT !!!
@@ -32,14 +32,14 @@ export class CutterServiceService {
 
     if(this.loginService.isLogged())
     {
-      return this.http.post<any>("http://localhost:8080/cut", orderList);
+      return this.http.post<any>("https://onedcutter.herokuapp.com:8080/cut", orderList);
     }
     else 
-      return this.http.post<any>("http://localhost:8080/cutfree", orderList);
+      return this.http.post<any>("https://onedcutter.herokuapp.com:8080/cutfree", orderList);
   }
 
   public setOrder(orderList:OrderModel)
   {
-    return this.http.post<any>("http://localhost:8080/setorder", orderList);
+    return this.http.post<any>("https://onedcutter.herokuapp.com:8080/setorder", orderList);
   }
 }
