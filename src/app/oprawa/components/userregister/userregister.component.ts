@@ -14,6 +14,8 @@ export class UserregisterComponent implements OnInit {
   password:string = '';
   email:string = '';
   tempUser:User = {};
+  badcredentials:boolean;
+
 
   constructor(private uService:LoginserviceService, private router:Router) { }
 
@@ -42,10 +44,10 @@ export class UserregisterComponent implements OnInit {
       else
       {
         this.router.navigate(["/register"]);
+        this.badcredentials = true;
         console.log(returnData);
         console.log("User exists..")
-      }
-      
+      }      
     });
   
   }

@@ -18,17 +18,6 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    // this.$usr = this.loginService.getUserDataAsync();
-    // this.$usr.subscribe(data => {
-    //   this.username = data.username!;
-    // })
-
-    // this.loginService.getUserDataAsync().subscribe(data => {
-    //   this.username = data.username!;
-    //   console.log(data);
-    // });
-
   }
 
   zalogowany() {
@@ -36,11 +25,7 @@ export class NavbarComponent implements OnInit {
     this.localUser = JSON.parse(localStorage.getItem('currentUser')!);
     if (this.localUser != null && ( this.localUser.username != this.username ) ) {
       this.username = this.localUser.username!;
-      console.log(this.username);
     }
-
-    console.log(this.username);
-
     return this.loginService.isLogged();
   }
 
