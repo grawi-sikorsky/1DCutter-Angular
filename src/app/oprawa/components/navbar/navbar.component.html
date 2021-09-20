@@ -1,13 +1,12 @@
-<div class="navbar navbar-expand-lg bg-light navbar-light">
+<div class="navbar navbar-expand-lg bg-light bg-gradient shadow-sm">
   <!-- Container wrapper -->
   <div class="container-fluid navi">
     <!-- Navbar brand -->
     <a class="navbar-brand" routerLink="home" ><i class="fas fa-home"></i> Home</a>
     <a class="navbar-brand" routerLink="1dcut"><i class="fas fa-th-list"></i> 1D Cut Optimizer</a>
     <a class="navbar-brand" routerLink="dupa"><i class="fas fa-briefcase"></i> 2D Cut Optimizer</a>
-    <a class="navbar-brand" routerLink="test"><i class="fas fa-briefcase"></i> Test</a>
-    <button class="btn btn-info btn-xm" (click)="clearLS()" >ClearLS</button>
-
+    <button class="btn btn-outline-info btn-sm" (click)="clearLS()" >ClearLS</button>
+    
     <div class="userDropMenu">
       <div class="dropdown" [hidden]="!zalogowany()">
         <a href="#" class="dropdown-toggle " role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -25,9 +24,9 @@
     </div>
 
     <div [hidden]="zalogowany()">
-      <a class="loginbtn btn btn-primary btn-sm" routerLink="register" ><i class="fas fa-user-plus"></i> Rejestruj
+      <a class="loginbtn btn btn-outline-primary btn-sm" routerLink="register" ><i class="fas fa-user-plus"></i> Rejestruj
         waść</a>
-      <a class="loginbtn btn btn-success btn-sm" routerLink="login" ><i class="fas fa-sign-in-alt"></i> Loguj waść</a>
+      <a class="loginbtn btn btn-outline-success btn-sm btn-sm" routerLink="login" ><i class="fas fa-sign-in-alt"></i> Loguj waść</a>
     </div>
   </div>
 </div>

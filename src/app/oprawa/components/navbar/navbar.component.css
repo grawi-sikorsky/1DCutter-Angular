@@ -30,7 +30,10 @@
   color: #636363;
 }
 .navbar-brand{
-	/*padding-top: 12px;*/
+  color: dimgray;
+}
+.navbar-brand:hover{
+	color:lightslategray;
 }
 .navi{
   border-bottom-style: solid;
