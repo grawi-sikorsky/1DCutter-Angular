@@ -26,7 +26,7 @@ export class CutOptionsComponent implements OnInit {
   ngOnInit(): void 
   {
     // this.loginService.$userStream.subscribe(data => {
-    //   this.cutterComp.orderModel.cutOptions = data.orderModel!.cutOptions;
+    //   this.cutterComp.activeOrderModel.cutOptions = data.activeOrderModel!.cutOptions;
     // })
   }
 
@@ -34,17 +34,17 @@ export class CutOptionsComponent implements OnInit {
   {
     this.subject.next();
     
-    console.log("loginService.cutOptions: " + JSON.stringify(this.cutterComp.orderModel!.cutOptions));
+    console.log("loginService.cutOptions: " + JSON.stringify(this.cutterComp.activeOrderModel!.cutOptions));
 
     if(!this.loginService.isLogged())
     {
-      localStorage.setItem('localOptions',JSON.stringify(this.cutterComp.orderModel.cutOptions));
-      console.log(this.cutterComp.orderModel.cutOptions);
+      localStorage.setItem('localOptions',JSON.stringify(this.cutterComp.activeOrderModel.cutOptions));
+      console.log(this.cutterComp.activeOrderModel.cutOptions);
     }
     else
     {
       //Zapisujem do local current user
-      this.loginService.loggedUser.orderModel! = this.cutterComp.orderModel;
+      this.loginService.loggedUser.activeOrderModel! = this.cutterComp.activeOrderModel;
       localStorage.setItem('currentUser', JSON.stringify(this.loginService.loggedUser));
     }
   }
@@ -54,7 +54,7 @@ export class CutOptionsComponent implements OnInit {
     this.subject.pipe( debounceTime(1000) )
     .subscribe(
       () => {
-        this.cutService.setOrder(this.cutterComp.orderModel)
+        this.cutService.setOrder(this.cutterComp.activeOrderModel)
         .subscribe(
           data => {
             console.log("return data from send options:")
@@ -67,11 +67,11 @@ export class CutOptionsComponent implements OnInit {
 
   public setZeroOnErease()
   {
-    if (!this.cutterComp.orderModel.cutOptions.optionSzrank)
+    if (!this.cutterComp.activeOrderModel.cutOptions.optionSzrank)
     {
       // trick polega na tym ze gdy jest "0" to ngmodel traktuje to jako ta sama wartosc, przez co okienko pozostaje puste po usunieciu wszystkeigo.. 
       // -0 jak widac jest dla niego inna wartoscia przez co przypisuje -0 a potem zmienia sam na 0 w input field. Efekt osiagniety..
-      this.cutterComp.orderModel.cutOptions.optionSzrank = -0;
+      this.cutterComp.activeOrderModel.cutOptions.optionSzrank = -0;
     }
   }
 

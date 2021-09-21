@@ -2,10 +2,10 @@ import { CutOptions } from './cutoptions';
 
 
 export interface OrderModel {
+  id: number;
   cutList: CutList[];
   stockList: StockList[];
   cutOptions: CutOptions;
-  usernameOrder: string;
 }
 
 export interface CutList {

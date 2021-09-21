@@ -14,5 +14,5 @@ export class User {
   credentialsNonExpired?: boolean;
   authorities?: string[];
   accountNonLocked?: boolean;
-  orderModel?:OrderModel;
+  activeOrderModel?:OrderModel;
 }

@@ -24,7 +24,7 @@ export class CutFormComponent implements OnInit {
 
   ngOnInit(): void 
   {
-    //this.loginService.$userStream.subscribe( data => { this.orderModelC = data.orderModel!; } );
+    //this.loginService.$userStream.subscribe( data => { this.activeOrderModelC = data.activeOrderModel!; } );
   }
 
   /** 
@@ -36,13 +36,13 @@ export class CutFormComponent implements OnInit {
   public submitOrder()
   {
     console.log("Submitting order...");
-    console.log(this.cutterComp.orderModel);
+    console.log(this.cutterComp.activeOrderModel);
 
-    let resp = this.cutService.sendOrder(this.cutterComp.orderModel);
+    let resp = this.cutService.sendOrder(this.cutterComp.activeOrderModel);
 
     resp.subscribe(returnData => {
         this.cutterComp.getResults();
-        this.cutterComp.orderModel = returnData;
+        this.cutterComp.activeOrderModel = returnData;
 
         console.log("Order Sended ok.. return data: ");
         console.log(returnData);
@@ -50,15 +50,15 @@ export class CutFormComponent implements OnInit {
 
     if(!this.loginService.isLogged())
     {
-      localStorage.setItem('localCuts',JSON.stringify(this.cutterComp.orderModel.cutList));
-      localStorage.setItem('localStock',JSON.stringify(this.cutterComp.orderModel.stockList));
-      localStorage.setItem('localOptions', JSON.stringify(this.cutterComp.orderModel.cutOptions));
+      localStorage.setItem('localCuts',JSON.stringify(this.cutterComp.activeOrderModel.cutList));
+      localStorage.setItem('localStock',JSON.stringify(this.cutterComp.activeOrderModel.stockList));
+      localStorage.setItem('localOptions', JSON.stringify(this.cutterComp.activeOrderModel.cutOptions));
     }
     else
     {
       /* Gdy bedzie zalogowany? */
       //Zapisujem do local current user
-      this.loginService.loggedUser.orderModel = this.cutterComp.orderModel;
+      this.loginService.loggedUser.activeOrderModel = this.cutterComp.activeOrderModel;
       localStorage.setItem('currentUser', JSON.stringify(this.loginService.loggedUser));
     }
   }
@@ -68,7 +68,7 @@ export class CutFormComponent implements OnInit {
     this.subject.pipe( debounceTime(2000) )
     .subscribe(
       () => {
-        this.cutService.setOrder(this.cutterComp.orderModel)
+        this.cutService.setOrder(this.cutterComp.activeOrderModel)
         .subscribe(
           data => {
             console.log("return data from send ordermodel:")
@@ -88,30 +88,30 @@ export class CutFormComponent implements OnInit {
   public removeRowStock(index:any)
   {
     // usuwamy reszte tablicy od indexu
-    let resztki = this.cutterComp.orderModel.stockList.splice(index);
+    let resztki = this.cutterComp.activeOrderModel.stockList.splice(index);
 
     // splice zwraca tablice usunietych elementow, wiec kazdy element poza pierwszym (usuwanym) pakujemy z powrotem do tablicy
     resztki.shift(); // usuwa 1 element z tablicy resztek
     resztki.forEach(element => {
       element.idFront = element.idFront!-1;
-      this.cutterComp.orderModel.stockList.splice(index, 0, element)
+      this.cutterComp.activeOrderModel.stockList.splice(index, 0, element)
       index++;
     });
 
     this.subject.next();
-    console.log( this.cutterComp.orderModel.stockList );
+    console.log( this.cutterComp.activeOrderModel.stockList );
   }
   public removeRowCuts(index:any)
   {
-    this.cutterComp.orderModel.cutList.splice(index,1);
+    this.cutterComp.activeOrderModel.cutList.splice(index,1);
     this.subject.next();
   }
   public addRowStock()
   {
     if(this.canAddStock())
     {
-      let index = this.cutterComp.orderModel.stockList.length+1;
-      this.cutterComp.orderModel.stockList.push({idFront:index, stockLength:1000, stockPcs:10, stockPrice:0});
+      let index = this.cutterComp.activeOrderModel.stockList.length+1;
+      this.cutterComp.activeOrderModel.stockList.push({idFront:index, stockLength:1000, stockPcs:10, stockPrice:0});
     }
     else
     {
@@ -121,9 +121,9 @@ export class CutFormComponent implements OnInit {
   }
   public addRowCuts()
   {
-    if(this.canAddCut()) //this.loginService.isLogged() || this.cutterComp.orderModel.cutList.length < 4)
+    if(this.canAddCut()) //this.loginService.isLogged() || this.cutterComp.activeOrderModel.cutList.length < 4)
     {
-      this.cutterComp.orderModel.cutList.push({cutLength:100,cutPcs:1});
+      this.cutterComp.activeOrderModel.cutList.push({cutLength:100,cutPcs:1});
     }
     else
     {
@@ -133,12 +133,12 @@ export class CutFormComponent implements OnInit {
   }
   public canAddStock()
   {
-    if(this.loginService.isLogged() || this.cutterComp.orderModel.stockList.length < 1) { return true; }
+    if(this.loginService.isLogged() || this.cutterComp.activeOrderModel.stockList.length < 1) { return true; }
     else return false;
   }
   public canAddCut()
   {
-    if(this.loginService.isLogged() || this.cutterComp.orderModel.cutList.length < 4) { return true; }
+    if(this.loginService.isLogged() || this.cutterComp.activeOrderModel.cutList.length < 4) { return true; }
     else return false;
   }
   public deleteLocalStorage()

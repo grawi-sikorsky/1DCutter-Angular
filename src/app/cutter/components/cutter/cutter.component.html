@@ -24,7 +24,7 @@
             </div>
           </div>
 
-          <div class="col-sm-6" *ngIf="this.orderModel!.cutOptions.optionPrice" >
+          <div class="col-sm-6" *ngIf="this.activeOrderModel!.cutOptions.optionPrice" >
             <div class="price-results">
               <label> <i class="fas fa-dollar-sign"></i> Podsumowanie kosztów: </label><p></p>
               <div class="col-sm">
@@ -75,7 +75,7 @@
         </div>
         
         <!-- NORMAL RESULT -->
-        <div class="container-fluid" *ngIf="!this.orderModel!.cutOptions.optionStackResult" >
+        <div class="container-fluid" *ngIf="!this.activeOrderModel!.cutOptions.optionStackResult" >
           <div class="row" *ngFor="let bar of (asyncResult.resultBars)">
             <div class="col-sm-1" style="text-align: right;"> 
               ( {{bar.onStockLength}} ) 
@@ -90,7 +90,7 @@
         </div>
 
         <!-- STACK RESULT -->
-        <div class="container-fluid" *ngIf="this.orderModel!.cutOptions.optionStackResult">
+        <div class="container-fluid" *ngIf="this.activeOrderModel!.cutOptions.optionStackResult">
           <div class="row" *ngFor="let bar of (stackedBars.resultBars)">
             <div class="col-sm-1" style="text-align: right;"> 
               <strong>{{bar.stackCount}} <i class="fas fa-times fa-sm"></i> </strong>  ( {{bar.onStockLength}} ) 
@@ -119,7 +119,7 @@
           </div>
 
           <!-- NORMAL REMAIN RESULT -->
-          <div class="container-fluid" *ngIf="!this.orderModel!.cutOptions.optionStackResult">
+          <div class="container-fluid" *ngIf="!this.activeOrderModel!.cutOptions.optionStackResult">
             <p>Pozostałe odcinki niezoptymalizowane:</p>
             <div class="probar" *ngFor="let rem of (asyncResult.resultRemainingPieces)">
               <div class="progress probar" *ngFor="let re of rem.resultBarPieces" class="cutbar progress-bar bg-danger"
@@ -133,7 +133,7 @@
 
 
           <!-- STACK REMAIN RESULT -->
-          <div class="container-fluid" *ngIf="this.orderModel!.cutOptions.optionStackResult">
+          <div class="container-fluid" *ngIf="this.activeOrderModel!.cutOptions.optionStackResult">
             <p>Pozostałe odcinki niezoptymalizowane:</p>
             <div class="row" *ngFor="let bar of (stackedRemain.resultRemainingPieces)">
               <div class="col-sm-1" style="text-align: right;"> 
