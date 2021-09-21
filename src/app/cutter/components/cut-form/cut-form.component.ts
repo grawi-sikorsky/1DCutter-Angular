@@ -146,4 +146,12 @@ export class CutFormComponent implements OnInit {
     console.log("clear LS");
     localStorage.clear();
   }
+  public prevOrder(){
+    this.loginService.loggedUser.activeOrderId!--;
+    this.loginService.updateUser(this.loginService.loggedUser).subscribe();
+  }
+  public nextOrder(){
+    this.loginService.loggedUser.activeOrderId!++;
+    this.loginService.updateUser(this.loginService.loggedUser).subscribe();
+  }
 }
