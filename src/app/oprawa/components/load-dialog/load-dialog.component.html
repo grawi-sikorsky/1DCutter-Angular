@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Zapisz projekt cięcia</h2>
+<h2 mat-dialog-title>Wczytaj projekt cięcia</h2>
 <mat-dialog-content class="mat-typography">
   <p>Active order ID: {{userTmp.activeOrderId}}</p>
   <p>Active order model: {{userTmp.numberOfSavedItems}}</p>
@@ -17,7 +17,7 @@
               <td>{{ordr.projectName}}</td>
               <td>{{ordr.projectCreated | date:'dd.MM.YYYY HH:mm:ss'}}</td>
               <td>{{ordr.projectModified | date:'dd.MM.YYYY HH:mm:ss'}}</td>
-              <td><button class="btn btn-secondary">Zapisz</button></td>
+              <td><button class="btn btn-secondary btn-sm" (click)="loadUserOrder(ordr.id)" >Wczytaj</button></td>
           </tr>
       </tbody>
   </table>
@@ -25,5 +25,5 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Zapisz</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Wczytaj</button>
 </mat-dialog-actions>

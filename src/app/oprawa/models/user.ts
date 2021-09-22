@@ -15,6 +15,7 @@ export class User {
   //authorities?: string[];
   //accountNonLocked?: boolean;
   activeOrderModel?:OrderModel;
+  savedOrderModels?:OrderModel[];
   numberOfSavedItems?:number;
   activeOrderId?:number;
 }

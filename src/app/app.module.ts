@@ -23,6 +23,7 @@ import { CalcCuttonComponent } from './oprawa/components/calc-cutton/calc-cutton
 import { SaveDialogComponent } from './oprawa/components/save-dialog/save-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MaterialModule } from './material/material.module';
+import { LoadDialogComponent } from './oprawa/components/load-dialog/load-dialog.component';
 
 
 export function tokenGetter() {
@@ -44,6 +45,7 @@ export function tokenGetter() {
     GetuserdataComponent,
     CalcCuttonComponent,
     SaveDialogComponent,
+    LoadDialogComponent,
   ],
   imports: [
     BrowserModule,

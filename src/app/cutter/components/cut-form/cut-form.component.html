@@ -1,11 +1,27 @@
-<div id="addRowsHere">
+<div class="row">
+  <div class="project-name">
+    <div class="col-3"> Projekt: </div>
+    <div class="col-3">o nazwie takiej.</div>
+    <div class="col-3">
+      <button id="opti" class="btn btn-sm btn-outline-secondary btn-block" (click)="loadDialog()" >Wczytaj projekt <i class="fas fa-chevron-right"></i> 
+      </button>
+    </div>
+    <div class="col-3">
+      <button id="opti" class="btn btn-sm btn-outline-secondary btn-block" (click)="saveDialog()" >Zapisz projekt <i class="fas fa-chevron-right"></i> 
+      </button>
+    </div>
+  </div>
+</div>
 
-  <div class="accordion" id="accordionPanelsStayOpenExample">
+<div id="addRowsHere">
+  <div class="accordion" id="cutlista">
     <div class="accordion-item">
       <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-          <div><i class="fas fa-layer-group"></i> Surowiec </div>
+        <button class="accordion-button" name="surowce" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+          <div><i class="fas fa-layer-group"></i> Surowiec </div>          
         </button>
+
+        
       </h2>
       <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
         <div class="accordion-body">
@@ -103,9 +119,6 @@
           </button>
           <span> &nbsp; </span>
           <button id="opti" class="btn btn-sm btn-warning btn-block" (click)="nextOrder()" >Next order <i class="fas fa-chevron-right"></i> 
-          </button>
-          <span> &nbsp; </span>
-          <button id="opti" class="btn btn-sm btn-warning btn-block" (click)="openDialog()" >Dialog <i class="fas fa-chevron-right"></i> 
           </button>
         </div>
         <!-- CUTSSSSS ------------------------------------------------------->

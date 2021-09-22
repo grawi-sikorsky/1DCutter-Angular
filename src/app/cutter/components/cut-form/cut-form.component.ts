@@ -10,6 +10,7 @@ import { CutterComponent } from '../cutter/cutter.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SaveDialogComponent } from '../../../oprawa/components/save-dialog/save-dialog.component';
+import { LoadDialogComponent } from '../../../oprawa/components/load-dialog/load-dialog.component';
 
 @Component({
   selector: 'app-cut-form',
@@ -174,8 +175,11 @@ export class CutFormComponent implements OnInit {
     });
   }
 
-  public openDialog(): void {
-    const dialogRef = this.dialog.open(SaveDialogComponent);
+  public loadDialog(): void {
+    const dialogRef = this.dialog.open(LoadDialogComponent, {width:"600px"});
+  }
+  public saveDialog(): void {
+    const dialogRef = this.dialog.open(SaveDialogComponent, {width:"600px"});
   }
 
 }
