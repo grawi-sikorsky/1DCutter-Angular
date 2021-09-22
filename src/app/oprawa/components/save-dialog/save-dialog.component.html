@@ -1,8 +1,9 @@
-<h2 mat-dialog-title>Zapisz projekt cięcia</h2>
+<h1 mat-dialog-title>Zapisz projekt cięcia</h1>
+<mat-divider></mat-divider>
 <mat-dialog-content class="mat-typography">
   <p>Active order ID: {{userTmp.activeOrderId}}</p>
   <p>Active order model: {{userTmp.numberOfSavedItems}}</p>
-
+  <mat-divider></mat-divider>
   <table class="saveloadproject">
       <thead>
         <th>ID</th>
@@ -14,14 +15,14 @@
       <tbody>
           <tr *ngFor="let ordr of userTmp.savedOrderModels; let index = index">
               <td>{{ordr.id}}</td>
-              <td>{{ordr.projectName}}</td>
+              <td><input [(ngModel)]="ordr.projectName"></td>
               <td>{{ordr.projectCreated | date:'dd.MM.YYYY HH:mm:ss'}}</td>
               <td>{{ordr.projectModified | date:'dd.MM.YYYY HH:mm:ss'}}</td>
-              <td><button class="btn btn-secondary">Zapisz</button></td>
+              <td><button mat-button mat-dialog-close class="btn btn-secondary btn-sm button-loadsave" (click)="saveUserOrder(index)">Zapisz</button></td>
           </tr>
       </tbody>
   </table>
-
+  <mat-divider></mat-divider>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>

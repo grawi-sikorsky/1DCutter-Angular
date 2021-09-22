@@ -17,10 +17,25 @@ export class SaveDialogComponent implements OnInit {
   constructor(private loginService:LoginserviceService) { }
 
   ngOnInit(): void {
-    this.userTmp = this.loginService.loggedUser;
     console.log(this.loginService.loggedUser);
-    this.userTmp.savedOrderModels
-    //this.tempMdls = this.loginService.ee
+    this.userTmp.savedOrderModels = this.loginService.loggedUser.savedOrderModels;
+    this.userTmp.activeOrderId = this.loginService.loggedUser.activeOrderId;
+    this.userTmp.numberOfSavedItems = this.loginService.loggedUser.numberOfSavedItems;
+  }
+
+  saveUserOrder(index:any){
+    this.loginService.loggedUser.activeOrderId! = index;
+    this.userTmp.activeOrderId = this.loginService.loggedUser.activeOrderId;
+    this.userTmp.username = this.loginService.loggedUser.username;
+    
+    this.loginService.updateUser(this.userTmp).subscribe( e => {
+      if(e)
+      {
+        console.log("SAVE USER ORDER!!!!:");
+        console.log(this.loginService.loggedUser.savedOrderModels)
+        //this.cutterComp.prepareData();
+      }
+    });
   }
   
 

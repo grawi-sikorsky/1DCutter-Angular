@@ -1,8 +1,10 @@
-<h2 mat-dialog-title>Wczytaj projekt cięcia</h2>
+<h1 mat-dialog-title>Wczytaj projekt cięcia</h1>
+<mat-divider></mat-divider>
 <mat-dialog-content class="mat-typography">
   <p>Active order ID: {{userTmp.activeOrderId}}</p>
-  <p>Active order model: {{userTmp.numberOfSavedItems}}</p>
+  <p>Number of saved items: {{userTmp.numberOfSavedItems}}</p>
 
+  <mat-divider></mat-divider>
   <table class="saveloadproject">
       <thead>
         <th>ID</th>
@@ -17,13 +19,13 @@
               <td>{{ordr.projectName}}</td>
               <td>{{ordr.projectCreated | date:'dd.MM.YYYY HH:mm:ss'}}</td>
               <td>{{ordr.projectModified | date:'dd.MM.YYYY HH:mm:ss'}}</td>
-              <td><button class="btn btn-secondary btn-sm" (click)="loadUserOrder(ordr.id)" >Wczytaj</button></td>
+              <td><button mat-button mat-dialog-close class="btn btn-secondary btn-sm button-load" (click)="loadUserOrder(index)" >Wczytaj</button></td>
           </tr>
       </tbody>
   </table>
 
 </mat-dialog-content>
+<mat-divider></mat-divider>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Wczytaj</button>
 </mat-dialog-actions>

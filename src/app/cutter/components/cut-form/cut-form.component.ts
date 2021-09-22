@@ -151,35 +151,29 @@ export class CutFormComponent implements OnInit {
     console.log("clear LS");
     localStorage.clear();
   }
-  public prevOrder(){
-    this.loginService.loggedUser.activeOrderId!--;
-    this.tempuser.activeOrderId = this.loginService.loggedUser.activeOrderId;
-    this.tempuser.username = this.loginService.loggedUser.username;
-    this.loginService.updateUser(this.tempuser).subscribe( e => {
-      if(e)
-      {
-        this.cutterComp.prepareData();
-      }
-    });
-    
-  }
-  public nextOrder(){
-    this.loginService.loggedUser.activeOrderId!++;
-    this.tempuser.activeOrderId = this.loginService.loggedUser.activeOrderId;
-    this.tempuser.username = this.loginService.loggedUser.username;
-    this.loginService.updateUser(this.tempuser).subscribe( e => {
-      if(e)
-      {
-        this.cutterComp.prepareData();
-      }
-    });
-  }
+
 
   public loadDialog(): void {
-    const dialogRef = this.dialog.open(LoadDialogComponent, {width:"600px"});
+    const dialogRef = this.dialog.open(LoadDialogComponent, {width:"600px", data: this.loginService.loggedUser.activeOrderId});
+
+    dialogRef.afterClosed().subscribe(data=>{
+      console.log("LOAD dialog zamkniety");
+      this.loginService.loggedUser.activeOrderId = data;
+
+      this.cutterComp.prepareData();
+    })
   }
+
   public saveDialog(): void {
-    const dialogRef = this.dialog.open(SaveDialogComponent, {width:"600px"});
+    const dialogRef = this.dialog.open(SaveDialogComponent, {width:"600px", data: this.loginService.loggedUser.savedOrderModels });
+
+    dialogRef.afterClosed().subscribe(data=>{
+      console.log("SAVE dialog zamkniety");
+      this.loginService.loggedUser.savedOrderModels = data;
+
+      this.cutterComp.prepareData();
+    })
+
   }
 
 }

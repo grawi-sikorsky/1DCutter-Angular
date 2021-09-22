@@ -61,7 +61,7 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: () => { return localStorage.getItem("jwtToken") },
-        allowedDomains: ["localhost:8080"], // tutaj blad...! W heroku nie ma portu a powinien byc, niestety nie wiadomo jaki...
+        allowedDomains: ["localhost:8080"],
         disallowedRoutes: ["localhost:8080/auth/login"],
       },
     }),
