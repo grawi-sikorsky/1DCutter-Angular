@@ -10,9 +10,12 @@ export class User {
   phone?: string;
   website?: string;
   enabled?: string;
-  accountNonExpired?: boolean;
-  credentialsNonExpired?: boolean;
-  authorities?: string[];
-  accountNonLocked?: boolean;
-  orderModel?:OrderModel;
+  //accountNonExpired?: boolean;
+  //credentialsNonExpired?: boolean;
+  //authorities?: string[];
+  //accountNonLocked?: boolean;
+  activeOrderModel?:OrderModel;
+  savedOrderModels?:OrderModel[];
+  numberOfSavedItems?:number;
+  activeOrderId?:number;
 }

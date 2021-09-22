@@ -17,9 +17,9 @@ import { GetuserdataComponent } from '../../../oprawa/components/getuserdata/get
 export class CutterComponent implements OnInit {
 
   constructor(public cutService:CutterServiceService, public loginService:LoginserviceService, private getudata:GetuserdataComponent ) {
-    this.orderModel.cutList=[{cutLength:225,cutPcs:5}];
-    this.orderModel.stockList=[{idFront:0, stockLength:1000, stockPcs:10, stockPrice:0}];
-    this.orderModel.cutOptions={  id:0,
+    this.activeOrderModel.cutList=[{cutLength:225,cutPcs:5}];
+    this.activeOrderModel.stockList=[{idFront:0, stockLength:1000, stockPcs:10, stockPrice:0}];
+    this.activeOrderModel.cutOptions={  id:0,
                                   optionStackResult:false,
                                   optionSzrank:0,
                                   optionPrice:false }
@@ -30,7 +30,7 @@ export class CutterComponent implements OnInit {
   filtered    : ResultBarsModule;     // stackSameBars
   stackedBars   = <ResultBarsModule>{}; // stack2
   stackedRemain = <ResultBarsModule>{}; // stack3
-  orderModel    = <OrderModel>{};
+  activeOrderModel    = <OrderModel>{};
   
   ngOnInit(): void 
   {
@@ -155,7 +155,7 @@ export class CutterComponent implements OnInit {
     if(this.loginService.isLogged() === true)
     {
       this.loginService.getUserDataAsync().subscribe( data => { 
-        this.orderModel = data.orderModel!;
+        this.activeOrderModel = data.activeOrderModel!;
         this.loginService.loggedUser = data;
         localStorage.setItem('currentUser', JSON.stringify(data));
       });
@@ -170,19 +170,19 @@ export class CutterComponent implements OnInit {
       if(localCuts != null && localStock != null && localOptions != null)
       {
         console.log("options not null");
-        this.orderModel.cutOptions    = localOptions;
-        this.orderModel.cutList       = localCuts;
-        this.orderModel.stockList     = localStock;
+        this.activeOrderModel.cutOptions    = localOptions;
+        this.activeOrderModel.cutList       = localCuts;
+        this.activeOrderModel.stockList     = localStock;
       }
       else // default
       {
         console.log("local options null");
-        localStorage.setItem('localCuts',JSON.stringify(this.orderModel.cutList));
-        localStorage.setItem('localStock',JSON.stringify(this.orderModel.stockList));
-        localStorage.setItem('localOptions',JSON.stringify(this.orderModel.cutOptions));
+        localStorage.setItem('localCuts',JSON.stringify(this.activeOrderModel.cutList));
+        localStorage.setItem('localStock',JSON.stringify(this.activeOrderModel.stockList));
+        localStorage.setItem('localOptions',JSON.stringify(this.activeOrderModel.cutOptions));
       }
       
-      this.loginService.loggedUser.orderModel  = this.orderModel;
+      this.loginService.loggedUser.activeOrderModel  = this.activeOrderModel;
     }
   }
 }

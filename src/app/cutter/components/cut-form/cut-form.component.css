@@ -7,7 +7,7 @@
 #add-stock-btn
 {
 	float:right;
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 }
 .table form input
 {
@@ -51,7 +51,7 @@ form#secform td{
 }
 
 .table{
-	font-size: 11px;
+	font-size: 10px;
 }
 .table td{
 	padding: 1px!important;
@@ -82,7 +82,8 @@ form#secform td{
 	padding-top: 2px;
 	padding-bottom: 2px;
 	background-color: #dc3545;
-	font-size: 9px
+	font-size: 9px;
+	width: max-content;
 }
 .add-btn{
 	padding-left: 4px;
@@ -92,15 +93,18 @@ form#secform td{
 	font-size: 9px
 }
 .table>:not(:last-child)>:last-child>* {
-	border-bottom-color: currentColor; 
+	border-bottom-color: #dc3545; 
 }
 .btn-calc
 {
 	text-align: center;
 }
 .accordion-button{
-	padding-top: 10px;
-	padding-bottom: 10px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+#cutlista .accordion-body {
+	padding: 0.5rem 0.75rem;
 }
 
 ::ng-deep .mat-form-field-infix
@@ -112,4 +116,20 @@ form#secform td{
 }
 ::ng-deep .mat-form-field-prefix {
 	top: -4px!important;
+}
+
+.project-name{
+	font-size: 9px;
+	padding-left: 20px;
+	padding-right: 20px;
+	vertical-align: middle;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	margin-bottom: 8px;
+}
+
+.project-name .btn{
+	font-size: 9px;
 }

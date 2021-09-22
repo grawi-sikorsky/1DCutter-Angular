@@ -19,7 +19,12 @@ import { CutOptionsComponent } from './cutter/components/cut-options/cut-options
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtModule } from '@auth0/angular-jwt';
 import { GetuserdataComponent } from './oprawa/components/getuserdata/getuserdata.component';
-import { environment } from 'src/environments/environment';
+import { CalcCuttonComponent } from './oprawa/components/calc-cutton/calc-cutton.component';
+import { SaveDialogComponent } from './oprawa/components/save-dialog/save-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MaterialModule } from './material/material.module';
+import { LoadDialogComponent } from './oprawa/components/load-dialog/load-dialog.component';
+
 
 export function tokenGetter() {
   return localStorage.getItem("jwtToken");
@@ -37,7 +42,10 @@ export function tokenGetter() {
     CutterComponent,
     CutFormComponent,
     CutOptionsComponent,
-    GetuserdataComponent
+    GetuserdataComponent,
+    CalcCuttonComponent,
+    SaveDialogComponent,
+    LoadDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +55,8 @@ export function tokenGetter() {
     ReactiveFormsModule,
     NgbModule,
     BrowserAnimationsModule,
+    MatDialogModule,
+    MaterialModule,
     JwtModule,
     JwtModule.forRoot({
       config: {
@@ -58,7 +68,8 @@ export function tokenGetter() {
     
   ],
 
-  providers: [UserserviceService,CutterServiceService, GetuserdataComponent],
+
+  providers: [UserserviceService, CutterServiceService, GetuserdataComponent, CutFormComponent, CutterComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

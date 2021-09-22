@@ -22,7 +22,7 @@ export class UserProfileComponent implements OnInit {
   {
   }
 
-  updateUser()
+  updateProfile()
   {
     this.updUser.username   = this.currentUser.username;
     this.updUser.phone      = this.currentUser.phone;
@@ -32,7 +32,7 @@ export class UserProfileComponent implements OnInit {
 
     console.log("USER: " + JSON.stringify(this.updUser));
     
-    let response = this.uService.updateUser(this.updUser);
+    let response = this.uService.updateProfile(this.updUser);
 
     response.subscribe(returnData => {
       if(returnData === true)

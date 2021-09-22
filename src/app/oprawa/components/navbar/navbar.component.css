@@ -9,8 +9,6 @@
 .userDropMenu{
   float: right;
   min-width: 150px;
-  height: 50px;
-  padding-top: 5px;
   text-align: center;
 	text-decoration: none;
 }
@@ -30,6 +28,7 @@
   color: #636363;
 }
 .navbar-brand{
+  font-size: 1rem;
   color: dimgray;
 }
 .navbar-brand:hover{
@@ -39,7 +38,7 @@
   border-bottom-style: solid;
   border-bottom-width: 1px;
   border-bottom-color: lightgray;
-	min-height: 60px;
+	min-height: 40px;
   justify-content: space-around!important;
 }
 .loginbtn

@@ -27,7 +27,6 @@ export class CutterServiceService {
     return this.http.get<ResultBarsModule>( this.API_URL + "/result");
   }
 
-  // TODO Ogarnac JWT !!!
   public sendOrder(orderList:OrderModel)
   {
     console.log("CutterService: POST ORDER ");

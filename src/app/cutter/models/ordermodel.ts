@@ -2,10 +2,13 @@ import { CutOptions } from './cutoptions';
 
 
 export interface OrderModel {
+  id: number;
+  projectName: string;
+  projectModified: Date;
+  projectCreated: Date;
   cutList: CutList[];
   stockList: StockList[];
   cutOptions: CutOptions;
-  usernameOrder: string;
 }
 
 export interface CutList {

@@ -1,11 +1,27 @@
-<div id="addRowsHere">
+<div class="row">
+  <div class="project-name">
+    <div class="col-3"> Projekt: </div>
+    <div class="col-3">o nazwie takiej.</div>
+    <div class="col-3">
+      <button id="opti" class="btn btn-sm btn-outline-secondary btn-block" (click)="loadDialog()" >Wczytaj projekt <i class="fas fa-chevron-right"></i> 
+      </button>
+    </div>
+    <div class="col-3">
+      <button id="opti" class="btn btn-sm btn-outline-secondary btn-block" (click)="saveDialog()" >Zapisz projekt <i class="fas fa-chevron-right"></i> 
+      </button>
+    </div>
+  </div>
+</div>
 
-  <div class="accordion" id="accordionPanelsStayOpenExample">
+<div id="addRowsHere">
+  <div class="accordion" id="cutlista">
     <div class="accordion-item">
       <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-          <div><i class="fas fa-layer-group"></i> Surowiec </div>
+        <button class="accordion-button" name="surowce" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+          <div><i class="fas fa-layer-group"></i> Surowiec </div>          
         </button>
+
+        
       </h2>
       <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
         <div class="accordion-body">
@@ -26,10 +42,10 @@
               <tr>
                 <th> Dlugość materiału </th>
                 <th> Ilość </th>
-                <th  *ngIf="cutterComp.orderModel!.cutOptions.optionPrice"> Koszt / szt </th>
+                <th  *ngIf="cutterComp.activeOrderModel!.cutOptions.optionPrice"> Koszt / szt </th>
               </tr>
 
-              <tr class="stock-table" *ngFor="let stockRow of this.cutterComp.orderModel.stockList; let index = index" >
+              <tr class="stock-table" *ngFor="let stockRow of this.cutterComp.activeOrderModel.stockList; let index = index" >
 
                 <td>
                   <input class="form-control" type="number" min="0" [id]="stockRow.idFront" [name]="index+'stolen'+stockRow.stockLength" [(ngModel)]="stockRow.stockLength" (ngModelChange)="subject.next()" > 
@@ -37,7 +53,7 @@
                 <td>
                   <input class="form-control" type="number" min="0" [name]="index+'stopcs'+stockRow.stockPcs" [(ngModel)]="stockRow.stockPcs" (ngModelChange)="subject.next()" >
                 </td>
-                <td *ngIf="cutterComp.orderModel!.cutOptions.optionPrice">
+                <td *ngIf="cutterComp.activeOrderModel!.cutOptions.optionPrice">
                   <input class="form-control" type="number" min="0" [name]="index+'stoprice'+stockRow.stockPrice" [(ngModel)]="stockRow.stockPrice" (ngModelChange)="subject.next()" >
                 </td>
                 <td>
@@ -79,7 +95,7 @@
               </th>
             </tr>
 
-            <tr id="unit-table" class="unit-table" *ngFor="let row of this.cutterComp.orderModel.cutList; let index=index" >
+            <tr id="unit-table" class="unit-table" *ngFor="let row of this.cutterComp.activeOrderModel.cutList; let index=index" >
               <td>
                 <input class="form-control" type="number" min="0" [name]="index+'cutlen'+ row.cutLength" [(ngModel)]="row.cutLength" (ngModelChange)="subject.next()" >
               </td>
@@ -94,9 +110,9 @@
             </tr>
           </table>
           <div class="btn-calc">
-            <button id="opti" class="btn btn-lg btn-success btn-block" type="submit"><i class="fas fa-play"></i> Oblicz!
+            <button id="opti" class="btn btn-lg btn-outline-success btn-block" type="submit"><i class="fas fa-play"></i> Oblicz!
             </button>
-          </div>
+          </div>          
         </form>
         <!-- CUTSSSSS ------------------------------------------------------->
 

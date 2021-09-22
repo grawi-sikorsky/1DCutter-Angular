@@ -50,10 +50,14 @@ export class LoginserviceService {
     return this.http.post<User>( this.API_URL + "/register", user );
   }
 
+  public updateProfile(user:User)
+  {
+    console.log("UpdateProfile(User): " +  JSON.stringify(user));
+    return this.http.post<boolean>(this.API_URL + "/profile", user );
+  }
   public updateUser(user:User)
   {
     console.log("UpdateUser(User): " +  JSON.stringify(user));
-    return this.http.post<boolean>(this.API_URL + "/profile", user );
+    return this.http.post<boolean>(this.API_URL + "/updateuser", user );
   }
-
 }
