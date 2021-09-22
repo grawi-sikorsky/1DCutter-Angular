@@ -7,6 +7,9 @@ import { LoginserviceService } from '../../../oprawa/services/loginservice.servi
 import { OrderModel, StockList } from '../../models/ordermodel';
 import { CutterServiceService } from '../../services/cutter-service.service';
 import { CutterComponent } from '../cutter/cutter.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
+import { SaveDialogComponent } from '../../../oprawa/components/save-dialog/save-dialog.component';
 
 @Component({
   selector: 'app-cut-form',
@@ -16,8 +19,9 @@ import { CutterComponent } from '../cutter/cutter.component';
 export class CutFormComponent implements OnInit {
 
   subject = new Subject();
+  tempuser:User={};
 
-  constructor(private http: HttpClient, public cutService:CutterServiceService, public cutterComp:CutterComponent, public loginService:LoginserviceService) 
+  constructor(private http: HttpClient, public cutService:CutterServiceService, public cutterComp:CutterComponent, public loginService:LoginserviceService, public dialog:MatDialog) 
   { 
     this.submitDebounced();
   }
@@ -148,10 +152,30 @@ export class CutFormComponent implements OnInit {
   }
   public prevOrder(){
     this.loginService.loggedUser.activeOrderId!--;
-    this.loginService.updateUser(this.loginService.loggedUser).subscribe();
+    this.tempuser.activeOrderId = this.loginService.loggedUser.activeOrderId;
+    this.tempuser.username = this.loginService.loggedUser.username;
+    this.loginService.updateUser(this.tempuser).subscribe( e => {
+      if(e)
+      {
+        this.cutterComp.prepareData();
+      }
+    });
+    
   }
   public nextOrder(){
     this.loginService.loggedUser.activeOrderId!++;
-    this.loginService.updateUser(this.loginService.loggedUser).subscribe();
+    this.tempuser.activeOrderId = this.loginService.loggedUser.activeOrderId;
+    this.tempuser.username = this.loginService.loggedUser.username;
+    this.loginService.updateUser(this.tempuser).subscribe( e => {
+      if(e)
+      {
+        this.cutterComp.prepareData();
+      }
+    });
   }
+
+  public openDialog(): void {
+    const dialogRef = this.dialog.open(SaveDialogComponent);
+  }
+
 }

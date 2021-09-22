@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Zapisz projekt cięcia</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>Zapisz se pan to, bo możesz.</h3>
+  <p>Zrób to i nie stawiaj oporu, zapisuj już.</p>
+  <p>Active order ID: {{userTmp.activeOrderId}}</p>
+  <p>Active order model: {{userTmp.numberOfSavedItems}}</p>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Zapisz</button>
+</mat-dialog-actions>
+
+
+<!-- Copyright 2021 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

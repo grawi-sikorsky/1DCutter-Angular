@@ -8,6 +8,7 @@ import { LoginserviceService } from '../../../oprawa/services/loginservice.servi
 import { User } from 'src/app/oprawa/models/user';
 import { CutterComponent } from '../cutter/cutter.component';
 
+
 @Component({
   selector: 'app-cut-options',
   templateUrl: './cut-options.component.html',
