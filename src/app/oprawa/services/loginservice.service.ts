@@ -55,9 +55,14 @@ export class LoginserviceService {
     console.log("UpdateProfile(User): " +  JSON.stringify(user));
     return this.http.post<boolean>(this.API_URL + "/profile", user );
   }
-  public updateUser(user:User)
+  public loadProject(user:User)
   {
-    console.log("UpdateUser(User): " +  JSON.stringify(user));
-    return this.http.post<boolean>(this.API_URL + "/updateuser", user );
+    console.log("LoadProject(User): " +  JSON.stringify(user));
+    return this.http.post<boolean>(this.API_URL + "/loadproject", user );
+  }
+  public saveProject(user:User)
+  {
+    console.log("SaveProject(User): " +  JSON.stringify(user));
+    return this.http.post<boolean>(this.API_URL + "/saveproject", user );
   }
 }

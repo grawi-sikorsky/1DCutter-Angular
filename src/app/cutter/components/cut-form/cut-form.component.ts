@@ -163,13 +163,13 @@ export class CutFormComponent implements OnInit {
       this.cutterComp.prepareData();
     })
   }
-
   public saveDialog(): void {
-    const dialogRef = this.dialog.open(SaveDialogComponent, {width:"600px", data: this.loginService.loggedUser.savedOrderModels });
+    const dialogRef = this.dialog.open(SaveDialogComponent, {width:"600px",  data: {savedOrders: this.loginService.loggedUser.savedOrderModels, activeOrder: this.cutterComp.activeOrderModel}});
 
     dialogRef.afterClosed().subscribe(data=>{
       console.log("SAVE dialog zamkniety");
-      this.loginService.loggedUser.savedOrderModels = data;
+      
+      //this.loginService.loggedUser.savedOrderModels = data;
 
       this.cutterComp.prepareData();
     })

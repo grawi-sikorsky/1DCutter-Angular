@@ -17,7 +17,10 @@ export class LoadDialogComponent implements OnInit {
   constructor(private loginService:LoginserviceService, private cutterComp:CutterComponent) { }
 
   ngOnInit(): void {
+    console.log("loginservice.loggeduser:");
     console.log(this.loginService.loggedUser);
+    console.log("temp user:");
+    console.log(this.userTmp);
     this.userTmp.savedOrderModels = this.loginService.loggedUser.savedOrderModels;
     this.userTmp.activeOrderId = this.loginService.loggedUser.activeOrderId;
     this.userTmp.numberOfSavedItems = this.loginService.loggedUser.numberOfSavedItems;
@@ -28,7 +31,7 @@ export class LoadDialogComponent implements OnInit {
     this.userTmp.activeOrderId = this.loginService.loggedUser.activeOrderId;
     this.userTmp.username = this.loginService.loggedUser.username;
     
-    this.loginService.updateUser(this.userTmp).subscribe( e => {
+    this.loginService.loadProject(this.userTmp).subscribe( e => {
       if(e)
       {
         //this.cutterComp.prepareData();
