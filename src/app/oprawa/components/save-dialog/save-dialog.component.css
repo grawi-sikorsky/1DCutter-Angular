@@ -11,3 +11,10 @@
 	height: 24px;
     font-size: 12px;
 }
+.active-td{
+	font-weight: 600;
+	background-color: gainsboro;
+}
+.active-td input{
+	font-weight: 600;
+}
