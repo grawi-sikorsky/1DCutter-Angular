@@ -72,3 +72,8 @@ form#secform td{
 	margin: 16px;
 	background: #f7fbff;
 }
+.barcount{
+	text-align: right;
+	padding-left: 2px;
+    font-size: 11px;
+}

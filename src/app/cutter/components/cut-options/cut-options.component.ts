@@ -35,12 +35,9 @@ export class CutOptionsComponent implements OnInit {
   {
     this.subject.next();
     
-    console.log("loginService.cutOptions: " + JSON.stringify(this.cutterComp.activeOrderModel!.cutOptions));
-
     if(!this.loginService.isLogged())
     {
-      localStorage.setItem('localOptions',JSON.stringify(this.cutterComp.activeOrderModel.cutOptions));
-      console.log(this.cutterComp.activeOrderModel.cutOptions);
+      localStorage.setItem('offlineUserOrder',JSON.stringify(this.cutterComp.activeOrderModel));
     }
     else
     {

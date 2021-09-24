@@ -16,3 +16,7 @@
     line-height: 2;
     padding: 2px;
 }
+.active-td{
+	font-weight: 600;
+	background-color: gainsboro;
+}

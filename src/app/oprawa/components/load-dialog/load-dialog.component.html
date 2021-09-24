@@ -25,15 +25,15 @@
       <tbody>
         <tr *ngFor="let ordr of userTmp.savedOrderModels; let index = index" >
           <ng-container *ngIf="userTmp.activeOrderId === index">
-            <td style="background-color: gainsboro; border-radius: 10px 0px 0px 10px; ">{{ordr.id}}</td>
-            <td style="background-color: gainsboro;"><input [(ngModel)]="ordr.projectName"></td>
-            <td style="background-color: gainsboro;">{{ordr.projectCreated | date:'dd.MM.YYYY HH:mm:ss'}}</td>
-            <td style="background-color: gainsboro;">{{ordr.projectModified | date:'dd.MM.YYYY HH:mm:ss'}}</td>
-            <td style="background-color: gainsboro; border-radius: 0px 10px 10px 0px;"><button mat-button mat-dialog-close class="btn btn-secondary btn-sm button-loadsave" (click)="loadUserOrder(index)">Wczytaj</button></td>
+            <td class="active-td" style="border-radius: 10px 0px 0px 10px; ">{{ordr.id}}</td>
+            <td class="active-td">{{ordr.projectName}}</td>
+            <td class="active-td">{{ordr.projectCreated | date:'dd.MM.YYYY HH:mm:ss'}}</td>
+            <td class="active-td">{{ordr.projectModified | date:'dd.MM.YYYY HH:mm:ss'}}</td>
+            <td class="active-td" style="border-radius: 10px 0px 0px 10px; "><button mat-button mat-dialog-close class="btn btn-secondary btn-sm button-loadsave" (click)="loadUserOrder(index)">Wczytaj</button></td>
           </ng-container>
           <ng-container *ngIf="userTmp.activeOrderId !== index">
             <td>{{ordr.id}}</td>
-            <td><input [(ngModel)]="ordr.projectName"></td>
+            <td>{{ordr.projectName}}</td>
             <td>{{ordr.projectCreated | date:'dd.MM.YYYY HH:mm:ss'}}</td>
             <td>{{ordr.projectModified | date:'dd.MM.YYYY HH:mm:ss'}}</td>
             <td><button mat-button mat-dialog-close class="btn btn-secondary btn-sm button-loadsave" (click)="loadUserOrder(index)">Wczytaj</button></td>

@@ -31,10 +31,10 @@ export class CutterServiceService {
   {
     if(this.loginService.isLogged())
     {
-      return this.http.post<any>( this.API_URL + "/cut", orderList);
+      return this.http.post<ResultBarsModule>( this.API_URL + "/cut", orderList);
     }
     else 
-      return this.http.post<any>( this.API_URL + "/cutfree", orderList);
+      return this.http.post<ResultBarsModule>( this.API_URL + "/cutfree", orderList);
   }
 
   public setOrder(orderList:OrderModel)

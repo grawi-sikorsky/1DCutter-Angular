@@ -19,10 +19,9 @@ export class CutterComponent implements OnInit {
   constructor(public cutService:CutterServiceService, public loginService:LoginserviceService, private getudata:GetuserdataComponent ) {
     this.activeOrderModel.cutList=[{cutLength:225,cutPcs:5}];
     this.activeOrderModel.stockList=[{idFront:0, stockLength:1000, stockPcs:10, stockPrice:0}];
-    this.activeOrderModel.cutOptions={  id:0,
-                                  optionStackResult:false,
-                                  optionSzrank:0,
-                                  optionPrice:false }
+    this.activeOrderModel.cutOptions={ id:0, optionStackResult:false, optionSzrank:0, optionPrice:false }
+    this.activeOrderModel.projectName="Default";
+    this.activeOrderModel.projectCreated = new Date();
   }
 
   results$    : Observable<ResultBarsModule>;
@@ -34,9 +33,7 @@ export class CutterComponent implements OnInit {
   
   ngOnInit(): void 
   {
-    //this.results={};
     this.prepareData();
-    //this.getResults();
 
     this.results = JSON.parse(localStorage.getItem('results')!);
     if(this.results != null)
@@ -163,23 +160,17 @@ export class CutterComponent implements OnInit {
     else
     {
       // jesli niezalogowany pobieramy z localstorage
-      let localOptions  = JSON.parse( localStorage.getItem('localOptions') ! );
-      let localCuts     = JSON.parse( localStorage.getItem('localCuts') ! );
-      let localStock    = JSON.parse( localStorage.getItem('localStock') ! );
+      let localOfflineUser  = JSON.parse( localStorage.getItem('offlineUserOrder') ! );
 
-      if(localCuts != null && localStock != null && localOptions != null)
+      if(localOfflineUser != null)
       {
-        console.log("options not null");
-        this.activeOrderModel.cutOptions    = localOptions;
-        this.activeOrderModel.cutList       = localCuts;
-        this.activeOrderModel.stockList     = localStock;
+        console.log("LocalOfflineUser exists:");
+        this.activeOrderModel   = localOfflineUser;
       }
       else // default
       {
-        console.log("local options null");
-        localStorage.setItem('localCuts',JSON.stringify(this.activeOrderModel.cutList));
-        localStorage.setItem('localStock',JSON.stringify(this.activeOrderModel.stockList));
-        localStorage.setItem('localOptions',JSON.stringify(this.activeOrderModel.cutOptions));
+        console.log("LocalOfflineUser null:");
+        localStorage.setItem('offlineUserOrder', JSON.stringify(this.activeOrderModel));
       }
       
       this.loginService.loggedUser.activeOrderModel  = this.activeOrderModel;
