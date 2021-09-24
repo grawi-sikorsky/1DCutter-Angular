@@ -20,7 +20,7 @@ export class JwtService {
     return this.http.post<{jwtToken:  string}>( this.API_URL + '/auth/login', {username, password})
     .pipe(tap(res => {
       if(res.jwtToken !== null)
-        localStorage.setItem('jwtToken', res.jwtToken);       
+        localStorage.setItem('jwtToken', res.jwtToken);
     }))
   }
 

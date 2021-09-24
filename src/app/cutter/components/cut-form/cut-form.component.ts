@@ -45,8 +45,10 @@ export class CutFormComponent implements OnInit {
     let resp = this.cutService.sendOrder(this.cutterComp.activeOrderModel);
 
     resp.subscribe(returnData => {
-        this.cutterComp.getResults();
-        this.cutterComp.activeOrderModel = returnData;
+
+        this.cutterComp.results = returnData;
+        this.cutterComp.stackResults();
+        localStorage.setItem('results', JSON.stringify(returnData));
 
         console.log("Order Sended ok.. return data: ");
         console.log(returnData);
@@ -73,7 +75,7 @@ export class CutFormComponent implements OnInit {
         this.cutService.setOrder(this.cutterComp.activeOrderModel)
         .subscribe(
           data => {
-            console.log("return data from send ordermodel:")
+            console.log("return data from set ordermodel:")
             console.log(data);
           }
         );
