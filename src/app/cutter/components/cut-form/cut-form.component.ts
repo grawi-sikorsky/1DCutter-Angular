@@ -29,7 +29,6 @@ export class CutFormComponent implements OnInit {
 
   ngOnInit(): void 
   {
-    //this.loginService.$userStream.subscribe( data => { this.activeOrderModelC = data.activeOrderModel!; } );
   }
 
   /** 
@@ -55,9 +54,7 @@ export class CutFormComponent implements OnInit {
 
     if(!this.loginService.isLogged())
     {
-      localStorage.setItem('localCuts',JSON.stringify(this.cutterComp.activeOrderModel.cutList));
-      localStorage.setItem('localStock',JSON.stringify(this.cutterComp.activeOrderModel.stockList));
-      localStorage.setItem('localOptions', JSON.stringify(this.cutterComp.activeOrderModel.cutOptions));
+      localStorage.setItem('offlineUserOrder', JSON.stringify(this.cutterComp.activeOrderModel));
     }
     else
     {
@@ -70,7 +67,7 @@ export class CutFormComponent implements OnInit {
 
   public submitDebounced()
   {
-    this.subject.pipe( debounceTime(2000) )
+    this.subject.pipe( debounceTime(3000) )
     .subscribe(
       () => {
         this.cutService.setOrder(this.cutterComp.activeOrderModel)
@@ -84,11 +81,6 @@ export class CutFormComponent implements OnInit {
     );
   }
 
-  public test()
-  {
-    console.log("test");
-    this.subject.next();
-  }
 
   public removeRowStock(index:any)
   {

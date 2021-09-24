@@ -1,12 +1,17 @@
 <div class="row">
   <div class="project-name">
-    <div class="col-6"> Project:  <b><button class="btn btn-sm btn-outline-secondary btn-block" (click)="loadDialog()" >{{ this.cutterComp.activeOrderModel.projectName}} </button></b> </div>
+    <div class="col-6"> Project:  <b><button class="btn btn-sm btn-outline-secondary btn-block" (click)="loadDialog()" disabled >{{ this.cutterComp.activeOrderModel.projectName}} </button></b> </div>
     <div class="col-3">
-      <button id="opti" class="btn btn-sm btn-outline-secondary btn-block" (click)="loadDialog()" >Wczytaj projekt <i class="fas fa-chevron-right"></i> 
+      <button *ngIf="!this.loginService.isLogged()" class="btn btn-sm btn-outline-secondary btn-block" (click)="loadDialog()" disabled
+      ngbPopover="Zaloguj się aby edytowac projekty" [openDelay]="400" [closeDelay]="400" triggers="mouseenter:mouseleave"> Wczytaj projekt <i class="fas fa-chevron-right"></i> 
+      </button>
+      <button *ngIf="this.loginService.isLogged()" class="btn btn-sm btn-outline-secondary btn-block" (click)="loadDialog()" >Wczytaj projekt <i class="fas fa-chevron-right"></i> 
       </button>
     </div>
     <div class="col-3">
-      <button id="opti" class="btn btn-sm btn-outline-secondary btn-block" (click)="saveDialog()" >Zapisz projekt <i class="fas fa-chevron-right"></i> 
+      <button *ngIf="!this.loginService.isLogged()" class="btn btn-sm btn-outline-secondary btn-block" (click)="saveDialog()" disabled >Zapisz projekt <i class="fas fa-chevron-right"></i> 
+      </button>
+      <button *ngIf="this.loginService.isLogged()" class="btn btn-sm btn-outline-secondary btn-block" (click)="saveDialog()" >Zapisz projekt <i class="fas fa-chevron-right"></i> 
       </button>
     </div>
   </div>
@@ -34,7 +39,7 @@
           <button *ngIf="this.canAddStock()" type="button" id="add-stock-btn" class="btn btn-sm btn-primary" (click)="addRowStock()" (mouseenter)="canAddStock()"
           ngbPopover="Dodaj surowiec." [openDelay]="400" [closeDelay]="400" triggers="mouseenter:mouseleave"><i class="fas fa-plus"></i> Dodaj</button>
 
-          <form id="stockform" control="" class="form-group" (ngSubmit)="submitOrder()" (ngModelChange)="test()" >
+          <form id="stockform" control="" class="form-group" (ngSubmit)="submitOrder()" >
 
 
             <table id="stockTable" class="table table-striped table-hover">

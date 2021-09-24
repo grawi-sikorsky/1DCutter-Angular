@@ -77,7 +77,7 @@
         <!-- NORMAL RESULT -->
         <div class="container-fluid" *ngIf="!this.activeOrderModel!.cutOptions.optionStackResult" >
           <div class="row" *ngFor="let bar of (asyncResult.resultBars)">
-            <div class="col-sm-1" style="text-align: right;"> 
+            <div class="col-sm-1 barcount"> 
               ( {{bar.onStockLength}} ) 
             </div>
             <div class="col-sm-11 progress probar">
@@ -92,7 +92,7 @@
         <!-- STACK RESULT -->
         <div class="container-fluid" *ngIf="this.activeOrderModel!.cutOptions.optionStackResult">
           <div class="row" *ngFor="let bar of (stackedBars.resultBars)">
-            <div class="col-sm-1" style="text-align: right;"> 
+            <div class="col-sm-1 barcount">
               <strong>{{bar.stackCount}} <i class="fas fa-times fa-sm"></i> </strong>  ( {{bar.onStockLength}} ) 
             </div>
             <div class="col-sm-11 progress probar">
