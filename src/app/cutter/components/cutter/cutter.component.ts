@@ -19,7 +19,7 @@ export class CutterComponent implements OnInit {
   constructor(public cutService:CutterServiceService, public loginService:LoginserviceService, private getudata:GetuserdataComponent ) {
     this.activeOrderModel.cutList=[{cutLength:225,cutPcs:5}];
     this.activeOrderModel.stockList=[{idFront:0, stockLength:1000, stockPcs:10, stockPrice:0}];
-    this.activeOrderModel.cutOptions={ id:0, optionStackResult:false, optionSzrank:0, optionPrice:false }
+    this.activeOrderModel.cutOptions={ id:0, optionStackResult:false, optionSzrank:0, optionPrice:false, optionAlgo:false }
     this.activeOrderModel.projectName="Default";
     this.activeOrderModel.projectCreated = new Date();
   }

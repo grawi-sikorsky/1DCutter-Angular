@@ -3,4 +3,5 @@ export interface CutOptions {
   optionStackResult:boolean;
   optionSzrank:number;
   optionPrice:boolean;
+  optionAlgo:boolean;
 }

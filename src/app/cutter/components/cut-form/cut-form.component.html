@@ -114,6 +114,9 @@
             </tr>
           </table>
           <div class="btn-calc">
+            <div *ngIf="isLoadingResults()" class="spinner-border text-success spinner-loading" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
             <button id="opti" class="btn btn-lg btn-outline-success btn-block" type="submit"><i class="fas fa-play"></i> Oblicz!
             </button>
           </div>          

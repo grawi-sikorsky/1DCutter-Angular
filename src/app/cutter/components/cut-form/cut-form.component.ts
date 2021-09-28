@@ -21,6 +21,7 @@ export class CutFormComponent implements OnInit {
 
   subject = new Subject();
   tempuser:User={};
+  isWorking:boolean=false;
 
   constructor(private http: HttpClient, public cutService:CutterServiceService, public cutterComp:CutterComponent, public loginService:LoginserviceService, public dialog:MatDialog) 
   { 
@@ -42,6 +43,7 @@ export class CutFormComponent implements OnInit {
     console.log("Submitting order...");
     console.log(this.cutterComp.activeOrderModel);
 
+    this.isWorking = true;
     let resp = this.cutService.sendOrder(this.cutterComp.activeOrderModel);
 
     resp.subscribe(returnData => {
@@ -49,6 +51,8 @@ export class CutFormComponent implements OnInit {
         this.cutterComp.results = returnData;
         this.cutterComp.stackResults();
         localStorage.setItem('results', JSON.stringify(returnData));
+
+        this.isWorking = false;
 
         console.log("Order Sended ok.. return data: ");
         console.log(returnData);
@@ -168,6 +172,12 @@ export class CutFormComponent implements OnInit {
       this.cutterComp.prepareData();
     })
 
+  }
+  public isLoadingResults(){
+    if( this.isWorking ){
+      return true;
+    }
+    else return false;
   }
 
 }
