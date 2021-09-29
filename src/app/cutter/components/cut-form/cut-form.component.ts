@@ -49,7 +49,8 @@ export class CutFormComponent implements OnInit {
     resp.subscribe(returnData => {
 
         this.cutterComp.results = returnData;
-        this.cutterComp.stackResults();
+        //this.cutterComp.stackResults();
+        this.cutterComp.unStackResults();
         localStorage.setItem('results', JSON.stringify(returnData));
 
         this.isWorking = false;

@@ -18,8 +18,8 @@ export class ResultBarsModule {
 
 export interface ResultBar {
   resultBarPieces?: ResultBarPiece[];
-  stackCount:number;  // nie zwracana z API, obliczana tutaj
-  onStockLength:number; // nie zwracana z API!
+  stackCount:number;
+  onStockLength:number;
 }
 
 export class ResultBarPiece { 

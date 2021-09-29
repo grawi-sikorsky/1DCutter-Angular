@@ -4,4 +4,6 @@ export interface CutOptions {
   optionSzrank:number;
   optionPrice:boolean;
   optionAlgo:boolean;
+  optionIterations:number;
+  optionVariantsQ:boolean;
 }
