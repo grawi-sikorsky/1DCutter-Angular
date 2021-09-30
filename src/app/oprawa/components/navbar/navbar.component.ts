@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { User } from 'src/app/oprawa/models/user';
 import { LoginserviceService } from '../../services/loginservice.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
+
 
 @Component({
   selector: 'app-navbar',
