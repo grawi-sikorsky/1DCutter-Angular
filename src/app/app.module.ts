@@ -24,6 +24,7 @@ import { SaveDialogComponent } from './oprawa/components/save-dialog/save-dialog
 import { MatDialogModule } from '@angular/material/dialog';
 import { MaterialModule } from './material/material.module';
 import { LoadDialogComponent } from './oprawa/components/load-dialog/load-dialog.component';
+import { ProjectNameComponent } from './oprawa/components/project-name/project-name.component';
 
 
 export function tokenGetter() {
@@ -46,6 +47,7 @@ export function tokenGetter() {
     CalcCuttonComponent,
     SaveDialogComponent,
     LoadDialogComponent,
+    ProjectNameComponent,
   ],
   imports: [
     BrowserModule,

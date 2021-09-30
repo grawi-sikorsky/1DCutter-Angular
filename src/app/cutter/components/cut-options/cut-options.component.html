@@ -22,7 +22,7 @@
   </div>
   <div class="" *ngIf="this.cutterComp.activeOrderModel.cutOptions.optionAlgo" >
     <label for="customRange3" class="form-label" style="float: right;"> iterations: {{this.cutterComp.activeOrderModel.cutOptions.optionIterations}}</label>
-    <input type="range" class="form-range" min="0" max="20000" step="500" id="customRange3" name="optionIterations"
+    <input type="range" class="form-range" min="0" max="10000" step="200" id="customRange3" name="optionIterations"
             [(ngModel)]="this.cutterComp.activeOrderModel.cutOptions.optionIterations" (ngModelChange)="onSubmitOptions()">
   </div>
   <div class="form-check form-switch">

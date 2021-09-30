@@ -8,6 +8,7 @@ import { UserloginComponent } from './oprawa/components/userlogin/userlogin.comp
 import { UserregisterComponent } from './oprawa/components/userregister/userregister.component';
 
 const routes: Routes = [
+  { path: '', component: CutterComponent },
   { path: 'home', component: UserListComponent },
   { path: 'login', component: UserloginComponent },
   { path: 'register', component: UserregisterComponent },
