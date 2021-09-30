@@ -52,7 +52,6 @@ export class LoginserviceService {
 
   public updateProfile(user:User)
   {
-    console.log("UpdateProfile(User): " +  JSON.stringify(user));
     return this.http.post<boolean>(this.API_URL + "/profile", user );
   }
   public loadProject(user:User)

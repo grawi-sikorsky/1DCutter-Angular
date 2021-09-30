@@ -38,7 +38,6 @@ export class UserProfileComponent implements OnInit {
       if(returnData === true)
       {
         console.log("User updated.." + returnData);
-        localStorage.setItem('currentUser',JSON.stringify(this.currentUser));
       }
       else
       {

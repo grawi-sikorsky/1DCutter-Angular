@@ -27,14 +27,14 @@
               <td class="active-td"><input [(ngModel)]="ordr.projectName"></td>
               <td class="active-td">{{ordr.projectCreated | date:'dd.MM.YYYY HH:mm:ss'}}</td>
               <td class="active-td">{{ordr.projectModified | date:'dd.MM.YYYY HH:mm:ss'}}</td>
-              <td class="active-td" style="border-radius: 0px 10px 10px 0px;"><button mat-button mat-dialog-close class="btn btn-secondary btn-sm button-loadsave" (click)="saveUserOrder(index)">Zapisz</button></td>
+              <td class="active-td" style="border-radius: 0px 10px 10px 0px;"><button mat-button mat-dialog-close class="btn btn-danger btn-sm button-loadsave" (click)="saveUserOrder(index)">Zapisz</button></td>
             </ng-container>
             <ng-container *ngIf="userTmp.activeOrderId !== index">
               <td>{{ordr.id}}</td>
               <td><input [(ngModel)]="ordr.projectName"></td>
               <td>{{ordr.projectCreated | date:'dd.MM.YYYY HH:mm:ss'}}</td>
               <td>{{ordr.projectModified | date:'dd.MM.YYYY HH:mm:ss'}}</td>
-              <td><button mat-button mat-dialog-close class="btn btn-secondary btn-sm button-loadsave" (click)="saveUserOrder(index)">Zapisz</button></td>
+              <td><button mat-button mat-dialog-close class="btn btn-danger btn-sm button-loadsave" (click)="saveUserOrder(index)">Zapisz</button></td>
             </ng-container>
           </tr>
           <tr>

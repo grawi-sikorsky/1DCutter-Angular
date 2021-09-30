@@ -35,13 +35,12 @@ export class NavbarComponent implements OnInit {
     localStorage.clear();
   }
 
-  public loadDialog(): void {
-    const dialogRef = this.dialog.open(UserProfileComponent, {width:"700px", data: this.loginService.loggedUser.activeOrderId});
+  public userProfileDialog(): void {
+    const dialogRef = this.dialog.open(UserProfileComponent, {width:"750px", data: this.loginService.loggedUser.activeOrderId});
 
     dialogRef.afterClosed().subscribe(data=>{
-      console.log("LOAD dialog zamkniety");
-      this.loginService.loggedUser.activeOrderId = data;
-
+      console.log("UserProfile Dialog zamkniety");
+      //this.loginService.loggedUser.activeOrderId = data;
       //this.cutterComp.prepareData();
     })
   }
