@@ -52,16 +52,16 @@ export class LoginserviceService {
 
   public updateProfile(user:User)
   {
-    return this.http.post<boolean>(this.API_URL + "/profile", user );
+    return this.http.post<boolean>(this.API_URL + "/user", user );
   }
   public loadProject(user:User)
   {
     console.log("LoadProject(User): " +  JSON.stringify(user));
-    return this.http.post<boolean>(this.API_URL + "/loadproject", user );
+    return this.http.post<boolean>(this.API_URL + "/user/order/loadproject", user );
   }
   public saveProject(user:User)
   {
     console.log("SaveProject(User): " +  JSON.stringify(user));
-    return this.http.post<boolean>(this.API_URL + "/saveproject", user );
+    return this.http.post<boolean>(this.API_URL + "/user/order/saveproject", user );
   }
 }

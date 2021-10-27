@@ -1,8 +1,8 @@
-import { CutList, StockList, OrderModel } from '../../cutter/models/ordermodel';
-import { CutOptions } from '../../cutter/models/cutoptions';
+import { OrderModel } from '../../cutter/models/ordermodel';
 export class User {
 
   id?: string;
+  uuid?: string;
   username?: string;
   password?: string;
   role?: string;
