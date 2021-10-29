@@ -26,15 +26,15 @@ export class LoadDialogComponent implements OnInit {
     this.userTmp.numberOfSavedItems = this.loginService.loggedUser.numberOfSavedItems;
   }
 
-  loadUserOrder(index:any) {
+  loadUserOrder(index:any, projectId:any) {
     this.loginService.loggedUser.activeOrderId! = index;
     this.userTmp.activeOrderId = this.loginService.loggedUser.activeOrderId;
     this.userTmp.username = this.loginService.loggedUser.username;
     
-    this.loginService.loadProject(this.userTmp).subscribe( e => {
-      if(e)
+    this.loginService.loadProject(this.userTmp, projectId).subscribe( data => {
+      if(data)
       {
-        //this.cutterComp.prepareData();
+        this.cutterComp.activeOrderModel = data;
       }
     });
   }

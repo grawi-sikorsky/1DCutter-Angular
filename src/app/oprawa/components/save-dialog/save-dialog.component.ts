@@ -44,6 +44,24 @@ export class SaveDialogComponent implements OnInit {
     });
   }
 
+  addUserProject(index:any){
+    this.userTmp.activeOrderModel!.projectName = this.userTmp.savedOrderModels![index].projectName;
+    
+    this.userTmp.activeOrderId = index;
+    this.userTmp.username = this.loginService.loggedUser.username;
+    this.userTmp.activeOrderModel = this.data.activeOrder;
+
+    console.warn(this.userTmp);
+
+    this.loginService.addProject(this.userTmp).subscribe( e => {
+      if(e)
+      {
+        console.log("ADD USER ORDER!!!!:");
+        //this.cutterComp.prepareData();
+      }
+    });
+  }
+
 
   addNewUserOrder(index:any){
 

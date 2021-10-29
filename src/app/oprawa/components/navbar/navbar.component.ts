@@ -37,7 +37,7 @@ export class NavbarComponent implements OnInit {
   }
 
   public userProfileDialog(): void {
-    const dialogRef = this.dialog.open(UserProfileComponent, {width:"750px", data: this.loginService.loggedUser.activeOrderId});
+    const dialogRef = this.dialog.open(UserProfileComponent, {width:"850px", data: this.loginService.loggedUser.activeOrderId});
 
     dialogRef.afterClosed().subscribe(data=>{
       console.log("UserProfile Dialog zamkniety");
