@@ -74,10 +74,10 @@ export class CutFormComponent implements OnInit {
     this.subject.pipe( debounceTime(3000) )
     .subscribe(
       () => {
-        this.cutService.setOrder(this.cutterComp.activeOrderModel)
+        this.loginService.modifyProject(this.cutterComp.activeOrderModel, this.cutterComp.activeOrderModel.id)
         .subscribe(
           data => {
-            console.log("return data from set ordermodel:")
+            console.log("Data returned from modifyProject:");
             console.log(data);
           }
         );

@@ -60,10 +60,10 @@ export class LoginserviceService {
     console.log("LoadProject(User): " +  JSON.stringify(user));
     return this.http.get<OrderModel>(this.API_URL + "/user/orders/"+projectId );
   }
-  public saveProject(user:User)
+  public modifyProject(project:OrderModel, projectId:any)
   {
-    console.log("EDITProject(User): " +  JSON.stringify(user));
-    return this.http.patch<boolean>(this.API_URL + "/user/orders/" + user.activeOrderId, user );
+    console.log("EDITProject(ProjectModel): " +  JSON.stringify(project));
+    return this.http.patch<OrderModel>(this.API_URL + "/user/orders/" + projectId, project );
   }
   public addProject(user:User)
   {

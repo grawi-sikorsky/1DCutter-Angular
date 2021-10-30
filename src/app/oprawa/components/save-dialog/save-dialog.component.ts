@@ -35,10 +35,10 @@ export class SaveDialogComponent implements OnInit {
 
     console.warn(this.userTmp);
 
-    this.loginService.saveProject(this.userTmp).subscribe( e => {
+    this.loginService.modifyProject(this.userTmp.activeOrderModel!, this.userTmp.activeOrderModel?.id).subscribe( e => {
       if(e)
       {
-        console.log("SAVE USER ORDER!!!!:");
+        console.log("Modify USER ORDER!!!!:");
         //this.cutterComp.prepareData();
       }
     });
