@@ -1,4 +1,4 @@
-import { OrderModel } from '../../cutter/models/ordermodel';
+import { ProjectModel } from '../../cutter/models/projectmodel';
 export class User {
 
   id?: string;
@@ -10,12 +10,9 @@ export class User {
   phone?: string;
   website?: string;
   enabled?: string;
-  //accountNonExpired?: boolean;
-  //credentialsNonExpired?: boolean;
-  //authorities?: string[];
-  //accountNonLocked?: boolean;
-  activeOrderModel?:OrderModel;
-  savedOrderModels?:OrderModel[];
+
+  activeProjectModel?:ProjectModel;
+  savedProjectModels?:ProjectModel[];
   numberOfSavedItems?:number;
-  activeOrderId?:number;
+  activeProjectId?:number;
 }

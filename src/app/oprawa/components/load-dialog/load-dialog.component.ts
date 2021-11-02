@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderModel } from '../../../cutter/models/ordermodel';
+import { CutterComponent } from '../../../cutter/components/cutter/cutter.component';
+import { ProjectModel } from '../../../cutter/models/projectmodel';
 import { User } from '../../models/user';
 import { LoginserviceService } from '../../services/loginservice.service';
-import { CutterComponent } from '../../../cutter/components/cutter/cutter.component';
 
 @Component({
   selector: 'app-load-dialog',
@@ -12,7 +12,7 @@ import { CutterComponent } from '../../../cutter/components/cutter/cutter.compon
 export class LoadDialogComponent implements OnInit {
 
   userTmp:User={};
-  tempMdls?:OrderModel[];
+  tempMdls?:ProjectModel[];
 
   constructor(private loginService:LoginserviceService, private cutterComp:CutterComponent) { }
 
@@ -21,23 +21,23 @@ export class LoadDialogComponent implements OnInit {
     console.log(this.loginService.loggedUser);
     console.log("temp user:");
     console.log(this.userTmp);
-    this.userTmp.savedOrderModels = this.loginService.loggedUser.savedOrderModels;
-    this.userTmp.activeOrderId = this.loginService.loggedUser.activeOrderId;
+    this.userTmp.savedProjectModels = this.loginService.loggedUser.savedProjectModels;
+    this.userTmp.activeProjectId = this.loginService.loggedUser.activeProjectId;
     this.userTmp.numberOfSavedItems = this.loginService.loggedUser.numberOfSavedItems;
   }
 
   loadUserOrder(index:any, projectId:any) {
-    this.loginService.loggedUser.activeOrderId! = index;
-    this.userTmp.activeOrderId = this.loginService.loggedUser.activeOrderId;
+    this.loginService.loggedUser.activeProjectId! = index;
+    this.userTmp.activeProjectId = this.loginService.loggedUser.activeProjectId;
     this.userTmp.username = this.loginService.loggedUser.username;
     
-    this.loginService.loadProject(this.userTmp, this.userTmp.savedOrderModels![projectId].id)
+    this.loginService.loadProject(this.userTmp, this.userTmp.savedProjectModels![projectId].id)
     .subscribe( data => {
       if(data)
       {
         console.warn(this.userTmp);
         console.warn(data);
-        this.cutterComp.activeOrderModel = data;
+        this.cutterComp.activeProjectModel = data;
       }
     });
   }

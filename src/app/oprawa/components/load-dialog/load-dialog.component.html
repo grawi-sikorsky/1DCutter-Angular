@@ -4,13 +4,13 @@
 <mat-dialog-content class="mat-typography">
   <div class="row">
     <div class="col-6">
-      <p>Aktualny projekt: <b> {{userTmp.savedOrderModels![userTmp.activeOrderId!].projectName}}</b></p>
+      <p>Aktualny projekt: <b> {{userTmp.savedProjectModels![userTmp.activeProjectId!].projectName}}</b></p>
     </div>
     <div class="col-6">
       <p>Zapisanych projektów: <b>{{userTmp.numberOfSavedItems}} / 5 </b></p>
     </div>
   </div>
-  <p>debug: Active order ID: {{userTmp.activeOrderId}}</p>
+  <p>debug: Active order ID: {{userTmp.activeProjectId}}</p>
   
 
   <mat-divider></mat-divider>
@@ -23,15 +23,15 @@
         <th></th>
       </thead>
       <tbody>
-        <tr *ngFor="let ordr of userTmp.savedOrderModels; let index = index" >
-          <ng-container *ngIf="userTmp.activeOrderId === index">
+        <tr *ngFor="let ordr of userTmp.savedProjectModels; let index = index" >
+          <ng-container *ngIf="userTmp.activeProjectId === index">
             <td class="active-td" style="border-radius: 10px 0px 0px 10px; ">{{ordr.id}}</td>
             <td class="active-td">{{ordr.projectName}}</td>
             <td class="active-td">{{ordr.projectCreated | date:'dd.MM.YYYY HH:mm:ss'}}</td>
             <td class="active-td">{{ordr.projectModified | date:'dd.MM.YYYY HH:mm:ss'}}</td>
             <td class="active-td" style="border-radius: 10px 0px 0px 10px; "><button mat-button mat-dialog-close class="btn btn-secondary btn-sm button-loadsave" (click)="loadUserOrder(index, ordr.id)">Wczytaj</button></td>
           </ng-container>
-          <ng-container *ngIf="userTmp.activeOrderId !== index">
+          <ng-container *ngIf="userTmp.activeProjectId !== index">
             <td>{{ordr.id}}</td>
             <td>{{ordr.projectName}}</td>
             <td>{{ordr.projectCreated | date:'dd.MM.YYYY HH:mm:ss'}}</td>

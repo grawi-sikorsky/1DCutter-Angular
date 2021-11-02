@@ -38,10 +38,10 @@ export class CutFormComponent implements OnInit {
   public submitOrder()
   {
     console.log("Submitting order...");
-    console.log(this.cutterComp.activeOrderModel);
+    console.log(this.cutterComp.activeProjectModel);
 
     this.isWorking = true;
-    let resp = this.cutService.sendOrder(this.cutterComp.activeOrderModel);
+    let resp = this.cutService.sendOrder(this.cutterComp.activeProjectModel);
 
     resp.subscribe(returnData => {
 
@@ -58,13 +58,13 @@ export class CutFormComponent implements OnInit {
 
     if(!this.loginService.isLogged())
     {
-      localStorage.setItem('offlineUserOrder', JSON.stringify(this.cutterComp.activeOrderModel));
+      localStorage.setItem('offlineUserOrder', JSON.stringify(this.cutterComp.activeProjectModel));
     }
     else
     {
       /* Gdy bedzie zalogowany? */
       //Zapisujem do local current user
-      this.loginService.loggedUser.activeOrderModel = this.cutterComp.activeOrderModel;
+      this.loginService.loggedUser.activeProjectModel = this.cutterComp.activeProjectModel;
       localStorage.setItem('currentUser', JSON.stringify(this.loginService.loggedUser));
     }
   }
@@ -74,7 +74,7 @@ export class CutFormComponent implements OnInit {
     this.subject.pipe( debounceTime(3000) )
     .subscribe(
       () => {
-        this.loginService.modifyProject(this.cutterComp.activeOrderModel, this.cutterComp.activeOrderModel.id)
+        this.loginService.modifyProject(this.cutterComp.activeProjectModel, this.cutterComp.activeProjectModel.id)
         .subscribe(
           data => {
             console.log("Data returned from modifyProject:");
@@ -89,30 +89,30 @@ export class CutFormComponent implements OnInit {
   public removeRowStock(index:any)
   {
     // usuwamy reszte tablicy od indexu
-    let resztki = this.cutterComp.activeOrderModel.stockList.splice(index);
+    let resztki = this.cutterComp.activeProjectModel.stockList.splice(index);
 
     // splice zwraca tablice usunietych elementow, wiec kazdy element poza pierwszym (usuwanym) pakujemy z powrotem do tablicy
     resztki.shift(); // usuwa 1 element z tablicy resztek
     resztki.forEach(element => {
       element.idFront = element.idFront!-1;
-      this.cutterComp.activeOrderModel.stockList.splice(index, 0, element)
+      this.cutterComp.activeProjectModel.stockList.splice(index, 0, element)
       index++;
     });
 
     this.subject.next();
-    console.log( this.cutterComp.activeOrderModel.stockList );
+    console.log( this.cutterComp.activeProjectModel.stockList );
   }
   public removeRowCuts(index:any)
   {
-    this.cutterComp.activeOrderModel.cutList.splice(index,1);
+    this.cutterComp.activeProjectModel.cutList.splice(index,1);
     this.subject.next();
   }
   public addRowStock()
   {
     if(this.canAddStock())
     {
-      let index = this.cutterComp.activeOrderModel.stockList.length+1;
-      this.cutterComp.activeOrderModel.stockList.push({idFront:index, stockLength:1000, stockPcs:10, stockPrice:0});
+      let index = this.cutterComp.activeProjectModel.stockList.length+1;
+      this.cutterComp.activeProjectModel.stockList.push({idFront:index, stockLength:1000, stockPcs:10, stockPrice:0});
     }
     else
     {
@@ -122,9 +122,9 @@ export class CutFormComponent implements OnInit {
   }
   public addRowCuts()
   {
-    if(this.canAddCut()) //this.loginService.isLogged() || this.cutterComp.activeOrderModel.cutList.length < 4)
+    if(this.canAddCut()) //this.loginService.isLogged() || this.cutterComp.activeProjectModel.cutList.length < 4)
     {
-      this.cutterComp.activeOrderModel.cutList.push({cutLength:100,cutPcs:1});
+      this.cutterComp.activeProjectModel.cutList.push({cutLength:100,cutPcs:1});
     }
     else
     {
@@ -134,12 +134,12 @@ export class CutFormComponent implements OnInit {
   }
   public canAddStock()
   {
-    if(this.loginService.isLogged() || this.cutterComp.activeOrderModel.stockList.length < 1) { return true; }
+    if(this.loginService.isLogged() || this.cutterComp.activeProjectModel.stockList.length < 1) { return true; }
     else return false;
   }
   public canAddCut()
   {
-    if(this.loginService.isLogged() || this.cutterComp.activeOrderModel.cutList.length < 4) { return true; }
+    if(this.loginService.isLogged() || this.cutterComp.activeProjectModel.cutList.length < 4) { return true; }
     else return false;
   }
   public deleteLocalStorage()
@@ -150,22 +150,22 @@ export class CutFormComponent implements OnInit {
 
 
   public loadDialog(): void {
-    const dialogRef = this.dialog.open(LoadDialogComponent, {width:"600px", data: this.loginService.loggedUser.activeOrderId});
+    const dialogRef = this.dialog.open(LoadDialogComponent, {width:"600px", data: this.loginService.loggedUser.activeProjectId});
 
     dialogRef.afterClosed().subscribe(data=>{
       console.log("LOAD dialog zamkniety");
-      this.loginService.loggedUser.activeOrderId = data;
+      this.loginService.loggedUser.activeProjectId = data;
 
       this.cutterComp.prepareData();
     })
   }
   public saveDialog(): void {
-    const dialogRef = this.dialog.open(SaveDialogComponent, {width:"600px",  data: {savedOrders: this.loginService.loggedUser.savedOrderModels, activeOrder: this.cutterComp.activeOrderModel}});
+    const dialogRef = this.dialog.open(SaveDialogComponent, {width:"600px",  data: {savedProjects: this.loginService.loggedUser.savedProjectModels, activeOrder: this.cutterComp.activeProjectModel}});
 
     dialogRef.afterClosed().subscribe(data=>{
       console.log("SAVE dialog zamkniety");
       
-      //this.loginService.loggedUser.savedOrderModels = data;
+      //this.loginService.loggedUser.savedProjectModels = data;
 
       this.cutterComp.prepareData();
     })

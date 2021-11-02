@@ -1,12 +1,10 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CutOptions } from '../../models/cutoptions';
+import { GetuserdataComponent } from '../../../oprawa/components/getuserdata/getuserdata.component';
+import { LoginserviceService } from '../../../oprawa/services/loginservice.service';
+import { ProjectModel } from '../../models/projectmodel';
 import { ResultBarsModule } from '../../models/result-bars/result-bars.module';
 import { CutterServiceService } from '../../services/cutter-service.service';
-import { LoginserviceService } from '../../../oprawa/services/loginservice.service';
-import { CutFormComponent } from '../cut-form/cut-form.component';
-import { OrderModel } from '../../models/ordermodel';
-import { GetuserdataComponent } from '../../../oprawa/components/getuserdata/getuserdata.component';
 
 
 @Component({
@@ -17,11 +15,11 @@ import { GetuserdataComponent } from '../../../oprawa/components/getuserdata/get
 export class CutterComponent implements OnInit {
 
   constructor(public cutService:CutterServiceService, public loginService:LoginserviceService, private getudata:GetuserdataComponent ) {
-    this.activeOrderModel.cutList=[{cutLength:225,cutPcs:5}];
-    this.activeOrderModel.stockList=[{idFront:0, stockLength:1000, stockPcs:10, stockPrice:0}];
-    this.activeOrderModel.cutOptions={ id:0, optionStackResult:false, optionSzrank:0, optionPrice:false, optionAlgo:false, optionIterations:500, optionVariantsQ:true }
-    this.activeOrderModel.projectName="Default";
-    this.activeOrderModel.projectCreated = new Date();
+    this.activeProjectModel.cutList=[{cutLength:225,cutPcs:5}];
+    this.activeProjectModel.stockList=[{idFront:0, stockLength:1000, stockPcs:10, stockPrice:0}];
+    this.activeProjectModel.cutOptions={ id:0, optionStackResult:false, optionSzrank:0, optionPrice:false, optionAlgo:false, optionIterations:500, optionVariantsQ:true }
+    this.activeProjectModel.projectName="Default";
+    this.activeProjectModel.projectCreated = new Date();
   }
 
   results$    : Observable<ResultBarsModule>;
@@ -31,7 +29,7 @@ export class CutterComponent implements OnInit {
   stackedRemain = <ResultBarsModule>{}; // stack3
   unstackedBars   = <ResultBarsModule>{}; // stack2
   unstackedRemain = <ResultBarsModule>{}; // stack3
-  activeOrderModel    = <OrderModel>{};
+  activeProjectModel  = <ProjectModel>{};
   
   ngOnInit(): void 
   {
@@ -169,7 +167,7 @@ export class CutterComponent implements OnInit {
     if(this.loginService.isLogged() === true)
     {
       this.loginService.getUserDataAsync().subscribe( data => { 
-        this.activeOrderModel = data.activeOrderModel!;
+        this.activeProjectModel = data.activeProjectModel!;
         this.loginService.loggedUser = data;
         localStorage.setItem('currentUser', JSON.stringify(data));
       });
@@ -182,15 +180,15 @@ export class CutterComponent implements OnInit {
       if(localOfflineUser != null)
       {
         console.log("LocalOfflineUser exists:");
-        this.activeOrderModel   = localOfflineUser;
+        this.activeProjectModel   = localOfflineUser;
       }
       else // default
       {
         console.log("LocalOfflineUser null:");
-        localStorage.setItem('offlineUserOrder', JSON.stringify(this.activeOrderModel));
+        localStorage.setItem('offlineUserOrder', JSON.stringify(this.activeProjectModel));
       }
       
-      this.loginService.loggedUser.activeOrderModel  = this.activeOrderModel;
+      this.loginService.loggedUser.activeProjectModel  = this.activeProjectModel;
     }
   }
 }

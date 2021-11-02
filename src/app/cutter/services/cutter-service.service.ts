@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { User } from 'src/app/oprawa/models/user';
 import { LoginserviceService } from '../../oprawa/services/loginservice.service';
 import { CutOptions } from '../models/cutoptions';
-import { OrderModel } from '../models/ordermodel';
+import { ProjectModel } from '../models/projectmodel';
 import { ResultBarsModule } from '../models/result-bars/result-bars.module';
 import { environment } from 'src/environments/environment';
 
@@ -27,7 +27,7 @@ export class CutterServiceService {
     return this.http.get<ResultBarsModule>( this.API_URL + "/result");
   }
 
-  public sendOrder(orderList:OrderModel)
+  public sendOrder(orderList:ProjectModel)
   {
     if(this.loginService.isLogged())
     {
@@ -37,8 +37,8 @@ export class CutterServiceService {
       return this.http.post<ResultBarsModule>( this.API_URL + "/cutfree", orderList);
   }
 
-  public setOrder(orderList:OrderModel)
+  public updateProject(orderList:ProjectModel)
   {
-    return this.http.post<any>( this.API_URL + "/setorder", orderList);
+    return this.http.patch<any>( this.API_URL + "/user/orders/"+orderList.id, orderList);
   }
 }

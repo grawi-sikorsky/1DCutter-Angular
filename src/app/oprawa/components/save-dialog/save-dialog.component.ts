@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { User } from '../../models/user';
 import { LoginserviceService } from '../../services/loginservice.service';
-import { OrderModel } from '../../../cutter/models/ordermodel';
+import { ProjectModel } from '../../../cutter/models/projectmodel';
 import { CutterComponent } from '../../../cutter/components/cutter/cutter.component';
 import { CutFormComponent } from '../../../cutter/components/cut-form/cut-form.component';
 
@@ -14,28 +14,28 @@ import { CutFormComponent } from '../../../cutter/components/cut-form/cut-form.c
 export class SaveDialogComponent implements OnInit {
 
   userTmp:User={};
-  tempMdls?:OrderModel[];
+  tempMdls?:ProjectModel[];
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private loginService:LoginserviceService, private cutform:CutFormComponent) { }
 
   ngOnInit(): void {
-    this.userTmp.savedOrderModels = this.loginService.loggedUser.savedOrderModels;
-    this.userTmp.activeOrderId = this.loginService.loggedUser.activeOrderId;
+    this.userTmp.savedProjectModels = this.loginService.loggedUser.savedProjectModels;
+    this.userTmp.activeProjectId = this.loginService.loggedUser.activeProjectId;
     this.userTmp.numberOfSavedItems = this.loginService.loggedUser.numberOfSavedItems;
-    this.userTmp.activeOrderModel = this.data.activeOrder;
+    this.userTmp.activeProjectModel = this.data.activeOrder;
   }
 
   saveUserOrder(index:any){
 
-    this.userTmp.activeOrderModel!.projectName = this.userTmp.savedOrderModels![index].projectName;
+    this.userTmp.activeProjectModel!.projectName = this.userTmp.savedProjectModels![index].projectName;
     
-    this.userTmp.activeOrderId = index;
+    this.userTmp.activeProjectId = index;
     this.userTmp.username = this.loginService.loggedUser.username;
-    this.userTmp.activeOrderModel = this.data.activeOrder;
+    this.userTmp.activeProjectModel = this.data.activeOrder;
 
     console.warn(this.userTmp);
 
-    this.loginService.modifyProject(this.userTmp.activeOrderModel!, this.userTmp.activeOrderModel?.id).subscribe( e => {
+    this.loginService.modifyProject(this.userTmp.activeProjectModel!, this.userTmp.activeProjectModel?.id).subscribe( e => {
       if(e)
       {
         console.log("Modify USER ORDER!!!!:");
@@ -45,11 +45,11 @@ export class SaveDialogComponent implements OnInit {
   }
 
   addUserProject(index:any){
-    this.userTmp.activeOrderModel!.projectName = this.userTmp.savedOrderModels![index].projectName;
+    this.userTmp.activeProjectModel!.projectName = this.userTmp.savedProjectModels![index].projectName;
     
-    this.userTmp.activeOrderId = index;
+    this.userTmp.activeProjectId = index;
     this.userTmp.username = this.loginService.loggedUser.username;
-    this.userTmp.activeOrderModel = this.data.activeOrder;
+    this.userTmp.activeProjectModel = this.data.activeOrder;
 
     console.warn(this.userTmp);
 
@@ -69,12 +69,12 @@ export class SaveDialogComponent implements OnInit {
   
   public canAddProject()
   {
-    if(this.userTmp.savedOrderModels!.length < 5) { return true; }
+    if(this.userTmp.savedProjectModels!.length < 5) { return true; }
     else return false;
   }
   public addRow(){
-    let index = this.userTmp.savedOrderModels!.length+1;
-    this.userTmp.savedOrderModels!.push({id:index, projectName:"New project", cutList:this.userTmp.activeOrderModel!.cutList, stockList:this.userTmp.activeOrderModel!.stockList, cutOptions:this.userTmp.activeOrderModel!.cutOptions });
+    let index = this.userTmp.savedProjectModels!.length+1;
+    this.userTmp.savedProjectModels!.push({id:index, projectName:"New project", cutList:this.userTmp.activeProjectModel!.cutList, stockList:this.userTmp.activeProjectModel!.stockList, cutOptions:this.userTmp.activeProjectModel!.cutOptions });
   }
 
 }

@@ -2,32 +2,32 @@
   <div class="input-group mb-3">
     <span class="input-group-text" id="basic-addon3">Szerkość piły / rzaz:</span>
     <input type="number" class="form-control" id="option-szrank" aria-describedby="basic-addon3" name="optionSzrank"  min="0" (blur)="setZeroOnErease()"
-            [(ngModel)]="this.cutterComp.activeOrderModel.cutOptions.optionSzrank" (ngModelChange)="onSubmitOptions()">
+            [(ngModel)]="this.cutterComp.activeProjectModel.cutOptions.optionSzrank" (ngModelChange)="onSubmitOptions()">
   </div>
 
   <div class="form-check form-switch">
     <input class="form-check-input" type="checkbox" id="optionStack" name="optionStack" 
-            [(ngModel)]="this.cutterComp.activeOrderModel.cutOptions.optionStackResult" (ngModelChange)="onSubmitOptions()">
+            [(ngModel)]="this.cutterComp.activeProjectModel.cutOptions.optionStackResult" (ngModelChange)="onSubmitOptions()">
     <label class="form-check-label" for="optionStack">Grupuj identyczne wyniki</label>
   </div>
   <div class="form-check form-switch">
     <input class="form-check-input" type="checkbox" id="optionPrice" name="optionPrice" checked 
-            [(ngModel)]="this.cutterComp.activeOrderModel.cutOptions.optionPrice" (ngModelChange)="onSubmitOptions()">
+            [(ngModel)]="this.cutterComp.activeProjectModel.cutOptions.optionPrice" (ngModelChange)="onSubmitOptions()">
     <label class="form-check-label" for="optionPrice">Obliczaj koszty</label>
   </div>
   <div class="form-check form-switch">
     <input class="form-check-input" type="checkbox" id="optionAlgo" name="optionAlgo" 
-            [(ngModel)]="this.cutterComp.activeOrderModel.cutOptions.optionAlgo" (ngModelChange)="onSubmitOptions()">
+            [(ngModel)]="this.cutterComp.activeProjectModel.cutOptions.optionAlgo" (ngModelChange)="onSubmitOptions()">
     <label class="form-check-label" for="optionAlgo">Nowy algorytm</label>
   </div>
-  <div class="" *ngIf="this.cutterComp.activeOrderModel.cutOptions.optionAlgo" >
-    <label for="customRange3" class="form-label" style="float: right;"> iterations: {{this.cutterComp.activeOrderModel.cutOptions.optionIterations}}</label>
+  <div class="" *ngIf="this.cutterComp.activeProjectModel.cutOptions.optionAlgo" >
+    <label for="customRange3" class="form-label" style="float: right;"> iterations: {{this.cutterComp.activeProjectModel.cutOptions.optionIterations}}</label>
     <input type="range" class="form-range" min="0" max="10000" step="200" id="customRange3" name="optionIterations"
-            [(ngModel)]="this.cutterComp.activeOrderModel.cutOptions.optionIterations" (ngModelChange)="onSubmitOptions()">
+            [(ngModel)]="this.cutterComp.activeProjectModel.cutOptions.optionIterations" (ngModelChange)="onSubmitOptions()">
   </div>
   <div class="form-check form-switch">
     <input class="form-check-input" type="checkbox" id="optionVariantsQ" name="optionVariantsQ" 
-            [(ngModel)]="this.cutterComp.activeOrderModel.cutOptions.optionVariantsQ" (ngModelChange)="onSubmitOptions()" disabled >
+            [(ngModel)]="this.cutterComp.activeProjectModel.cutOptions.optionVariantsQ" (ngModelChange)="onSubmitOptions()" disabled >
     <label class="form-check-label" for="optionVariantsQ">Optymalizuj ilosc wariantów</label>
   </div>
 </form>

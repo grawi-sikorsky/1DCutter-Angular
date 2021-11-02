@@ -1,11 +1,11 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../models/user';
-import { JwtService } from './jwt.service';
-import { GetuserdataComponent } from '../components/getuserdata/getuserdata.component';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { OrderModel } from '../../cutter/models/ordermodel';
+import { ProjectModel } from '../../cutter/models/projectmodel';
+import { GetuserdataComponent } from '../components/getuserdata/getuserdata.component';
+import { User } from '../models/user';
+import { JwtService } from './jwt.service';
 
 @Injectable({
   providedIn: 'root'
@@ -41,11 +41,6 @@ export class LoginserviceService {
     return this.jwtService.isLogged();
   }
 
-  public getUsers()
-  {
-    return this.http.get(this.API_URL + "/getUsers");
-  }
-
   public register(user:User)
   {
     return this.http.post<User>( this.API_URL + "/register", user );
@@ -53,21 +48,21 @@ export class LoginserviceService {
 
   public updateProfile(user:User)
   {
-    return this.http.post<boolean>(this.API_URL + "/user", user );
+    return this.http.patch<boolean>(this.API_URL + "/users", user );
   }
   public loadProject(user:User, projectId:any)
   {
     console.log("LoadProject(User): " +  JSON.stringify(user));
-    return this.http.get<OrderModel>(this.API_URL + "/user/orders/"+projectId );
+    return this.http.get<ProjectModel>(this.API_URL + "/users/orders/"+projectId );
   }
-  public modifyProject(project:OrderModel, projectId:any)
+  public modifyProject(project:ProjectModel, projectId:any)
   {
     console.log("EDITProject(ProjectModel): " +  JSON.stringify(project));
-    return this.http.patch<OrderModel>(this.API_URL + "/user/orders/" + projectId, project );
+    return this.http.patch<ProjectModel>(this.API_URL + "/users/orders/" + projectId, project );
   }
   public addProject(user:User)
   {
     console.log("ADDProject(User): " +  JSON.stringify(user));
-    return this.http.post<boolean>(this.API_URL + "/user/orders/", user );
+    return this.http.post<boolean>(this.API_URL + "/users/orders/", user );
   }
 }
