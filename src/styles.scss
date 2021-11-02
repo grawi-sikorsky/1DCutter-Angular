@@ -1,0 +1,54 @@
+/* You can add global styles to this file, and also import other style files */
+
+html {
+  height: 100%;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  padding-bottom: 4rem;
+  min-height: 100%;
+}
+
+@import '~@angular/material/theming';
+@include mat-core();
+
+$mat-primary-scheme: (
+  100: #d9dee8,
+  500: #2c567b,
+  700: #2c567b,
+  contrast: (
+    100: rgba(0,0,0,0.87),
+    500: #ffffff,
+    700: #ffffff,
+  )
+);
+$mat-accent-scheme: (
+  100: #d99736,
+  500: #d99736,
+  700: #593a88,
+  contrast: (
+    100: rgba(0,0,0,0.87),
+    500: rgba(255,255,255,0.87),
+    700: #ffffff,
+  )
+);
+
+$mat-primary-palette: mat-palette($mat-primary-scheme);
+$mat-accent-palette: mat-palette($mat-accent-scheme);
+
+$app-light-theme: mat-light-theme($mat-primary-palette, $mat-accent-palette);
+$app-dark-theme: mat-dark-theme($mat-primary-palette, $mat-accent-palette);
+
+//@include angular-material-theme($app-dark-theme);
+
+.light-mode{
+  @include angular-material-theme($app-light-theme);
+}
+// following section is for dark mode.
+// use appropriate class name for darkMode
+
+.dark-mode{
+  @include angular-material-theme($app-dark-theme);
+}

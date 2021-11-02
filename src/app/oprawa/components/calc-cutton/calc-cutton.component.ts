@@ -16,4 +16,11 @@ export class CalcCuttonComponent implements OnInit {
   public onClickCalculate(){
     this.cutformComponent.submitOrder();
   }
+
+  public isLoadingResults(){
+    if( this.cutformComponent.isWorking ){
+      return true;
+    }
+    else return false;
+  }
 }

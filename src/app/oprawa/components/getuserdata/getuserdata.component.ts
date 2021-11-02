@@ -20,7 +20,7 @@ export class GetuserdataComponent implements OnInit {
   ngOnInit(): void {
     console.log("next!");
 
-    let temp = this.http.get<User>(this.API_URL + "/getuserdata");
+    let temp = this.http.get<User>(this.API_URL + "/user");
     temp.subscribe( (e) => {
       localStorage.setItem('currentUser', JSON.stringify(e));
       console.log("subscribed getuserdata copomnent init:");
@@ -32,7 +32,7 @@ export class GetuserdataComponent implements OnInit {
 
   public getUserData()
   {
-    return this.http.get<User>( this.API_URL + "/getuserdata");
+    return this.http.get<User>( this.API_URL + "/user");
   }
 
 }

@@ -39,7 +39,9 @@
   border-bottom-width: 1px;
   border-bottom-color: lightgray;
 	min-height: 40px;
-  justify-content: space-around!important;
+  justify-content: space-between;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 .loginbtn
 {

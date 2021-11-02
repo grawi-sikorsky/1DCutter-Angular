@@ -1,0 +1,33 @@
+.project-name{
+	font-size: 11px;
+	padding-left: 20px;
+	padding-right: 20px;
+	vertical-align: middle;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+.project-name b{
+	font-size: 12px;
+	padding-left: 4px;
+    color: slateblue;
+}
+
+.project-name .btn{
+	font-size: 9px;
+	width:max-content;
+}
+::ng-deep .mat-form-field-infix
+{
+		width: auto!important;
+}
+::ng-deep .mat-form-field-suffix {
+	top: -4px!important;
+}
+::ng-deep .mat-form-field-prefix {
+	top: -4px!important;
+}
+:host{
+	min-width: 25%;
+}

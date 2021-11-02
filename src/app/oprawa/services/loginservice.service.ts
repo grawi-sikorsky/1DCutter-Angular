@@ -5,6 +5,7 @@ import { JwtService } from './jwt.service';
 import { GetuserdataComponent } from '../components/getuserdata/getuserdata.component';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { OrderModel } from '../../cutter/models/ordermodel';
 
 @Injectable({
   providedIn: 'root'
@@ -52,17 +53,21 @@ export class LoginserviceService {
 
   public updateProfile(user:User)
   {
-    console.log("UpdateProfile(User): " +  JSON.stringify(user));
-    return this.http.post<boolean>(this.API_URL + "/profile", user );
+    return this.http.post<boolean>(this.API_URL + "/user", user );
   }
-  public loadProject(user:User)
+  public loadProject(user:User, projectId:any)
   {
     console.log("LoadProject(User): " +  JSON.stringify(user));
-    return this.http.post<boolean>(this.API_URL + "/loadproject", user );
+    return this.http.get<OrderModel>(this.API_URL + "/user/orders/"+projectId );
   }
-  public saveProject(user:User)
+  public modifyProject(project:OrderModel, projectId:any)
   {
-    console.log("SaveProject(User): " +  JSON.stringify(user));
-    return this.http.post<boolean>(this.API_URL + "/saveproject", user );
+    console.log("EDITProject(ProjectModel): " +  JSON.stringify(project));
+    return this.http.patch<OrderModel>(this.API_URL + "/user/orders/" + projectId, project );
+  }
+  public addProject(user:User)
+  {
+    console.log("ADDProject(User): " +  JSON.stringify(user));
+    return this.http.post<boolean>(this.API_URL + "/user/orders/", user );
   }
 }

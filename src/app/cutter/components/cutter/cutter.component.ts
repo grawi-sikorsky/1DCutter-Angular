@@ -19,7 +19,7 @@ export class CutterComponent implements OnInit {
   constructor(public cutService:CutterServiceService, public loginService:LoginserviceService, private getudata:GetuserdataComponent ) {
     this.activeOrderModel.cutList=[{cutLength:225,cutPcs:5}];
     this.activeOrderModel.stockList=[{idFront:0, stockLength:1000, stockPcs:10, stockPrice:0}];
-    this.activeOrderModel.cutOptions={ id:0, optionStackResult:false, optionSzrank:0, optionPrice:false }
+    this.activeOrderModel.cutOptions={ id:0, optionStackResult:false, optionSzrank:0, optionPrice:false, optionAlgo:false, optionIterations:500, optionVariantsQ:true }
     this.activeOrderModel.projectName="Default";
     this.activeOrderModel.projectCreated = new Date();
   }
@@ -29,6 +29,8 @@ export class CutterComponent implements OnInit {
   filtered    : ResultBarsModule;     // stackSameBars
   stackedBars   = <ResultBarsModule>{}; // stack2
   stackedRemain = <ResultBarsModule>{}; // stack3
+  unstackedBars   = <ResultBarsModule>{}; // stack2
+  unstackedRemain = <ResultBarsModule>{}; // stack3
   activeOrderModel    = <OrderModel>{};
   
   ngOnInit(): void 
@@ -38,8 +40,9 @@ export class CutterComponent implements OnInit {
     this.results = JSON.parse(localStorage.getItem('results')!);
     if(this.results != null)
     {
-      this.stackResults();
-      this.stackRemain();
+      //this.stackResults();
+      //this.stackRemain();
+      this.unStackResults();
     }
   }
 
@@ -139,6 +142,20 @@ export class CutterComponent implements OnInit {
       }
       // zerujemy tablice po skonczonej robocie..
       duplindex.length=0;
+    }
+  }
+
+  public unStackResults(){
+    this.stackedBars = JSON.parse(JSON.stringify(this.results));
+    for(let i=0; i < this.results.resultBars!.length; ++i)
+    {
+      if(this.results.resultBars![i].stackCount > 1)
+      {
+        for(let j=1; j < this.results.resultBars![i].stackCount; ++j)
+        {
+          this.stackedBars.resultBars?.splice(i, 0, this.stackedBars.resultBars![i]);
+        }
+      }
     }
   }
 

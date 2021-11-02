@@ -138,3 +138,7 @@ form#secform td{
 .project-name .btn{
 	font-size: 9px;
 }
+.spinner-loading{
+	margin-right: 10px;
+	vertical-align: middle;
+}

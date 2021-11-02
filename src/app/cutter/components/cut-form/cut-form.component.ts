@@ -1,16 +1,13 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { User } from 'src/app/oprawa/models/user';
+import { LoadDialogComponent } from '../../../oprawa/components/load-dialog/load-dialog.component';
+import { SaveDialogComponent } from '../../../oprawa/components/save-dialog/save-dialog.component';
 import { LoginserviceService } from '../../../oprawa/services/loginservice.service';
-import { OrderModel, StockList } from '../../models/ordermodel';
 import { CutterServiceService } from '../../services/cutter-service.service';
 import { CutterComponent } from '../cutter/cutter.component';
-import { MatDialog } from '@angular/material/dialog';
-import { MatDialogModule } from '@angular/material/dialog';
-import { SaveDialogComponent } from '../../../oprawa/components/save-dialog/save-dialog.component';
-import { LoadDialogComponent } from '../../../oprawa/components/load-dialog/load-dialog.component';
 
 @Component({
   selector: 'app-cut-form',
@@ -21,8 +18,9 @@ export class CutFormComponent implements OnInit {
 
   subject = new Subject();
   tempuser:User={};
+  isWorking:boolean=false;
 
-  constructor(private http: HttpClient, public cutService:CutterServiceService, public cutterComp:CutterComponent, public loginService:LoginserviceService, public dialog:MatDialog) 
+  constructor(public cutService:CutterServiceService, public cutterComp:CutterComponent, public loginService:LoginserviceService, public dialog:MatDialog) 
   { 
     this.submitDebounced();
   }
@@ -42,13 +40,17 @@ export class CutFormComponent implements OnInit {
     console.log("Submitting order...");
     console.log(this.cutterComp.activeOrderModel);
 
+    this.isWorking = true;
     let resp = this.cutService.sendOrder(this.cutterComp.activeOrderModel);
 
     resp.subscribe(returnData => {
 
         this.cutterComp.results = returnData;
-        this.cutterComp.stackResults();
+        //this.cutterComp.stackResults();
+        this.cutterComp.unStackResults();
         localStorage.setItem('results', JSON.stringify(returnData));
+
+        this.isWorking = false;
 
         console.log("Order Sended ok.. return data: ");
         console.log(returnData);
@@ -72,10 +74,10 @@ export class CutFormComponent implements OnInit {
     this.subject.pipe( debounceTime(3000) )
     .subscribe(
       () => {
-        this.cutService.setOrder(this.cutterComp.activeOrderModel)
+        this.loginService.modifyProject(this.cutterComp.activeOrderModel, this.cutterComp.activeOrderModel.id)
         .subscribe(
           data => {
-            console.log("return data from set ordermodel:")
+            console.log("Data returned from modifyProject:");
             console.log(data);
           }
         );
@@ -168,6 +170,12 @@ export class CutFormComponent implements OnInit {
       this.cutterComp.prepareData();
     })
 
+  }
+  public isLoadingResults(){
+    if( this.isWorking ){
+      return true;
+    }
+    else return false;
   }
 
 }
