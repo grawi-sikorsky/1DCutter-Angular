@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
   localUser: User = {};
   $usr: Observable<User>;
   $username: Observable<string>;
-  username: string;
+  username: string="";
 
   constructor(public loginService: LoginserviceService, public dialog:MatDialog) {
   }

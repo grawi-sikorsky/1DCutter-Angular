@@ -31,7 +31,7 @@ export class LoadDialogComponent implements OnInit {
     this.userTmp.activeProjectId = this.loginService.loggedUser.activeProjectId;
     this.userTmp.username = this.loginService.loggedUser.username;
     
-    this.loginService.loadProject(this.userTmp, this.userTmp.savedProjectModels![projectId].id)
+    this.loginService.loadProject(this.userTmp, this.userTmp.savedProjectModels![index].id)
     .subscribe( data => {
       if(data)
       {

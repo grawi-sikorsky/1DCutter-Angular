@@ -22,7 +22,7 @@ export class SaveDialogComponent implements OnInit {
     this.userTmp.savedProjectModels = this.loginService.loggedUser.savedProjectModels;
     this.userTmp.activeProjectId = this.loginService.loggedUser.activeProjectId;
     this.userTmp.numberOfSavedItems = this.loginService.loggedUser.numberOfSavedItems;
-    this.userTmp.activeProjectModel = this.data.activeOrder;
+    this.userTmp.activeProjectModel = this.data.activeProject;
   }
 
   saveUserOrder(index:any){
@@ -31,7 +31,7 @@ export class SaveDialogComponent implements OnInit {
     
     this.userTmp.activeProjectId = index;
     this.userTmp.username = this.loginService.loggedUser.username;
-    this.userTmp.activeProjectModel = this.data.activeOrder;
+    this.userTmp.activeProjectModel = this.data.activeProject;
 
     console.warn(this.userTmp);
 
@@ -49,7 +49,7 @@ export class SaveDialogComponent implements OnInit {
     
     this.userTmp.activeProjectId = index;
     this.userTmp.username = this.loginService.loggedUser.username;
-    this.userTmp.activeProjectModel = this.data.activeOrder;
+    this.userTmp.activeProjectModel = this.data.activeProject;
 
     console.warn(this.userTmp);
 

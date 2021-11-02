@@ -1,11 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from "rxjs/operators";
-import { CutOptions } from '../../models/cutoptions';
-import { CutterServiceService } from '../../services/cutter-service.service';
 import { LoginserviceService } from '../../../oprawa/services/loginservice.service';
-import { User } from 'src/app/oprawa/models/user';
+import { CutterServiceService } from '../../services/cutter-service.service';
 import { CutterComponent } from '../cutter/cutter.component';
 
 
