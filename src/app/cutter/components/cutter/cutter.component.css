@@ -15,9 +15,10 @@
 .cutbar{
 	border: 0px;
 	border-left: 1px;
-	border-right: 1px;
+	/* border-right: 1px; */
 	border-color: #4a4a4aba;
 	border-style: solid;
+	cursor: pointer;
 }
 
 form#leftform input {
