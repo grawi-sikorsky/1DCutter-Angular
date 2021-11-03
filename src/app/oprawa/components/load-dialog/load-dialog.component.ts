@@ -39,6 +39,9 @@ export class LoadDialogComponent implements OnInit {
   }
 
   saveProject(projectId:any){
+
+    this.loginService.loggedUser.activeProjectModel! = this.loginService.loggedUser.savedProjectModels!.find(obj=>obj.id === projectId)!;
+
     console.warn(this.loginService.loggedUser);
 
     this.loginService.modifyProject(this.loginService.loggedUser.activeProjectModel!, projectId).subscribe( e => {

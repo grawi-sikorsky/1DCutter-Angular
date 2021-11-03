@@ -20,6 +20,7 @@ export interface ResultBar {
   resultBarPieces?: ResultBarPiece[];
   stackCount:number;
   onStockLength:number;
+  freeSpaceOnStock:number;
 }
 
 export class ResultBarPiece { 

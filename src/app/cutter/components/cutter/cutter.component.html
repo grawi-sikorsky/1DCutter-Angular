@@ -52,10 +52,12 @@
           <label> Procent wykorzystanego surowca: </label><span> <strong> {{asyncResult.resultUsedProcent | number: '1.2-2' }} % </strong></span>
         </div>
         <div class="progress probar">
-          <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" [ngStyle]="{'width': asyncResult.resultUsedProcent +'%'}"> 
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-success cutbar" role="progressbar" [ngStyle]="{'width': asyncResult.resultUsedProcent +'%'}" 
+              ngbPopover="{{asyncResult.resultUsedProcent | number: '1.2-2'}} %" [openDelay]="100" [closeDelay]="300" triggers="mouseenter:mouseleave"> 
             {{asyncResult.resultUsedProcent | number: '1.2-2' }} %
           </div>
-          <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning cutbar" role="progressbar" [ngStyle]="{'width': asyncResult.resultWasteProcent +'%'}"> 
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning cutbar" role="progressbar" [ngStyle]="{'width': asyncResult.resultWasteProcent +'%'}"
+              ngbPopover="{{asyncResult.resultWasteProcent | number: '1.2-2'}} %" [openDelay]="100" [closeDelay]="300" triggers="mouseenter:mouseleave"> 
             {{asyncResult.resultWasteProcent | number: '1.2-2' }} %
           </div>
         </div>
@@ -83,14 +85,17 @@
         <div class="container-fluid" *ngIf="!this.activeProjectModel!.cutOptions.optionStackResult" >
           <div class="row" *ngFor="let bar of (stackedBars.resultBars)">
             <div class="col-sm-1 barcount"> 
-              ( {{bar.onStockLength}} ) 
+              ( {{bar.onStockLength}} )
             </div>
             <div class="col-sm-11 progress probar">
               <div *ngFor="let barpcs of bar.resultBarPieces" class="cutbar progress-bar bg-success"
-                [ngStyle]="{'width': barpcs.barWidthProc +'%'}" role="progressbar">
-                {{barpcs.barText}}
+                [ngStyle]="{'width': barpcs.barWidthProc +'%','margin-right': (this.activeProjectModel!.cutOptions.optionSzrank/bar.onStockLength)*100 +'%'}" 
+                role="progressbar" ngbPopover="{{barpcs.barText}}" [openDelay]="100" [closeDelay]="200" triggers="mouseenter:mouseleave"> {{barpcs.barText}}
               </div>
+              <div class="cutbar progress-bar-striped progress-bar-animated bg-warning" [ngStyle]="{'width': (bar.freeSpaceOnStock/bar.onStockLength)*100+'%'}"
+              ngbPopover="{{bar.freeSpaceOnStock | number: '1.2-2'}}" [openDelay]="100" [closeDelay]="300" triggers="mouseenter:mouseleave"></div>
             </div>
+
           </div>
         </div>
 
@@ -102,9 +107,12 @@
             </div>
             <div class="col-sm-11 progress probar">
               <div *ngFor="let barpcs of bar.resultBarPieces" class="cutbar progress-bar bg-success"
-                [ngStyle]="{'width': barpcs.barWidthProc +'%'}" role="progressbar">
+                [ngStyle]="{'width': barpcs.barWidthProc +'%','margin-right': (this.activeProjectModel!.cutOptions.optionSzrank/bar.onStockLength)*100 +'%'}"
+                role="progressbar" ngbPopover="{{barpcs.barText}}" [openDelay]="100" [closeDelay]="200" triggers="mouseenter:mouseleave">
                 {{barpcs.barText}}
               </div>
+              <div class="cutbar progress-bar-striped progress-bar-animated bg-danger" [ngStyle]="{'width': (bar.freeSpaceOnStock/bar.onStockLength)*100+'%'}"
+              ngbPopover="{{bar.freeSpaceOnStock | number: '1.2-2'}}" [openDelay]="100" [closeDelay]="300" triggers="mouseenter:mouseleave"></div>
             </div>
           </div>
         </div>

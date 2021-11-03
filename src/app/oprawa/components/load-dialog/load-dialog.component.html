@@ -30,7 +30,7 @@
           <ng-container *ngIf="this.loginService.loggedUser.activeProjectId === ordr.id">
             <td class="active-td" style="border-radius: 10px 0px 0px 10px; ">{{ordr.id}}</td>
             <td class="active-td">{{index}}</td>
-            <td class="active-td">{{ordr.projectName}}</td>
+            <td class="active-td"><input [(ngModel)]="ordr.projectName"></td>
             <td class="active-td">{{ordr.projectCreated | date:'dd.MM.YYYY HH:mm:ss'}}</td>
             <td class="active-td">{{ordr.projectModified | date:'dd.MM.YYYY HH:mm:ss'}}</td>
             <td class="active-td" style="width: 70px;"><button mat-button mat-dialog-close (click)="loadProject(ordr.id)"><mat-icon>cloud_download</mat-icon> Wczytaj</button></td>
