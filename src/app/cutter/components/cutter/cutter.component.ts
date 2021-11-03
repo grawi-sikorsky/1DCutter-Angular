@@ -1,12 +1,10 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CutOptions } from '../../models/cutoptions';
+import { GetuserdataComponent } from '../../../oprawa/components/getuserdata/getuserdata.component';
+import { LoginserviceService } from '../../../oprawa/services/loginservice.service';
+import { ProjectModel } from '../../models/projectmodel';
 import { ResultBarsModule } from '../../models/result-bars/result-bars.module';
 import { CutterServiceService } from '../../services/cutter-service.service';
-import { LoginserviceService } from '../../../oprawa/services/loginservice.service';
-import { CutFormComponent } from '../cut-form/cut-form.component';
-import { OrderModel } from '../../models/ordermodel';
-import { GetuserdataComponent } from '../../../oprawa/components/getuserdata/getuserdata.component';
 
 
 @Component({
@@ -17,11 +15,11 @@ import { GetuserdataComponent } from '../../../oprawa/components/getuserdata/get
 export class CutterComponent implements OnInit {
 
   constructor(public cutService:CutterServiceService, public loginService:LoginserviceService, private getudata:GetuserdataComponent ) {
-    this.activeOrderModel.cutList=[{cutLength:225,cutPcs:5}];
-    this.activeOrderModel.stockList=[{idFront:0, stockLength:1000, stockPcs:10, stockPrice:0}];
-    this.activeOrderModel.cutOptions={ id:0, optionStackResult:false, optionSzrank:0, optionPrice:false, optionAlgo:false, optionIterations:500, optionVariantsQ:true }
-    this.activeOrderModel.projectName="Default";
-    this.activeOrderModel.projectCreated = new Date();
+    this.activeProjectModel.cutList=[{cutLength:225,cutPcs:5}];
+    this.activeProjectModel.stockList=[{idFront:0, stockLength:1000, stockPcs:10, stockPrice:0}];
+    this.activeProjectModel.cutOptions={ id:0, optionStackResult:false, optionSzrank:0, optionPrice:false, optionAlgo:false, optionIterations:500, optionVariantsQ:true }
+    this.activeProjectModel.projectName="Default";
+    this.activeProjectModel.projectCreated = new Date();
   }
 
   results$    : Observable<ResultBarsModule>;
@@ -31,7 +29,7 @@ export class CutterComponent implements OnInit {
   stackedRemain = <ResultBarsModule>{}; // stack3
   unstackedBars   = <ResultBarsModule>{}; // stack2
   unstackedRemain = <ResultBarsModule>{}; // stack3
-  activeOrderModel    = <OrderModel>{};
+  activeProjectModel  = <ProjectModel>{};
   
   ngOnInit(): void 
   {
@@ -40,9 +38,8 @@ export class CutterComponent implements OnInit {
     this.results = JSON.parse(localStorage.getItem('results')!);
     if(this.results != null)
     {
-      //this.stackResults();
-      //this.stackRemain();
       this.unStackResults();
+      this.stackRemain();
     }
   }
 
@@ -55,7 +52,7 @@ export class CutterComponent implements OnInit {
     let res = this.cutService.getResults().subscribe(
       data => {
         this.results = data;
-        this.stackResults();
+        this.unStackResults();
         localStorage.setItem('results',JSON.stringify(data));
       }
     );
@@ -79,39 +76,6 @@ export class CutterComponent implements OnInit {
       })
     })
     console.log(this.filtered);
-  }
-
-  public stackResults()
-  {
-    this.stackedBars = JSON.parse(JSON.stringify(this.results));
-
-    for(let i=0; i<this.stackedBars.resultBars!.length; i++)
-    {
-      let duplindex:number[]=[];
-
-      for(let j=0; j<this.stackedBars.resultBars!.length; j++)
-      {
-        if(JSON.stringify(this.stackedBars.resultBars![i].resultBarPieces ) === JSON.stringify(this.stackedBars.resultBars![j].resultBarPieces))
-        {
-          duplindex.push(j);
-        }
-      }
-
-      // zapisujemy ilosc duplikatow do elem. o najmniejszym indeksie
-      this.stackedBars.resultBars![i].stackCount = duplindex.length;
-
-      // usuwamy pozostale duplikaty zgodnie z tablica duplindex
-      // wartosc poczatkowa to 1 bo pierwszy index jest indexem do ktorego zapisywalismy ilosc duplikatow
-      // iterujemy od konca bo po splice pozostale indexy sie przesuwaja do gory
-      for(let x=duplindex.length-1; x>0; x--)
-      {
-        this.stackedBars.resultBars!.splice(duplindex[x],1)
-      }
-      // zerujemy tablice po skonczonej robocie..
-      duplindex.length=0;
-    }
-
-    this.stackRemain();
   }
 
   public stackRemain()
@@ -169,7 +133,7 @@ export class CutterComponent implements OnInit {
     if(this.loginService.isLogged() === true)
     {
       this.loginService.getUserDataAsync().subscribe( data => { 
-        this.activeOrderModel = data.activeOrderModel!;
+        this.activeProjectModel = data.activeProjectModel!;
         this.loginService.loggedUser = data;
         localStorage.setItem('currentUser', JSON.stringify(data));
       });
@@ -182,15 +146,15 @@ export class CutterComponent implements OnInit {
       if(localOfflineUser != null)
       {
         console.log("LocalOfflineUser exists:");
-        this.activeOrderModel   = localOfflineUser;
+        this.activeProjectModel   = localOfflineUser;
       }
       else // default
       {
         console.log("LocalOfflineUser null:");
-        localStorage.setItem('offlineUserOrder', JSON.stringify(this.activeOrderModel));
+        localStorage.setItem('offlineUserOrder', JSON.stringify(this.activeProjectModel));
       }
       
-      this.loginService.loggedUser.activeOrderModel  = this.activeOrderModel;
+      this.loginService.loggedUser.activeProjectModel  = this.activeProjectModel;
     }
   }
 }

@@ -1,8 +1,8 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs/internal/Observable';
 import { User } from 'src/app/oprawa/models/user';
 import { LoginserviceService } from '../../services/loginservice.service';
-import { MatDialog } from '@angular/material/dialog';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 
 
@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
   localUser: User = {};
   $usr: Observable<User>;
   $username: Observable<string>;
-  username: string;
+  username: string="";
 
   constructor(public loginService: LoginserviceService, public dialog:MatDialog) {
   }
@@ -24,7 +24,6 @@ export class NavbarComponent implements OnInit {
   }
 
   zalogowany() {
-
     this.localUser = JSON.parse(localStorage.getItem('currentUser')!);
     if (this.localUser != null && ( this.localUser.username != this.username ) ) {
       this.username = this.localUser.username!;
@@ -37,12 +36,9 @@ export class NavbarComponent implements OnInit {
   }
 
   public userProfileDialog(): void {
-    const dialogRef = this.dialog.open(UserProfileComponent, {width:"850px", data: this.loginService.loggedUser.activeOrderId});
-
+    const dialogRef = this.dialog.open(UserProfileComponent, {width:"850px", data: this.loginService.loggedUser.activeProjectId});
     dialogRef.afterClosed().subscribe(data=>{
-      console.log("UserProfile Dialog zamkniety");
-      //this.loginService.loggedUser.activeOrderId = data;
-      //this.cutterComp.prepareData();
+      // console.log("UserProfile Dialog zamkniety");
     })
   }
   

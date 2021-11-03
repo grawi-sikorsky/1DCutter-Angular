@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { OrderModel } from '../../../cutter/models/ordermodel';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CutterComponent } from '../../../cutter/components/cutter/cutter.component';
 import { User } from '../../models/user';
 import { LoginserviceService } from '../../services/loginservice.service';
-import { CutterComponent } from '../../../cutter/components/cutter/cutter.component';
 
 @Component({
   selector: 'app-load-dialog',
@@ -12,34 +12,70 @@ import { CutterComponent } from '../../../cutter/components/cutter/cutter.compon
 export class LoadDialogComponent implements OnInit {
 
   userTmp:User={};
-  tempMdls?:OrderModel[];
 
-  constructor(private loginService:LoginserviceService, private cutterComp:CutterComponent) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public loginService:LoginserviceService, private cutterComp:CutterComponent) { }
 
   ngOnInit(): void {
-    console.log("loginservice.loggeduser:");
-    console.log(this.loginService.loggedUser);
-    console.log("temp user:");
-    console.log(this.userTmp);
-    this.userTmp.savedOrderModels = this.loginService.loggedUser.savedOrderModels;
-    this.userTmp.activeOrderId = this.loginService.loggedUser.activeOrderId;
-    this.userTmp.numberOfSavedItems = this.loginService.loggedUser.numberOfSavedItems;
   }
 
-  loadUserOrder(index:any, projectId:any) {
-    this.loginService.loggedUser.activeOrderId! = index;
-    this.userTmp.activeOrderId = this.loginService.loggedUser.activeOrderId;
-    this.userTmp.username = this.loginService.loggedUser.username;
+  loadProject(projectId:any) {
+    this.loginService.loggedUser.activeProjectId! = projectId;
     
-    this.loginService.loadProject(this.userTmp, this.userTmp.savedOrderModels![projectId].id)
+    this.loginService.loadProject(this.loginService.loggedUser, this.loginService.loggedUser.savedProjectModels!.find(obj=>obj.id === projectId)!.id )
     .subscribe( data => {
       if(data)
       {
-        console.warn(this.userTmp);
-        console.warn(data);
-        this.cutterComp.activeOrderModel = data;
+        this.loginService.loggedUser.activeProjectModel = data;
+        this.loginService.loggedUser.activeProjectId = data.id;
+        this.cutterComp.activeProjectModel = data;
+
+        this.loginService.updateProfile(this.loginService.loggedUser).subscribe(
+          e=>{
+            console.warn(this.loginService.loggedUser)
+          }
+        );
       }
     });
   }
+
+  saveProject(projectId:any){
+    console.warn(this.loginService.loggedUser);
+
+    this.loginService.modifyProject(this.loginService.loggedUser.activeProjectModel!, projectId).subscribe( e => {
+      if(e)
+      {
+        console.log("Modify USER ORDER!!!!:");
+        //this.cutterComp.prepareData();
+      }
+    });
+  }
+
+  removeProject(projectId:any){
+    this.loginService.removeProject(projectId).subscribe(
+      e=>{
+        this.cutterComp.prepareData();
+        this.userTmp = this.loginService.loggedUser;
+      }
+    );
+  }
+  
+  public canAddProject()
+  {
+    if(this.loginService.loggedUser.savedProjectModels!.length < 5) { return true; }
+    else return false;
+  }
+
+  public addRow(){
+    this.loginService.addProject().subscribe(
+      data=>{
+        this.cutterComp.prepareData();
+
+        this.loginService.updateProfile(this.loginService.loggedUser).subscribe(
+          e=>{ }
+        ); 
+      });
+  }
+
+
 
 }

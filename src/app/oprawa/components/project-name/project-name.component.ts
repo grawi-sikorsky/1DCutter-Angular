@@ -18,26 +18,10 @@ export class ProjectNameComponent implements OnInit {
   }
 
   public loadDialog(): void {
-    const dialogRef = this.dialog.open(LoadDialogComponent, {width:"850px", data: this.loginService.loggedUser.activeOrderId});
+    const dialogRef = this.dialog.open(LoadDialogComponent, {width:"850px", data: {loggedUser: this.loginService.loggedUser} });
 
     dialogRef.afterClosed().subscribe(data=>{
-      console.log("LOAD dialog zamkniety");
-      this.loginService.loggedUser.activeOrderId = data;
-
       this.cutterComp.prepareData();
     })
   }
-  public saveDialog(): void {
-    const dialogRef = this.dialog.open(SaveDialogComponent, {width:"850px",  data: {savedOrders: this.loginService.loggedUser.savedOrderModels, activeOrder: this.cutterComp.activeOrderModel}});
-
-    dialogRef.afterClosed().subscribe(data=>{
-      console.log("SAVE dialog zamkniety");
-      
-      //this.loginService.loggedUser.savedOrderModels = data;
-
-      this.cutterComp.prepareData();
-    })
-
-  }
-
 }

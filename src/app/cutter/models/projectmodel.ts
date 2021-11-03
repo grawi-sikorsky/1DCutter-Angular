@@ -1,7 +1,7 @@
 import { CutOptions } from './cutoptions';
 
 
-export interface OrderModel {
+export interface ProjectModel {
   id: number;
   projectName: string;
   projectModified?: Date;

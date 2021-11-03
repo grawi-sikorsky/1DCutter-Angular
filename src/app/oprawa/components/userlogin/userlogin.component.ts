@@ -1,4 +1,3 @@
-import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/oprawa/models/user';
@@ -33,25 +32,19 @@ export class UserloginComponent implements OnInit {
     console.log(this.username + " " + this.password);
 
     resp.subscribe(temp => {
-      console.log(temp);
+      console.info(temp);
       if(temp.jwtToken !== null)
       {
         this.loginService.authenticated = true;
         this.badcredentials = false;
-        this.router.navigate(["/1dcut"]);
+        this.router.navigate(["/"]);
       }
       else
       {
-        console.log("BAD Credentials!");
+        console.error("BAD Credentials!");
         this.badcredentials = true;
         this.loginService.authenticated = false;
       }
     });
-  }
-
-  showUserData()
-  {
-    console.log("showUserData: " + this.currentUser);
-  }
-  
+  }  
 }
