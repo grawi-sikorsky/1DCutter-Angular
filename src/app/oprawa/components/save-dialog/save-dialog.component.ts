@@ -1,10 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CutFormComponent } from '../../../cutter/components/cut-form/cut-form.component';
+import { ProjectModel } from '../../../cutter/models/projectmodel';
 import { User } from '../../models/user';
 import { LoginserviceService } from '../../services/loginservice.service';
-import { ProjectModel } from '../../../cutter/models/projectmodel';
-import { CutterComponent } from '../../../cutter/components/cutter/cutter.component';
-import { CutFormComponent } from '../../../cutter/components/cut-form/cut-form.component';
 
 @Component({
   selector: 'app-save-dialog',
@@ -53,7 +52,7 @@ export class SaveDialogComponent implements OnInit {
 
     console.warn(this.userTmp);
 
-    this.loginService.addProject(this.userTmp).subscribe( e => {
+    this.loginService.addProject(this.userTmp.activeProjectModel!).subscribe( e => {
       if(e)
       {
         console.log("ADD USER ORDER!!!!:");

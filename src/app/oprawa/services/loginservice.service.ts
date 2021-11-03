@@ -60,9 +60,9 @@ export class LoginserviceService {
     console.log("EDITProject(ProjectModel): " +  JSON.stringify(project));
     return this.http.patch<ProjectModel>(this.API_URL + "/users/orders/" + projectId, project );
   }
-  public addProject(user:User)
+  public addProject(project:ProjectModel)
   {
-    console.log("ADDProject(User): " +  JSON.stringify(user));
-    return this.http.post<boolean>(this.API_URL + "/users/orders/", user );
+    console.log("ADDProject(User): " +  JSON.stringify(project));
+    return this.http.post<ProjectModel>(this.API_URL + "/users/orders/", project );
   }
 }

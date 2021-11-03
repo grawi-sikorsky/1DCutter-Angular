@@ -27,18 +27,18 @@ export class CutterServiceService {
     return this.http.get<ResultBarsModule>( this.API_URL + "/result");
   }
 
-  public sendOrder(orderList:ProjectModel)
+  public sendOrder(project:ProjectModel)
   {
     if(this.loginService.isLogged())
     {
-      return this.http.post<ResultBarsModule>( this.API_URL + "/cut", orderList);
+      return this.http.post<ResultBarsModule>( this.API_URL + "/cut", project);
     }
     else 
-      return this.http.post<ResultBarsModule>( this.API_URL + "/cutfree", orderList);
+      return this.http.post<ResultBarsModule>( this.API_URL + "/cutfree", project);
   }
 
-  public updateProject(orderList:ProjectModel)
+  public updateProject(project:ProjectModel)
   {
-    return this.http.patch<any>( this.API_URL + "/user/orders/"+orderList.id, orderList);
+    return this.http.patch<any>( this.API_URL + "/users/orders/"+project.id, project);
   }
 }

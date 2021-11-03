@@ -4,40 +4,53 @@
 <mat-dialog-content class="mat-typography">
   <div class="row">
     <div class="col-6">
-      <p>Aktualny projekt: <b> {{userTmp.savedProjectModels![userTmp.activeProjectId!].projectName}}</b></p>
+      <p>Aktualny projekt: <b> {{userTmp.activeProjectModel!.id}}</b></p>
     </div>
     <div class="col-6">
       <p>Zapisanych projektów: <b>{{userTmp.numberOfSavedItems}} / 5 </b></p>
     </div>
   </div>
-  <p>debug: Active order ID: {{userTmp.activeProjectId}}</p>
+  <p>debug: Active project ID: {{userTmp.activeProjectId}}</p>
   
 
   <mat-divider></mat-divider>
   <table class="saveloadproject">
       <thead>
         <th>ID</th>
+        <th>index</th>
         <th>Name</th>
         <th>Created</th>
         <th>Modified</th>
         <th></th>
+        <th></th>
+        <th></th>
       </thead>
       <tbody>
         <tr *ngFor="let ordr of userTmp.savedProjectModels; let index = index" >
-          <ng-container *ngIf="userTmp.activeProjectId === index">
+          <ng-container *ngIf="userTmp.activeProjectId === ordr.id">
             <td class="active-td" style="border-radius: 10px 0px 0px 10px; ">{{ordr.id}}</td>
+            <td class="active-td">{{index}}</td>
             <td class="active-td">{{ordr.projectName}}</td>
             <td class="active-td">{{ordr.projectCreated | date:'dd.MM.YYYY HH:mm:ss'}}</td>
             <td class="active-td">{{ordr.projectModified | date:'dd.MM.YYYY HH:mm:ss'}}</td>
-            <td class="active-td" style="border-radius: 10px 0px 0px 10px; "><button mat-button mat-dialog-close class="btn btn-secondary btn-sm button-loadsave" (click)="loadUserOrder(index, ordr.id)">Wczytaj</button></td>
+            <td class="active-td" style="width: 70px;"><button mat-button mat-dialog-close (click)="loadProject(ordr.id)"><mat-icon>cloud_download</mat-icon> Wczytaj</button></td>
+            <td class="active-td" style="width: 70px;"><button mat-raised-button color="warn" mat-dialog-close class="button-loadsave" (click)="saveProject(ordr.id)"><mat-icon>cloud_upload</mat-icon> Zapisz</button></td>
+            <td class="active-td" style="width: 50px; padding-left:20px; margin-left:20px; border-radius: 0px 10px 10px 0px; "><button mat-mini-fab color="warn" mat-dialog-close class="button-loadsave btn-xm" (click)="loadProject(ordr.id)"><mat-icon>delete</mat-icon></button></td>
           </ng-container>
-          <ng-container *ngIf="userTmp.activeProjectId !== index">
+          <ng-container *ngIf="userTmp.activeProjectId !== ordr.id">
             <td>{{ordr.id}}</td>
+            <td>{{index}}</td>
             <td>{{ordr.projectName}}</td>
             <td>{{ordr.projectCreated | date:'dd.MM.YYYY HH:mm:ss'}}</td>
             <td>{{ordr.projectModified | date:'dd.MM.YYYY HH:mm:ss'}}</td>
-            <td><button mat-button mat-dialog-close class="btn btn-secondary btn-sm button-loadsave" (click)="loadUserOrder(index,ordr.id)">Wczytaj</button></td>
+            <td style="width: 70px;"><button mat-button mat-dialog-close (click)="loadProject(ordr.id)"><mat-icon>cloud_download</mat-icon> Wczytaj</button></td>
+            <td style="width: 70px;"><button mat-raised-button color="warn" mat-dialog-close class="button-loadsave" (click)="saveProject(ordr.id)"><mat-icon>cloud_upload</mat-icon> Zapisz</button></td>
+            <td style="width: 50px; padding-left:20px; margin-left:20px; border-radius: 0px 10px 10px 0px; "><button mat-mini-fab color="warn" mat-dialog-close class="button-loadsave btn-xm" (click)="loadProject(ordr.id)"><mat-icon>delete</mat-icon></button></td>
           </ng-container>
+        </tr>
+        <tr>
+          <td></td><td></td><td></td><td></td><td></td><td></td>
+          <td> <button *ngIf="canAddProject()" class="btn btn-secondary btn-sm button-loadsave"  (click)="addRow()"  > Dodaj </button> </td>
         </tr>
       </tbody>
   </table>

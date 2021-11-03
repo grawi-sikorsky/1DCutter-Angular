@@ -18,12 +18,9 @@ export class ProjectNameComponent implements OnInit {
   }
 
   public loadDialog(): void {
-    const dialogRef = this.dialog.open(LoadDialogComponent, {width:"850px", data: this.loginService.loggedUser.activeProjectId});
+    const dialogRef = this.dialog.open(LoadDialogComponent, {width:"850px", data: {loggedUser: this.loginService.loggedUser} });
 
     dialogRef.afterClosed().subscribe(data=>{
-      console.log("LOAD dialog zamkniety");
-      this.loginService.loggedUser.activeProjectId = data;
-
       this.cutterComp.prepareData();
     })
   }
@@ -31,9 +28,6 @@ export class ProjectNameComponent implements OnInit {
     const dialogRef = this.dialog.open(SaveDialogComponent, {width:"850px",  data: {savedProjects: this.loginService.loggedUser.savedProjectModels, activeProject: this.cutterComp.activeProjectModel}});
 
     dialogRef.afterClosed().subscribe(data=>{
-      console.log("SAVE dialog zamkniety");
-      this.loginService.loggedUser.savedProjectModels = data;
-
       this.cutterComp.prepareData();
     })
 

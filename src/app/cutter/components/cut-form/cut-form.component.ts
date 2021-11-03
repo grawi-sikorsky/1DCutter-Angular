@@ -37,8 +37,8 @@ export class CutFormComponent implements OnInit {
    *************************/
   public submitOrder()
   {
-    console.log("Submitting order...");
-    console.log(this.cutterComp.activeProjectModel);
+    console.warn("Submitting order...");
+    console.warn(this.cutterComp.activeProjectModel);
 
     this.isWorking = true;
     let resp = this.cutService.sendOrder(this.cutterComp.activeProjectModel);
