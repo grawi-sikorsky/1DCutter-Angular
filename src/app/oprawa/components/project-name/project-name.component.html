@@ -4,15 +4,9 @@
       <div class="col-6"> Project:  <b><button class="btn btn-sm btn-outline-secondary btn-block" (click)="loadDialog()" disabled >{{ this.cutterComp.activeProjectModel.projectName}} </button></b> </div>
       <div class="col-3">
         <button *ngIf="!this.loginService.isLogged()" class="btn btn-sm btn-outline-secondary btn-block" (click)="loadDialog()" disabled
-        ngbPopover="Zaloguj się aby edytowac projekty" [openDelay]="400" [closeDelay]="400" triggers="mouseenter:mouseleave"> Wczytaj projekt <i class="fas fa-chevron-right"></i> 
+        ngbPopover="Zaloguj się aby edytowac projekty" [openDelay]="400" [closeDelay]="400" triggers="mouseenter:mouseleave"> Wczytaj / zapisz projekt <i class="fas fa-chevron-right"></i> 
         </button>
-        <button *ngIf="this.loginService.isLogged()" class="btn btn-sm btn-outline-secondary btn-block" (click)="loadDialog()" >Wczytaj projekt <i class="fas fa-chevron-right"></i> 
-        </button>
-      </div>
-      <div class="col-3">
-        <button *ngIf="!this.loginService.isLogged()" class="btn btn-sm btn-outline-secondary btn-block" (click)="saveDialog()" disabled >Zapisz projekt <i class="fas fa-chevron-right"></i> 
-        </button>
-        <button *ngIf="this.loginService.isLogged()" class="btn btn-sm btn-outline-secondary btn-block" (click)="saveDialog()" >Zapisz projekt <i class="fas fa-chevron-right"></i> 
+        <button *ngIf="this.loginService.isLogged()" class="btn btn-sm btn-outline-secondary btn-block" (click)="loadDialog()" >Wczytaj / zapisz projekt <i class="fas fa-chevron-right"></i> 
         </button>
       </div>
     </div>

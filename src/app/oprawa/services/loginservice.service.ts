@@ -60,9 +60,13 @@ export class LoginserviceService {
     console.log("EDITProject(ProjectModel): " +  JSON.stringify(project));
     return this.http.patch<ProjectModel>(this.API_URL + "/users/orders/" + projectId, project );
   }
-  public addProject(project:ProjectModel)
+  public addProject()
   {
-    console.log("ADDProject(User): " +  JSON.stringify(project));
-    return this.http.post<ProjectModel>(this.API_URL + "/users/orders/", project );
+    console.log("ADDProject(): ");
+    return this.http.post<ProjectModel>(this.API_URL + "/users/orders/", null );
+  }
+  public removeProject(projectId:any){
+    console.log("REMOVEProject(id): " + projectId);
+    return this.http.delete<void>(this.API_URL + "/users/orders/" + projectId);
   }
 }

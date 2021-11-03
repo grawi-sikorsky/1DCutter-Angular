@@ -3,7 +3,6 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CutterComponent } from '../../../cutter/components/cutter/cutter.component';
 import { User } from '../../models/user';
 import { LoginserviceService } from '../../services/loginservice.service';
-import { ProjectModel } from '../../../cutter/models/projectmodel';
 
 @Component({
   selector: 'app-load-dialog',
@@ -13,12 +12,10 @@ import { ProjectModel } from '../../../cutter/models/projectmodel';
 export class LoadDialogComponent implements OnInit {
 
   userTmp:User={};
-  project:ProjectModel;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private loginService:LoginserviceService, private cutterComp:CutterComponent) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public loginService:LoginserviceService, private cutterComp:CutterComponent) { }
 
   ngOnInit(): void {
-    this.userTmp = this.loginService.loggedUser;
   }
 
   loadProject(projectId:any) {
@@ -42,15 +39,9 @@ export class LoadDialogComponent implements OnInit {
   }
 
   saveProject(projectId:any){
-    this.userTmp.activeProjectModel!.projectName = this.userTmp.savedProjectModels![projectId].projectName;
-    
-    this.userTmp.activeProjectId = projectId;
-    this.userTmp.username = this.loginService.loggedUser.username;
-    this.userTmp.activeProjectModel = this.data.activeProject;
+    console.warn(this.loginService.loggedUser);
 
-    console.warn(this.userTmp);
-
-    this.loginService.modifyProject(this.userTmp.activeProjectModel!, this.userTmp.activeProjectModel?.id).subscribe( e => {
+    this.loginService.modifyProject(this.loginService.loggedUser.activeProjectModel!, projectId).subscribe( e => {
       if(e)
       {
         console.log("Modify USER ORDER!!!!:");
@@ -59,45 +50,32 @@ export class LoadDialogComponent implements OnInit {
     });
   }
 
-  addUserProject(index:any){
-    this.userTmp.activeProjectModel!.projectName = this.userTmp.savedProjectModels![index].projectName;
-    
-    this.userTmp.activeProjectId = index;
-    this.userTmp.username = this.loginService.loggedUser.username;
-    this.userTmp.activeProjectModel = this.data.activeProject;
-
-    console.warn(this.userTmp);
-
-    this.loginService.addProject(this.userTmp.activeProjectModel!).subscribe( e => {
-      if(e)
-      {
-        console.log("ADD USER ORDER!!!!:");
-        //this.cutterComp.prepareData();
+  removeProject(projectId:any){
+    this.loginService.removeProject(projectId).subscribe(
+      e=>{
+        this.cutterComp.prepareData();
+        this.userTmp = this.loginService.loggedUser;
       }
-    });
+    );
   }
   
   public canAddProject()
   {
-    if(this.userTmp.savedProjectModels!.length < 5) { return true; }
+    if(this.loginService.loggedUser.savedProjectModels!.length < 5) { return true; }
     else return false;
   }
+
   public addRow(){
-    this.project.projectName = "New project name";
-
-    this.loginService.addProject( this.project ).subscribe(
+    this.loginService.addProject().subscribe(
       data=>{
-        console.warn(data);
-        this.loginService.updateProfile(this.loginService.loggedUser).subscribe(
-          e=>{
-            console.warn(this.loginService.loggedUser)
-          }
-        );
+        this.cutterComp.prepareData();
 
+        this.loginService.updateProfile(this.loginService.loggedUser).subscribe(
+          e=>{ }
+        ); 
       });
-    //let index = this.userTmp.savedProjectModels!.length+1;
-    //this.userTmp.savedProjectModels!.push({id:index, projectName:"New project", cutList:this.userTmp.activeProjectModel!.cutList, stockList:this.userTmp.activeProjectModel!.stockList, cutOptions:this.userTmp.activeProjectModel!.cutOptions });
   }
+
 
 
 }

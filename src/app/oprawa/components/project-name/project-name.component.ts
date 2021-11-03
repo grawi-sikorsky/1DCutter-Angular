@@ -24,13 +24,4 @@ export class ProjectNameComponent implements OnInit {
       this.cutterComp.prepareData();
     })
   }
-  public saveDialog(): void {
-    const dialogRef = this.dialog.open(SaveDialogComponent, {width:"850px",  data: {savedProjects: this.loginService.loggedUser.savedProjectModels, activeProject: this.cutterComp.activeProjectModel}});
-
-    dialogRef.afterClosed().subscribe(data=>{
-      this.cutterComp.prepareData();
-    })
-
-  }
-
 }

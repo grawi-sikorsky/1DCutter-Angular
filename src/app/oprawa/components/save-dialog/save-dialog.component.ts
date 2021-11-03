@@ -52,7 +52,7 @@ export class SaveDialogComponent implements OnInit {
 
     console.warn(this.userTmp);
 
-    this.loginService.addProject(this.userTmp.activeProjectModel!).subscribe( e => {
+    this.loginService.addProject().subscribe( e => {
       if(e)
       {
         console.log("ADD USER ORDER!!!!:");
