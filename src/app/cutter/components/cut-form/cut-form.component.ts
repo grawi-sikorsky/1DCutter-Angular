@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { InputModalityDetector } from '@angular/cdk/a11y';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
@@ -8,6 +9,7 @@ import { SaveDialogComponent } from '../../../oprawa/components/save-dialog/save
 import { LoginserviceService } from '../../../oprawa/services/loginservice.service';
 import { CutterServiceService } from '../../services/cutter-service.service';
 import { CutterComponent } from '../cutter/cutter.component';
+import { ResultsComponent } from '../results/results.component';
 
 @Component({
   selector: 'app-cut-form',
@@ -20,7 +22,7 @@ export class CutFormComponent implements OnInit {
   tempuser:User={};
   isWorking:boolean=false;
 
-  constructor(public cutService:CutterServiceService, public cutterComp:CutterComponent, public loginService:LoginserviceService, public dialog:MatDialog) 
+  constructor(public cutService:CutterServiceService, public cutterComp:CutterComponent, public loginService:LoginserviceService, public dialog:MatDialog, private resultsComp:ResultsComponent) 
   { 
     this.submitDebounced();
   }
@@ -42,20 +44,15 @@ export class CutFormComponent implements OnInit {
 
     this.isWorking = true;
     let resp                  = this.cutService.sendOrder(this.cutterComp.activeProjectModel);
-    this.cutterComp.results$  = this.cutService.sendOrder(this.cutterComp.activeProjectModel);
-    this.cutterComp.results$.subscribe(data=>{
-      this.cutterComp.results = data;
-      localStorage.setItem('results', JSON.stringify(data));
-      this.isWorking = false;
-    });
 
     resp.subscribe(returnData => {
+        this.resultsComp.results = returnData;
         this.cutterComp.results = returnData;
         localStorage.setItem('results', JSON.stringify(returnData));
-        this.cutterComp.unStackResults();
-        this.cutterComp.stackRemain();
+        this.resultsComp.unStackResults();
+        this.resultsComp.stackRemain();
+        
         this.isWorking = false;
-
         console.log("Order Sended ok.. return data: ");
         console.log(returnData);
     });

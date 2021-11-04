@@ -69,7 +69,7 @@ export function tokenGetter() {
   ],
 
 
-  providers: [CutterServiceService, GetuserdataComponent, CutFormComponent, CutterComponent],
+  providers: [CutterServiceService, GetuserdataComponent, CutFormComponent, CutterComponent,ResultsComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

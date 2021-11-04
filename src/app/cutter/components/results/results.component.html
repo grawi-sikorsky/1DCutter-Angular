@@ -1,14 +1,15 @@
-<div class="wynikicol" *ngIf="(this.cutterComp.results$ | async) as resultsAsync" >
+input: {{inputResults}}
+<div class="wynikicol" *ngIf="(results)"> 
     <div class="row">
       <div class="col-sm-6">
         <div class="price-results">
-          <label> Całkowita ilosc potrzebnego materialu: </label><span> <strong> {{resultsAsync.resultUsed }} </strong></span>
+          <label> Całkowita ilosc potrzebnego materialu: </label><span> <strong> {{results.resultUsed }} </strong></span>
           
-          <div *ngFor="let needstock of resultsAsync.resultNeededStock | keyvalue">
+          <div *ngFor="let needstock of results.resultNeededStock | keyvalue">
             <label><strong>{{needstock.value}} <i class="fas fa-times fa-sm"></i>  {{needstock.key}} </strong></label>
           </div>
           <hr/>
-          <label> Ilość przezbrojeń cięcia (unikalnych wzrorów): </label><span> <strong> {{resultsAsync.resultBars!.length }} </strong></span>
+          <label> Ilość przezbrojeń cięcia (unikalnych wzrorów): </label><span> <strong> {{results.resultBars!.length }} </strong></span>
 
         </div>
       </div>
@@ -17,32 +18,32 @@
         <div class="price-results">
           <label> <i class="fas fa-dollar-sign"></i> Podsumowanie kosztów: </label><p></p>
           <div class="col-sm">
-            <label> Koszt niezbędnego materiału: </label><span> {{ resultsAsync.resultCostOveral }}  <i class="fas fa-dollar-sign"></i></span>
+            <label> Koszt niezbędnego materiału: </label><span> {{ results.resultCostOveral }}  <i class="fas fa-dollar-sign"></i></span>
           </div>
           <div class="col-sm">
-            <label> Koszt zużytego materiału: </label><span> {{ resultsAsync.resultCostOveral }} </span>
+            <label> Koszt zużytego materiału: </label><span> {{ results.resultCostOveral }} </span>
           </div>
         </div>
       </div>
       <hr/>
     </div>
     <div class="col-sm">
-      <label> Ilość cięć: </label><span> <strong> {{resultsAsync.resultCutCount | number }}</strong></span>
+      <label> Ilość cięć: </label><span> <strong> {{results.resultCutCount | number }}</strong></span>
     </div>
     <div class="col-sm">
-      <label> Procent odpadu: </label><span> <strong> {{resultsAsync.resultWasteProcent | number: '1.2-2' }} % </strong></span>
+      <label> Procent odpadu: </label><span> <strong> {{results.resultWasteProcent | number: '1.2-2' }} % </strong></span>
     </div>
     <div class="col-sm">
-      <label> Procent wykorzystanego surowca: </label><span> <strong> {{resultsAsync.resultUsedProcent | number: '1.2-2' }} % </strong></span>
+      <label> Procent wykorzystanego surowca: </label><span> <strong> {{results.resultUsedProcent | number: '1.2-2' }} % </strong></span>
     </div>
     <div class="progress probar">
-      <div class="progress-bar progress-bar-striped progress-bar-animated bg-success cutbar" role="progressbar" [ngStyle]="{'width': resultsAsync.resultUsedProcent +'%'}" 
-          ngbPopover="{{resultsAsync.resultUsedProcent | number: '1.2-2'}} %" [openDelay]="100" [closeDelay]="300" triggers="mouseenter:mouseleave"> 
-        {{resultsAsync.resultUsedProcent | number: '1.2-2' }} %
+      <div class="progress-bar progress-bar-striped progress-bar-animated bg-success cutbar" role="progressbar" [ngStyle]="{'width': results.resultUsedProcent +'%'}" 
+          ngbPopover="{{results.resultUsedProcent | number: '1.2-2'}} %" [openDelay]="100" [closeDelay]="300" triggers="mouseenter:mouseleave"> 
+        {{results.resultUsedProcent | number: '1.2-2' }} %
       </div>
-      <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning cutbar" role="progressbar" [ngStyle]="{'width': resultsAsync.resultWasteProcent +'%'}"
-          ngbPopover="{{resultsAsync.resultWasteProcent | number: '1.2-2'}} %" [openDelay]="100" [closeDelay]="300" triggers="mouseenter:mouseleave"> 
-        {{resultsAsync.resultWasteProcent | number: '1.2-2' }} %
+      <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning cutbar" role="progressbar" [ngStyle]="{'width': results.resultWasteProcent +'%'}"
+          ngbPopover="{{results.resultWasteProcent | number: '1.2-2'}} %" [openDelay]="100" [closeDelay]="300" triggers="mouseenter:mouseleave"> 
+        {{results.resultWasteProcent | number: '1.2-2' }} %
       </div>
     </div>
     <hr/>
@@ -50,7 +51,7 @@
     
     <div class="col-sm">
       <label> Pozostale odcinki: </label>
-        <span *ngFor="let odcinki of resultsAsync.resultRemainingPieces"> 
+        <span *ngFor="let odcinki of results.resultRemainingPieces"> 
           <span *ngFor="let odcinek of odcinki.resultBarPieces">
             {{ odcinek.barText }}, 
           </span>
@@ -85,7 +86,7 @@
 
     <!-- STACK RESULT -->
     <div class="container-fluid" *ngIf="this.cutterComp.activeProjectModel!.cutOptions.optionStackResult">
-      <div class="row" *ngFor="let bar of (resultsAsync.resultBars)">
+      <div class="row" *ngFor="let bar of (results.resultBars)">
         <div class="col-sm-1 barcount">
           <strong>{{bar.stackCount}} <i class="fas fa-times fa-sm"></i> </strong>  ( {{bar.onStockLength}} ) 
         </div>
@@ -118,7 +119,7 @@
       <!-- NORMAL REMAIN RESULT -->
       <div class="container-fluid" *ngIf="!this.cutterComp.activeProjectModel!.cutOptions.optionStackResult">
         <p>Pozostałe odcinki niezoptymalizowane:</p>
-        <div class="probar" *ngFor="let rem of (resultsAsync.resultRemainingPieces)">
+        <div class="probar" *ngFor="let rem of (results.resultRemainingPieces)">
           <div class="progress probar" *ngFor="let re of rem.resultBarPieces" class="cutbar progress-bar bg-danger"
           [ngStyle]="{'width': re.barWidthProc +'%'}" role="progressbar" >
             <div >
