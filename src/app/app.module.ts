@@ -23,6 +23,7 @@ import { SaveDialogComponent } from './oprawa/components/save-dialog/save-dialog
 import { UserProfileComponent } from './oprawa/components/user-profile/user-profile.component';
 import { UserloginComponent } from './oprawa/components/userlogin/userlogin.component';
 import { UserregisterComponent } from './oprawa/components/userregister/userregister.component';
+import { ResultsComponent } from './cutter/components/results/results.component';
 
 
 export function tokenGetter() {
@@ -45,6 +46,7 @@ export function tokenGetter() {
     SaveDialogComponent,
     LoadDialogComponent,
     ProjectNameComponent,
+    ResultsComponent,
   ],
   imports: [
     BrowserModule,

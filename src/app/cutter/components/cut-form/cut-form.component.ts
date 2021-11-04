@@ -41,15 +41,19 @@ export class CutFormComponent implements OnInit {
     console.warn(this.cutterComp.activeProjectModel);
 
     this.isWorking = true;
-    let resp = this.cutService.sendOrder(this.cutterComp.activeProjectModel);
+    let resp                  = this.cutService.sendOrder(this.cutterComp.activeProjectModel);
+    this.cutterComp.results$  = this.cutService.sendOrder(this.cutterComp.activeProjectModel);
+    this.cutterComp.results$.subscribe(data=>{
+      this.cutterComp.results = data;
+      localStorage.setItem('results', JSON.stringify(data));
+      this.isWorking = false;
+    });
 
     resp.subscribe(returnData => {
-
         this.cutterComp.results = returnData;
+        localStorage.setItem('results', JSON.stringify(returnData));
         this.cutterComp.unStackResults();
         this.cutterComp.stackRemain();
-        localStorage.setItem('results', JSON.stringify(returnData));
-
         this.isWorking = false;
 
         console.log("Order Sended ok.. return data: ");

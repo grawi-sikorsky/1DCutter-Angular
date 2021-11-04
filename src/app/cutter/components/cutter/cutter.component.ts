@@ -34,7 +34,7 @@ export class CutterComponent implements OnInit {
   ngOnInit(): void 
   {
     this.prepareData();
-
+    
     this.results = JSON.parse(localStorage.getItem('results')!);
     if(this.results != null)
     {

@@ -1,0 +1,80 @@
+
+/*** 1D Stock Cut style ***/
+#add-btn
+{
+	float:right;
+}
+#add-stock-btn
+{
+	float:right;
+}
+.table form input
+{
+	width: 200px;
+}
+.cutbar{
+	border: 0px;
+	border-left: 1px;
+	/* border-right: 1px; */
+	border-color: #4a4a4aba;
+	border-style: solid;
+	cursor: pointer;
+}
+
+form#leftform input {
+	width: 95%;
+	height: 28px;
+}
+form#leftform td{
+	vertical-align: middle;
+}
+#addRowsHere .btn-sm{
+	font-size: 10px;
+}
+form#secform input {
+	width: 95%;
+}
+form#secform td{
+	vertical-align: middle;
+}
+
+.table{
+	font-size: 11px;
+}
+.table td{
+	padding: 1px!important;
+}
+
+
+.progress {
+	font-size: .65rem!important;
+	/*background-color: #a9a9a9!important;*/
+	border-radius: .35rem!important;
+}
+.probar{
+	margin-top: 2px;
+	margin-bottom: 2px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.wynikicol{
+	font-size: 13px;
+}
+.wynikicol label{
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.price-results{
+	border-style: solid;
+	border-radius: 10px;
+	border-color: aliceblue;
+	padding: 16px;
+	margin: 16px;
+	background: #f7fbff;
+}
+.barcount{
+	text-align: right;
+	padding-left: 2px;
+    font-size: 11px;
+}

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
 import { User } from 'src/app/oprawa/models/user';
 import { LoginserviceService } from '../../services/loginservice.service';
@@ -17,7 +18,7 @@ export class NavbarComponent implements OnInit {
   $username: Observable<string>;
   username: string="";
 
-  constructor(public loginService: LoginserviceService, public dialog:MatDialog) {
+  constructor(public loginService: LoginserviceService, public dialog:MatDialog,private router:Router) {
   }
 
   ngOnInit(): void {
@@ -32,7 +33,8 @@ export class NavbarComponent implements OnInit {
   }
 
   clearLS() {
-    localStorage.clear();
+    //localStorage.clear();
+    this.router.navigate(['/']);
   }
 
   public userProfileDialog(): void {
