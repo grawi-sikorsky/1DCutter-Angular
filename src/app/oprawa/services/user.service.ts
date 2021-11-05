@@ -3,7 +3,7 @@ import { User } from '../models/user';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { JwtService } from './jwt.service';
-import { environment } from '../../../environments/environment.prod';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +33,4 @@ export class UserService {
   {
     return this.http.patch<boolean>(this.API_URL + "/users", user );
   }
-
-
 }
