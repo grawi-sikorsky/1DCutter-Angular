@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CutterComponent } from '../../../cutter/components/cutter/cutter.component';
 import { User } from '../../models/user';
 import { LoginserviceService } from '../../services/loginservice.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-load-dialog',
@@ -11,71 +12,64 @@ import { LoginserviceService } from '../../services/loginservice.service';
 })
 export class LoadDialogComponent implements OnInit {
 
-  userTmp:User={};
+  userTmp: User = {};
+  projectName : string = "";
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public loginService:LoginserviceService, private cutterComp:CutterComponent) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public loginService: LoginserviceService, public userService: UserService, private cutterComp: CutterComponent) { }
 
   ngOnInit(): void {
   }
 
-  loadProject(projectId:any) {
-    this.loginService.loggedUser.activeProjectId! = projectId;
-    
-    this.loginService.loadProject(this.loginService.loggedUser, this.loginService.loggedUser.savedProjectModels!.find(obj=>obj.id === projectId)!.id )
-    .subscribe( data => {
-      if(data)
-      {
-        this.loginService.loggedUser.activeProjectModel = data;
-        this.loginService.loggedUser.activeProjectId = data.id;
-        this.cutterComp.activeProjectModel = data;
+  loadProject(projectId: any) {
+    this.userService.loggedUser.activeProjectId! = projectId;
 
-        this.loginService.updateProfile(this.loginService.loggedUser).subscribe(
-          e=>{
-            console.warn(this.loginService.loggedUser)
-          }
-        );
+    this.loginService.loadProject(this.userService.loggedUser, this.userService.loggedUser.savedProjectModels!.find(obj => obj.id === projectId)!.id)
+      .subscribe(data => {
+        if (data) {
+          this.userService.loggedUser.activeProjectModel = data;
+          this.userService.loggedUser.activeProjectId = data.id;
+          this.userService.updateProfile(this.userService.loggedUser).subscribe(
+            e => {
+              console.warn(this.userService.loggedUser)
+            }
+          );
+        }
+      });
+  }
+
+  saveProject(projectId: any) {
+    console.warn("Save project: ")
+    console.warn(this.userService.loggedUser);
+
+    this.userService.loggedUser.activeProjectModel!.projectName = this.userService.loggedUser.savedProjectModels!.find(obj => obj.id === projectId)!.projectName;
+
+    this.loginService.modifyProject(this.userService.loggedUser.activeProjectModel!, projectId).subscribe(e => {
+      if (e) {
+        console.log("Project Modified");
       }
     });
   }
 
-  saveProject(projectId:any){
-
-    this.loginService.loggedUser.activeProjectModel! = this.loginService.loggedUser.savedProjectModels!.find(obj=>obj.id === projectId)!;
-
-    console.warn(this.loginService.loggedUser);
-
-    this.loginService.modifyProject(this.loginService.loggedUser.activeProjectModel!, projectId).subscribe( e => {
-      if(e)
-      {
-        console.log("Modify USER ORDER!!!!:");
-        //this.cutterComp.prepareData();
-      }
-    });
-  }
-
-  removeProject(projectId:any){
+  removeProject(projectId: any) {
     this.loginService.removeProject(projectId).subscribe(
-      e=>{
+      e => {
         this.cutterComp.prepareData();
-        this.userTmp = this.loginService.loggedUser;
+        this.userTmp = this.userService.loggedUser;
       }
     );
   }
-  
-  public canAddProject()
-  {
-    if(this.loginService.loggedUser.savedProjectModels!.length < 5) { return true; }
+
+  public canAddProject() {
+    if (this.userService.loggedUser.savedProjectModels!.length < 5) { return true; }
     else return false;
   }
 
-  public addRow(){
+  public addRow() {
     this.loginService.addProject().subscribe(
-      data=>{
+      data => {
         this.cutterComp.prepareData();
 
-        this.loginService.updateProfile(this.loginService.loggedUser).subscribe(
-          e=>{ }
-        ); 
+        this.userService.updateProfile(this.userService.loggedUser).subscribe( e => { } );
       });
   }
 

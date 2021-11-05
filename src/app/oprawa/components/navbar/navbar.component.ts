@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
 import { User } from 'src/app/oprawa/models/user';
-import { LoginserviceService } from '../../services/loginservice.service';
+import { UserService } from '../../services/user.service';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 
 
@@ -12,12 +13,12 @@ import { UserProfileComponent } from '../user-profile/user-profile.component';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  localUser: User = {};
-  $usr: Observable<User>;
-  $username: Observable<string>;
-  username: string="";
+  localUser : User = {};
+  $usr      : Observable<User>;
+  $username : Observable<string>;
+  username  : string = "";
 
-  constructor(public loginService: LoginserviceService, public dialog:MatDialog) {
+  constructor(private userService:UserService, public dialog:MatDialog,private router:Router) {
   }
 
   ngOnInit(): void {
@@ -28,15 +29,16 @@ export class NavbarComponent implements OnInit {
     if (this.localUser != null && ( this.localUser.username != this.username ) ) {
       this.username = this.localUser.username!;
     }
-    return this.loginService.isLogged();
+    return this.userService.isLogged();
   }
 
   clearLS() {
-    localStorage.clear();
+    //localStorage.clear();
+    this.router.navigate(['/']);
   }
 
   public userProfileDialog(): void {
-    const dialogRef = this.dialog.open(UserProfileComponent, {width:"850px", data: this.loginService.loggedUser.activeProjectId});
+    const dialogRef = this.dialog.open(UserProfileComponent, {width:"850px", data: this.userService.loggedUser.activeProjectId});
     dialogRef.afterClosed().subscribe(data=>{
       // console.log("UserProfile Dialog zamkniety");
     })

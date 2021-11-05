@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from "rxjs/operators";
-import { LoginserviceService } from '../../../oprawa/services/loginservice.service';
+import { UserService } from '../../../oprawa/services/user.service';
 import { CutterServiceService } from '../../services/cutter-service.service';
 import { CutterComponent } from '../cutter/cutter.component';
 
@@ -13,12 +13,11 @@ import { CutterComponent } from '../cutter/cutter.component';
 })
 export class CutOptionsComponent implements OnInit {
 
-  constructor(private cutService:CutterServiceService, private loginService:LoginserviceService, public cutterComp:CutterComponent) 
+  constructor(private cutService:CutterServiceService, private userService:UserService, public cutterComp:CutterComponent) 
   {
     this.submitDebounced();
   }
 
-  //cutOptions  = <CutOptions>{};
   subject = new Subject();
 
   ngOnInit(): void 
@@ -29,15 +28,15 @@ export class CutOptionsComponent implements OnInit {
   {
     this.subject.next();
     
-    if(!this.loginService.isLogged())
+    if(!this.userService.isLogged())
     {
       localStorage.setItem('offlineUserOrder',JSON.stringify(this.cutterComp.activeProjectModel));
     }
     else
     {
       //Zapisujem do local current user
-      this.loginService.loggedUser.activeProjectModel! = this.cutterComp.activeProjectModel;
-      localStorage.setItem('currentUser', JSON.stringify(this.loginService.loggedUser));
+      this.userService.loggedUser.activeProjectModel! = this.cutterComp.activeProjectModel;
+      localStorage.setItem('currentUser', JSON.stringify(this.userService.loggedUser));
     }
   }
 

@@ -106,6 +106,9 @@ form#secform td{
 #cutlista .accordion-body {
 	padding: 0.5rem 0.75rem;
 }
+::ng-deep .mat-typography h2 {
+    margin: 0!important;
+}
 
 ::ng-deep .mat-form-field-infix
 {

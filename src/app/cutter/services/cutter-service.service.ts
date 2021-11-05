@@ -1,12 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from 'src/app/oprawa/models/user';
-import { LoginserviceService } from '../../oprawa/services/loginservice.service';
-import { CutOptions } from '../models/cutoptions';
+import { environment } from 'src/environments/environment';
+import { UserService } from '../../oprawa/services/user.service';
 import { ProjectModel } from '../models/projectmodel';
 import { ResultBarsModule } from '../models/result-bars/result-bars.module';
-import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -16,7 +14,7 @@ export class CutterServiceService {
 
   private API_URL = environment.API_URL;
 
-  constructor(private http:HttpClient, private loginService:LoginserviceService) { }
+  constructor(private http:HttpClient, private userService:UserService) { }
 
   public getResultsAsync() : Observable<ResultBarsModule>
   {
@@ -29,7 +27,7 @@ export class CutterServiceService {
 
   public sendOrder(project:ProjectModel)
   {
-    if(this.loginService.isLogged())
+    if(this.userService.isLogged())
     {
       return this.http.post<ResultBarsModule>( this.API_URL + "/cut", project);
     }
