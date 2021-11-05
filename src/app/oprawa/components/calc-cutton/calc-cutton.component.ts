@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CutFormComponent } from '../../../cutter/components/cut-form/cut-form.component';
+import { ResultsComponent } from '../../../cutter/components/results/results.component';
+import { ResultService } from '../../../cutter/services/result.service';
 
 @Component({
   selector: 'app-calc-cutton',
@@ -8,7 +10,7 @@ import { CutFormComponent } from '../../../cutter/components/cut-form/cut-form.c
 })
 export class CalcCuttonComponent implements OnInit {
 
-  constructor(private cutformComponent : CutFormComponent) { }
+  constructor(private cutformComponent : CutFormComponent, private resultService:ResultService) { }
 
   ngOnInit(): void {
   }
@@ -18,7 +20,7 @@ export class CalcCuttonComponent implements OnInit {
   }
 
   public isLoadingResults(){
-    if( this.cutformComponent.isWorking ){
+    if( this.resultService.isWorking ){
       return true;
     }
     else return false;

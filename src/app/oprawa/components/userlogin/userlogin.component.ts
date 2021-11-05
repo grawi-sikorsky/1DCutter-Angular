@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/oprawa/models/user';
-import { JwtService } from '../../services/jwt.service';
 import { LoginserviceService } from '../../services/loginservice.service';
-import { CutterComponent } from '../../../cutter/components/cutter/cutter.component';
+import { UserService } from '../../services/user.service';
 
 
 @Component({
@@ -20,7 +19,7 @@ export class UserloginComponent implements OnInit {
   isLoggedIn?:boolean;
   badcredentials?:boolean;
 
-  constructor(private loginService:LoginserviceService, private jwtService:JwtService, private router:Router, private cutterComp:CutterComponent) { }
+  constructor(private loginService:LoginserviceService, private router:Router, private userService:UserService) { }
 
   ngOnInit(): void {
     this.loginService.authenticated=false;
@@ -30,15 +29,20 @@ export class UserloginComponent implements OnInit {
   doLogin()
   {
     let resp = this.loginService.login(this.username, this.password);
-    console.log(this.username + " " + this.password);
+    console.log("Login: " + this.username + " " + this.password);
 
-    resp.subscribe(temp => {
-      console.info(temp);
-      if(temp.jwtToken !== null)
+    resp.subscribe(response => {
+      console.info("Logged: " + JSON.stringify(response));
+      if(response.jwtToken !== null)
       {
         this.loginService.authenticated = true;
         this.badcredentials = false;
-        this.router.navigate(['/']);//.then(()=>this.cutterComp.prepareData());
+        this.userService.getUserDataAsync().subscribe(response=>{
+          console.log("LoggedUser: ");
+          console.log(response);
+          this.userService.loggedUser = response;
+        });
+        this.router.navigate(['/']);
       }
       else
       {

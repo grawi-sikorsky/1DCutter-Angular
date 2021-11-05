@@ -1,120 +1,122 @@
-<div class="row">
-<div id="addRowsHere">
-  <div class="accordion" id="cutlista">
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-        <button class="accordion-button" name="surowce" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-          <div><i class="fas fa-layer-group"></i> Surowiec </div>          
-        </button>
+<div class="row" *ngIf="this.userService.userDataLoaded else stillLoading" >
+  <div id="addRowsHere">
+    <div class="accordion" id="cutlista">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+          <button class="accordion-button" name="surowce" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+            <div><i class="fas fa-layer-group"></i> Surowiec </div>          
+          </button>
 
-        
-      </h2>
-      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-        <div class="accordion-body">
+          
+        </h2>
+        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+          <div class="accordion-body">
 
-          <!-- STOCK ------------------------------------------------------->
-          <!-- -->
+            <!-- STOCK ------------------------------------------------------->
+            <!-- -->
 
-          <button *ngIf="!this.canAddStock()" type="button" id="add-stock-btn" class="btn btn-sm btn-primary" (click)="addRowStock()" (mouseenter)="canAddStock()"
-          ngbPopover="Niezalogowany użytkownik może dodać tylko jeden rodzaj surowca." [openDelay]="400" [closeDelay]="400" triggers="mouseenter:mouseleave"><i class="fas fa-plus"></i> Dodaj</button>
+            <button *ngIf="!this.canAddStock()" type="button" id="add-stock-btn" class="btn btn-sm btn-primary" (click)="addRowStock()" (mouseenter)="canAddStock()"
+            ngbPopover="Niezalogowany użytkownik może dodać tylko jeden rodzaj surowca." [openDelay]="400" [closeDelay]="400" triggers="mouseenter:mouseleave"><i class="fas fa-plus"></i> Dodaj</button>
 
-          <button *ngIf="this.canAddStock()" type="button" id="add-stock-btn" class="btn btn-sm btn-primary" (click)="addRowStock()" (mouseenter)="canAddStock()"
-          ngbPopover="Dodaj surowiec." [openDelay]="400" [closeDelay]="400" triggers="mouseenter:mouseleave"><i class="fas fa-plus"></i> Dodaj</button>
+            <button *ngIf="this.canAddStock()" type="button" id="add-stock-btn" class="btn btn-sm btn-primary" (click)="addRowStock()" (mouseenter)="canAddStock()"
+            ngbPopover="Dodaj surowiec." [openDelay]="400" [closeDelay]="400" triggers="mouseenter:mouseleave"><i class="fas fa-plus"></i> Dodaj</button>
 
-          <form id="stockform" control="" class="form-group" (ngSubmit)="submitOrder()" >
+            <form id="stockform" control="" class="form-group" (ngSubmit)="submitOrder()" >
 
 
-            <table id="stockTable" class="table table-striped table-hover">
+              <table id="stockTable" class="table table-striped table-hover">
+                <tr>
+                  <th> Dlugość materiału </th>
+                  <th> Ilość </th>
+                  <th  *ngIf="this.userService.loggedUser.activeProjectModel!.cutOptions.optionPrice"> Koszt / szt </th>
+                </tr>
+
+                <tr class="stock-table" *ngFor="let stockRow of this.userService.loggedUser.activeProjectModel!.stockList; let index = index" >
+
+                  <td>
+                    <input class="form-control" type="number" min="0" [id]="stockRow.idFront" [name]="index+'stolen'+stockRow.stockLength" [(ngModel)]="stockRow.stockLength" (ngModelChange)="subject.next()" > 
+                  </td>
+                  <td>
+                    <input class="form-control" type="number" min="0" [name]="index+'stopcs'+stockRow.stockPcs" [(ngModel)]="stockRow.stockPcs" (ngModelChange)="subject.next()" >
+                  </td>
+                  <td *ngIf="this.userService.loggedUser.activeProjectModel!.cutOptions.optionPrice">
+                    <input class="form-control" type="number" min="0" [name]="index+'stoprice'+stockRow.stockPrice" [(ngModel)]="stockRow.stockPrice" (ngModelChange)="subject.next()" >
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-sm btn-danger remove-btn" (click)="removeRowStock(index)"><div><i class="far fa-trash-alt" ></i> Usuń </div>
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </form>
+
+              <!-- STOCK ---------------------------------------------------------->
+
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
+            <div><i class="fas fa-border-all"></i> Formatki do cięcia</div>
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
+          <div class="accordion-body">
+
+            <button *ngIf="!this.canAddCut()" type="button" id="add-stock-btn" class="btn btn-sm btn-primary" (click)="addRowCuts()" (mouseenter)="canAddCut()"
+            ngbPopover="Niezalogowany użytkownik może dodać tylko 4 formatki." [openDelay]="400" [closeDelay]="400" triggers="mouseenter:mouseleave"><i class="fas fa-plus"></i> Dodaj</button>
+
+            <button *ngIf="this.canAddCut()" type="button" id="add-stock-btn" class="btn btn-sm btn-primary" (click)="addRowCuts()" (mouseenter)="canAddCut()"
+            ngbPopover="Dodaj cięcie." [openDelay]="400" [closeDelay]="400" triggers="mouseenter:mouseleave"><i class="fas fa-plus"></i> Dodaj</button>
+
+            <form id="cutform" control="" class="form-group" (ngSubmit)="submitOrder()" >
+            <!-- CUTSSSSS ------------------------------------------------------->
+            <table id="cutTable" class="table">
               <tr>
-                <th> Dlugość materiału </th>
+                <th> Dlugość odcinka </th>
                 <th> Ilość </th>
-                <th  *ngIf="cutterComp.activeProjectModel!.cutOptions.optionPrice"> Koszt / szt </th>
+                <th>
+                  
+                </th>
               </tr>
 
-              <tr class="stock-table" *ngFor="let stockRow of this.cutterComp.activeProjectModel.stockList; let index = index" >
-
+              <tr id="unit-table" class="unit-table" *ngFor="let row of this.userService.loggedUser.activeProjectModel!.cutList; let index=index" >
                 <td>
-                  <input class="form-control" type="number" min="0" [id]="stockRow.idFront" [name]="index+'stolen'+stockRow.stockLength" [(ngModel)]="stockRow.stockLength" (ngModelChange)="subject.next()" > 
+                  <input class="form-control" type="number" min="0" [name]="index+'cutlen'+ row.cutLength" [(ngModel)]="row.cutLength" (ngModelChange)="subject.next()" >
                 </td>
                 <td>
-                  <input class="form-control" type="number" min="0" [name]="index+'stopcs'+stockRow.stockPcs" [(ngModel)]="stockRow.stockPcs" (ngModelChange)="subject.next()" >
-                </td>
-                <td *ngIf="cutterComp.activeProjectModel!.cutOptions.optionPrice">
-                  <input class="form-control" type="number" min="0" [name]="index+'stoprice'+stockRow.stockPrice" [(ngModel)]="stockRow.stockPrice" (ngModelChange)="subject.next()" >
+                  <input class="form-control" type="number" min="0" [name]="index+'cutpcs'+ row.cutPcs" [(ngModel)]="row.cutPcs" (ngModelChange)="subject.next()" >
                 </td>
                 <td>
-                  <button type="button" class="btn btn-sm btn-danger remove-btn" (click)="removeRowStock(index)"><div><i class="far fa-trash-alt" ></i> Usuń </div>
+                  <button type="button" class="btn btn-sm btn-danger remove-btn" (click)="removeRowCuts(index)">
+                          <i class="far fa-trash-alt"></i> Usuń
                   </button>
                 </td>
               </tr>
-            </table>
+            </table>      
           </form>
-
-            <!-- STOCK ---------------------------------------------------------->
-
-        </div>
-      </div>
-    </div>
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
-          <div><i class="fas fa-border-all"></i> Formatki do cięcia</div>
-        </button>
-      </h2>
-      <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
-        <div class="accordion-body">
-
-          <button *ngIf="!this.canAddCut()" type="button" id="add-stock-btn" class="btn btn-sm btn-primary" (click)="addRowCuts()" (mouseenter)="canAddCut()"
-          ngbPopover="Niezalogowany użytkownik może dodać tylko 4 formatki." [openDelay]="400" [closeDelay]="400" triggers="mouseenter:mouseleave"><i class="fas fa-plus"></i> Dodaj</button>
-
-          <button *ngIf="this.canAddCut()" type="button" id="add-stock-btn" class="btn btn-sm btn-primary" (click)="addRowCuts()" (mouseenter)="canAddCut()"
-          ngbPopover="Dodaj cięcie." [openDelay]="400" [closeDelay]="400" triggers="mouseenter:mouseleave"><i class="fas fa-plus"></i> Dodaj</button>
-
-          <form id="cutform" control="" class="form-group" (ngSubmit)="submitOrder()" >
           <!-- CUTSSSSS ------------------------------------------------------->
-          <table id="cutTable" class="table">
-            <tr>
-              <th> Dlugość odcinka </th>
-              <th> Ilość </th>
-              <th>
-                
-              </th>
-            </tr>
 
-            <tr id="unit-table" class="unit-table" *ngFor="let row of this.cutterComp.activeProjectModel.cutList; let index=index" >
-              <td>
-                <input class="form-control" type="number" min="0" [name]="index+'cutlen'+ row.cutLength" [(ngModel)]="row.cutLength" (ngModelChange)="subject.next()" >
-              </td>
-              <td>
-                <input class="form-control" type="number" min="0" [name]="index+'cutpcs'+ row.cutPcs" [(ngModel)]="row.cutPcs" (ngModelChange)="subject.next()" >
-              </td>
-              <td>
-                <button type="button" class="btn btn-sm btn-danger remove-btn" (click)="removeRowCuts(index)">
-                        <i class="far fa-trash-alt"></i> Usuń
-                </button>
-              </td>
-            </tr>
-          </table>      
-        </form>
-        <!-- CUTSSSSS ------------------------------------------------------->
-
+          </div>
         </div>
       </div>
-    </div>
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true" aria-controls="panelsStayOpen-collapseThree">
-          <div><i class="fas fa-cog"></i> Ustawienia</div>
-        </button>
-      </h2>
-      <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
-        <div class="accordion-body">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true" aria-controls="panelsStayOpen-collapseThree">
+            <div><i class="fas fa-cog"></i> Ustawienia</div>
+          </button>
+        </h2>
+        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
+          <div class="accordion-body">
 
-          <app-cut-options></app-cut-options>
+            <app-cut-options></app-cut-options>
 
+          </div>
         </div>
       </div>
     </div>
   </div>
-
 </div>
+
+<ng-template #stillLoading>Loading...<mat-progress-bar mode="indeterminate"></mat-progress-bar></ng-template>

@@ -4,13 +4,13 @@
 <mat-dialog-content class="mat-typography">
   <div class="row">
     <div class="col-6">
-      <p>Aktualny projekt: <b> {{this.loginService.loggedUser.activeProjectModel!.id}}</b></p>
+      <p>Aktualny projekt: <b> {{this.userService.loggedUser.activeProjectModel!.id}}</b></p>
     </div>
     <div class="col-6">
-      <p>Zapisanych projektów: <b>{{this.loginService.loggedUser.numberOfSavedItems}} / 5 </b></p>
+      <p>Zapisanych projektów: <b>{{this.userService.loggedUser.numberOfSavedItems}} / 5 </b></p>
     </div>
   </div>
-  <p>debug: Active project ID: {{this.loginService.loggedUser.activeProjectId}}</p>
+  <p>debug: Active project ID: {{this.userService.loggedUser.activeProjectId}}</p>
   
 
   <mat-divider></mat-divider>
@@ -26,8 +26,8 @@
         <th></th>
       </thead>
       <tbody>
-        <tr *ngFor="let ordr of this.loginService.loggedUser.savedProjectModels; let index = index" >
-          <ng-container *ngIf="this.loginService.loggedUser.activeProjectId === ordr.id">
+        <tr *ngFor="let ordr of this.userService.loggedUser.savedProjectModels; let index = index" >
+          <ng-container *ngIf="this.userService.loggedUser.activeProjectId === ordr.id">
             <td class="active-td" style="border-radius: 10px 0px 0px 10px; ">{{ordr.id}}</td>
             <td class="active-td">{{index}}</td>
             <td class="active-td"><input [(ngModel)]="ordr.projectName"></td>
@@ -37,7 +37,7 @@
             <td class="active-td" style="width: 70px;"><button mat-raised-button color="warn" mat-dialog-close class="button-loadsave" (click)="saveProject(ordr.id)"><mat-icon>cloud_upload</mat-icon> Zapisz</button></td>
             <td class="active-td" style="width: 50px; padding-left:20px; margin-left:20px; border-radius: 0px 10px 10px 0px; "><button mat-mini-fab color="warn" class="button-loadsave btn-xm" (click)="removeProject(ordr.id)"><mat-icon>delete</mat-icon></button></td>
           </ng-container>
-          <ng-container *ngIf="this.loginService.loggedUser.activeProjectId !== ordr.id">
+          <ng-container *ngIf="this.userService.loggedUser.activeProjectId !== ordr.id">
             <td>{{ordr.id}}</td>
             <td>{{index}}</td>
             <td>{{ordr.projectName}}</td>

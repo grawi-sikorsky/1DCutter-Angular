@@ -1,9 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ProjectModel } from '../../cutter/models/projectmodel';
-import { GetuserdataComponent } from '../components/getuserdata/getuserdata.component';
 import { User } from '../models/user';
 import { JwtService } from './jwt.service';
 
@@ -16,40 +14,24 @@ export class LoginserviceService {
 
   authenticated = false;
   token       :any;
-  loggedUser  :User={};
-  $userStream :Observable<User>;
 
-  constructor(private http:HttpClient, private jwtService:JwtService, private getuserdata:GetuserdataComponent) {  }
-
-  public login(username:string, password:string)
-  {
-    return this.jwtService.jwtLogin(username,password);
-  }
-
-  public getUserDataAsync()
-  {
-    return this.$userStream = this.getuserdata.getUserData();
-  }
-
-  public logout()
-  {
-    return this.jwtService.logout();
-  }
-
-  public isLogged()
-  {
-    return this.jwtService.isLogged();
-  }
+  constructor(private http:HttpClient, private jwtService:JwtService) {  }
 
   public register(user:User)
   {
     return this.http.post<User>( this.API_URL + "/register", user );
   }
-
-  public updateProfile(user:User)
+  public login(username:string, password:string)
   {
-    return this.http.patch<boolean>(this.API_URL + "/users", user );
+    return this.jwtService.jwtLogin(username,password);
   }
+  public logout()
+  {
+    return this.jwtService.logout();
+  }
+
+
+
   public loadProject(user:User, projectId:any)
   {
     console.log("LoadProject(User): " +  JSON.stringify(user));
