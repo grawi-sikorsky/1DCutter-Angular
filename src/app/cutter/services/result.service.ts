@@ -24,6 +24,8 @@ export class ResultService {
       this.isWorking = false;
       this.stackRemain();
       this.unStackResults();
+
+      localStorage.setItem("results", JSON.stringify(response));
       console.log(this.results);
     });
   }

@@ -5,6 +5,7 @@ import { ProjectModel } from '../../models/projectmodel';
 import { ResultBarsModule } from '../../models/result-bars/result-bars.module';
 import { CutterServiceService } from '../../services/cutter-service.service';
 import { UserService } from '../../../oprawa/services/user.service';
+import { ResultService } from '../../services/result.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { UserService } from '../../../oprawa/services/user.service';
 })
 export class CutterComponent implements OnInit {
 
-  constructor(public cutService:CutterServiceService, public loginService:LoginserviceService, private userService:UserService ) {
+  constructor(public cutService:CutterServiceService, public loginService:LoginserviceService, private userService:UserService, private resultService:ResultService ) {
     this.activeProjectModel.cutList=[{cutLength:225,cutPcs:5}];
     this.activeProjectModel.stockList=[{idFront:0, stockLength:1000, stockPcs:10, stockPrice:0}];
     this.activeProjectModel.cutOptions={ id:0, optionStackResult:false, optionSzrank:0, optionPrice:false, optionAlgo:false, optionIterations:500, optionVariantsQ:true }
@@ -30,12 +31,18 @@ export class CutterComponent implements OnInit {
   unstackedBars   = <ResultBarsModule>{}; // stack2
   unstackedRemain = <ResultBarsModule>{}; // stack3
   activeProjectModel  = <ProjectModel>{};
+  json:string;
   
   ngOnInit(): void 
   {
     this.prepareData();
   }
 
+  cleanString(str:string) {
+      str = str.replace('"{', '{');
+      str = str.replace('}"', '}');
+    return str;
+  }
   public prepareData()
   {
     if(this.userService.isLogged() === true)
@@ -44,6 +51,8 @@ export class CutterComponent implements OnInit {
         this.activeProjectModel = data.activeProjectModel!;
         this.userService.loggedUser = data;
         this.userService.userDataLoaded = true;
+        this.json = this.cleanString(this.userService.loggedUser.activeProjectModel!.projectResults);
+        this.resultService.results = JSON.parse(this.cleanString(this.userService.loggedUser.activeProjectModel!.projectResults));
         localStorage.setItem('currentUser', JSON.stringify(data));
       });
     }

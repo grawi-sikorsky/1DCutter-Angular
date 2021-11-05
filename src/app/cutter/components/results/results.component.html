@@ -77,8 +77,8 @@
             [ngStyle]="{'width': barpcs.barWidthProc +'%','margin-right': (this.userService.loggedUser.activeProjectModel!.cutOptions.optionSzrank/bar.onStockLength)*100 +'%'}" 
             role="progressbar" ngbPopover="{{barpcs.barText}}" [openDelay]="100" [closeDelay]="200" triggers="mouseenter:mouseleave"> {{barpcs.barText}}
           </div>
-          <div class="cutbar progress-bar-striped progress-bar-animated bg-warning" [ngStyle]="{'width': (bar.freeSpaceOnStock/bar.onStockLength)*100+'%'}"
-          ngbPopover="{{bar.freeSpaceOnStock | number: '1.2-2'}}" [openDelay]="100" [closeDelay]="300" triggers="mouseenter:mouseleave"></div>
+          <div class="cutbar progress-bar progress-bar-striped progress-bar-animated bg-warning" [ngStyle]="{'width': (bar.freeSpaceOnStock/bar.onStockLength)*100+'%'}"
+          ngbPopover="{{bar.freeSpaceOnStock | number: '1.2-2'}}" [openDelay]="100" [closeDelay]="300" triggers="mouseenter:mouseleave"> {{bar.freeSpaceOnStock | number: '1.2-2' }} </div>
         </div>
 
       </div>
@@ -96,8 +96,8 @@
             role="progressbar" ngbPopover="{{barpcs.barText}}" [openDelay]="100" [closeDelay]="200" triggers="mouseenter:mouseleave">
             {{barpcs.barText}}
           </div>
-          <div class="cutbar progress-bar-striped progress-bar-animated bg-danger" [ngStyle]="{'width': (bar.freeSpaceOnStock/bar.onStockLength)*100+'%'}"
-          ngbPopover="{{bar.freeSpaceOnStock | number: '1.2-2'}}" [openDelay]="100" [closeDelay]="300" triggers="mouseenter:mouseleave"></div>
+          <div class="cutbar progress-bar progress-bar-striped progress-bar-animated bg-danger" [ngStyle]="{'width': (bar.freeSpaceOnStock/bar.onStockLength)*100+'%'}"
+          ngbPopover="{{bar.freeSpaceOnStock | number: '1.2-2'}}" [openDelay]="100" [closeDelay]="300" triggers="mouseenter:mouseleave"> {{bar.freeSpaceOnStock | number: '1.1-2' }} </div>
         </div>
       </div>
     </div>

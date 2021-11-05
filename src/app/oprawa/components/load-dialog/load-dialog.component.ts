@@ -13,6 +13,7 @@ import { UserService } from '../../services/user.service';
 export class LoadDialogComponent implements OnInit {
 
   userTmp: User = {};
+  projectName : string = "";
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public loginService: LoginserviceService, public userService: UserService, private cutterComp: CutterComponent) { }
 
@@ -39,6 +40,8 @@ export class LoadDialogComponent implements OnInit {
   saveProject(projectId: any) {
     console.warn("Save project: ")
     console.warn(this.userService.loggedUser);
+
+    this.userService.loggedUser.activeProjectModel!.projectName = this.userService.loggedUser.savedProjectModels!.find(obj => obj.id === projectId)!.projectName;
 
     this.loginService.modifyProject(this.userService.loggedUser.activeProjectModel!, projectId).subscribe(e => {
       if (e) {

@@ -15,6 +15,7 @@ export class ProjectNameComponent implements OnInit {
   constructor(public loginService:LoginserviceService, public userService:UserService, public cutterComp:CutterComponent, public dialog:MatDialog) { }
 
   ngOnInit(): void {
+    this.cutterComp.prepareData();
   }
 
   public loadDialog(): void {

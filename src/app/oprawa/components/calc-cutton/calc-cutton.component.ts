@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CutFormComponent } from '../../../cutter/components/cut-form/cut-form.component';
-import { ResultsComponent } from '../../../cutter/components/results/results.component';
 import { ResultService } from '../../../cutter/services/result.service';
 
 @Component({

@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { UserService } from '../../../oprawa/services/user.service';
-import { ResultBarsModule } from '../../models/result-bars/result-bars.module';
 import { ResultService } from '../../services/result.service';
 
 @Component({
@@ -14,7 +12,12 @@ export class ResultsComponent implements OnInit {
   constructor(public userService:UserService, public resultService:ResultService) { }
 
   ngOnInit(): void {
-    //this.resultService.getResults();
+
+    this.resultService.isWorking = true;
+    this.resultService.results = JSON.parse(localStorage.getItem('results')!);
+    if(this.resultService.results != null){
+      this.resultService.isWorking = false;
+    }
   }
 
 
