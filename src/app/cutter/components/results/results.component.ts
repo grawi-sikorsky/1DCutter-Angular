@@ -14,7 +14,7 @@ export class ResultsComponent implements OnInit {
   ngOnInit(): void {
 
     this.resultService.isWorking = true;
-    this.resultService.results = JSON.parse(localStorage.getItem('results')!);
+    //this.resultService.results = JSON.parse(localStorage.getItem('results')!);
     if(this.resultService.results != null){
       this.resultService.isWorking = false;
     }

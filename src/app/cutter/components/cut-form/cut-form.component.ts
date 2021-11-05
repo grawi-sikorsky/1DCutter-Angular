@@ -46,8 +46,7 @@ export class CutFormComponent implements OnInit {
         localStorage.setItem('results', JSON.stringify(returnData));
         this.userService.loggedUser.activeProjectModel!.projectResults = JSON.stringify(returnData);
 
-        this.resultsService.stackRemain();
-        this.resultsService.unStackResults();
+        this.resultsService.prepareResults();
         this.resultsService.isWorking = false;
 
         console.log("Order Sended ok.. return data: ");

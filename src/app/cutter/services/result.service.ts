@@ -10,24 +10,28 @@ import { UserService } from '../../oprawa/services/user.service';
 export class ResultService {
 
   results       = <ResultBarsModule>{};
-  results$      : Observable<ResultBarsModule>;
   isWorking     : boolean = false;
-  stackedBars   = <ResultBarsModule>{}; // stack2
-  stackedRemain = <ResultBarsModule>{}; // stack3
+  noResults     : boolean = false;
+  stackedBars   = <ResultBarsModule>{};
+  stackedRemain = <ResultBarsModule>{};
 
   constructor(private cutService:CutterServiceService, private userService:UserService) { }
 
-  public getResults(){
-    this.isWorking = true;
-    this.cutService.sendOrder(this.userService.loggedUser.activeProjectModel!).subscribe(response=>{
-      this.results = response;
-      this.isWorking = false;
-      this.stackRemain();
-      this.unStackResults();
-
-      localStorage.setItem("results", JSON.stringify(response));
-      console.log(this.results);
-    });
+  public prepareResults(){
+    this.noResults = false;
+    if(this.userService.loggedUser.activeProjectModel!.projectResults !== null){
+      this.results = JSON.parse(this.userService.loggedUser.activeProjectModel!.projectResults);
+      this.cutService.sendOrder(this.userService.loggedUser.activeProjectModel!);
+    }
+    // else if(localStorage.getItem('results') !== null){
+    //   this.results = JSON.parse(localStorage.getItem('results')!);
+    // }
+    else{
+      this.noResults = true;
+    }
+    
+    this.stackRemain();
+    this.unStackResults();
   }
 
   public stackRemain()

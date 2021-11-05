@@ -38,21 +38,22 @@ export class CutterComponent implements OnInit {
     this.prepareData();
   }
 
-  cleanString(str:string) {
-      str = str.replace('"{', '{');
-      str = str.replace('}"', '}');
-    return str;
-  }
+  // cleanString(str:string) {
+  //     str = str.replace('"{', '{');
+  //     str = str.replace('}"', '}');
+  //   return str;
+  // }
+
   public prepareData()
   {
     if(this.userService.isLogged() === true)
     {
-      this.userService.getUserDataAsync().subscribe( data => { 
+      this.userService.getUserDataAsync().subscribe( data => {
         this.activeProjectModel = data.activeProjectModel!;
         this.userService.loggedUser = data;
         this.userService.userDataLoaded = true;
-        this.json = this.cleanString(this.userService.loggedUser.activeProjectModel!.projectResults);
-        this.resultService.results = JSON.parse(this.cleanString(this.userService.loggedUser.activeProjectModel!.projectResults));
+        
+        this.resultService.prepareResults();
         localStorage.setItem('currentUser', JSON.stringify(data));
       });
     }

@@ -18,7 +18,6 @@ export class CutOptionsComponent implements OnInit {
     this.submitDebounced();
   }
 
-  //cutOptions  = <CutOptions>{};
   subject = new Subject();
 
   ngOnInit(): void 

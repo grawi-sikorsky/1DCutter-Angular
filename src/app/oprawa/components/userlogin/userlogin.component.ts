@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/oprawa/models/user';
 import { LoginserviceService } from '../../services/loginservice.service';
 import { UserService } from '../../services/user.service';
+import { CutterComponent } from '../../../cutter/components/cutter/cutter.component';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class UserloginComponent implements OnInit {
   isLoggedIn?:boolean;
   badcredentials?:boolean;
 
-  constructor(private loginService:LoginserviceService, private router:Router, private userService:UserService) { }
+  constructor(private loginService:LoginserviceService, private router:Router, private userService:UserService, private cutterComp:CutterComponent) { }
 
   ngOnInit(): void {
     this.loginService.authenticated=false;
@@ -37,11 +38,7 @@ export class UserloginComponent implements OnInit {
       {
         this.loginService.authenticated = true;
         this.badcredentials = false;
-        this.userService.getUserDataAsync().subscribe(response=>{
-          console.log("LoggedUser: ");
-          console.log(response);
-          this.userService.loggedUser = response;
-        });
+        this.cutterComp.prepareData();
         this.router.navigate(['/']);
       }
       else
