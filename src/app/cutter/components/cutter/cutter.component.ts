@@ -31,7 +31,6 @@ export class CutterComponent implements OnInit {
   unstackedBars   = <ResultBarsModule>{}; // stack2
   unstackedRemain = <ResultBarsModule>{}; // stack3
   activeProjectModel  = <ProjectModel>{};
-  json:string;
   
   ngOnInit(): void 
   {
