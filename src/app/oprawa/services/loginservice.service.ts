@@ -34,12 +34,14 @@ export class LoginserviceService {
 
   public loadProject(user:User, projectId:any)
   {
-    console.log("LoadProject(User): " +  JSON.stringify(user));
+    console.log("LoadProject(User): ");
+    console.log(user);
     return this.http.get<ProjectModel>(this.API_URL + "/users/orders/"+projectId );
   }
   public modifyProject(project:ProjectModel, projectId:any)
   {
-    console.log("EDITProject(ProjectModel): " +  JSON.stringify(project));
+    console.log("EDITProject(ProjectModel)");
+    console.log(project);
     return this.http.patch<ProjectModel>(this.API_URL + "/users/orders/" + projectId, project );
   }
   public addProject()

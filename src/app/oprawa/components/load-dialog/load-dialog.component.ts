@@ -29,7 +29,8 @@ export class LoadDialogComponent implements OnInit {
           this.userService.loggedUser.activeProjectModel = data;
           this.userService.loggedUser.activeProjectId = data.id;
           this.userService.updateProfile(this.userService.loggedUser).subscribe(
-            e => {
+            returnUser => {
+              this.userService.loggedUser = returnUser;
               console.warn(this.userService.loggedUser)
             }
           );
