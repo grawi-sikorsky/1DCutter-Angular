@@ -31,6 +31,6 @@ export class UserService {
   }
   public updateProfile(user:User)
   {
-    return this.http.patch<boolean>(this.API_URL + "/users", user );
+    return this.http.patch<User>(this.API_URL + "/users", user );
   }
 }

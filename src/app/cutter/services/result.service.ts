@@ -3,6 +3,7 @@ import { ResultBarsModule } from '../models/result-bars/result-bars.module';
 import { Observable } from 'rxjs';
 import { CutterServiceService } from './cutter-service.service';
 import { UserService } from '../../oprawa/services/user.service';
+import { LoginserviceService } from '../../oprawa/services/loginservice.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +16,20 @@ export class ResultService {
   stackedBars   = <ResultBarsModule>{};
   stackedRemain = <ResultBarsModule>{};
 
-  constructor(private cutService:CutterServiceService, private userService:UserService) { }
+  constructor(private cutService:CutterServiceService, private userService:UserService, private loginService:LoginserviceService) { }
 
   public prepareResults(){
     this.noResults = false;
     if(this.userService.loggedUser.activeProjectModel!.projectResults !== null){
       this.results = JSON.parse(this.userService.loggedUser.activeProjectModel!.projectResults);
-      this.cutService.sendOrder(this.userService.loggedUser.activeProjectModel!);
+      this.loginService.modifyProject(this.userService.loggedUser.activeProjectModel!, this.userService.loggedUser.activeProjectId).subscribe(
+        returnProject=>{
+          this.userService.loggedUser.activeProjectModel = returnProject;
+          console.log("return from modify project: (preprare results)");
+          console.log(returnProject);
+        }
+      );
+      //this.cutService.sendOrder(this.userService.loggedUser.activeProjectModel!);
     }
     // else if(localStorage.getItem('results') !== null){
     //   this.results = JSON.parse(localStorage.getItem('results')!);
