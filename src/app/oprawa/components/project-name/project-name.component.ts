@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { CutterComponent } from '../../../cutter/components/cutter/cutter.component';
 import { LoadDialogComponent } from '../../../oprawa/components/load-dialog/load-dialog.component';
 import { LoginserviceService } from '../../services/loginservice.service';
