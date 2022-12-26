@@ -17,19 +17,10 @@ export class JwtService {
 
   public jwtLogin(username:string, password:string)
   {
-    return this.http.post<{jwtToken:  string}>( this.API_URL + '/auth/login', {username, password})
+    return this.http.post<{jwtToken:  string}>( this.API_URL + '/user/auth', {username, password})
     .pipe(tap(res => {
       if(res.jwtToken !== null)
         localStorage.setItem('jwtToken', res.jwtToken);
-    }))
-  }
-
-  public jwtRegister(username:string, password:string, email:string)
-  {
-    return this.http.post<{jwtToken: string}>( this.API_URL + '/auth/register', {username, password, email})
-    .pipe(tap(res => {
-      // TODO: obsluzyc bledna i poprawna rejestracje
-      this.jwtLogin(username, password)
     }))
   }
 

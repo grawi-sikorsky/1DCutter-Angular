@@ -16,15 +16,6 @@ export class CutterServiceService {
 
   constructor(private http:HttpClient, private userService:UserService) { }
 
-  public getResultsAsync() : Observable<ResultBarsModule>
-  {
-    return this.http.get<ResultBarsModule>( this.API_URL + "/result");
-  }
-  public getResults()
-  {
-    return this.http.get<ResultBarsModule>( this.API_URL + "/result");
-  }
-
   public sendOrder(project:ProjectModel)
   {
     if(this.userService.isLogged())

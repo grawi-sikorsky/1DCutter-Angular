@@ -27,10 +27,10 @@ export class UserService {
   }
   public getUserData()
   {
-    return this.http.get<User>( this.API_URL + "/users");
+    return this.http.get<User>( this.API_URL + "/user");
   }
   public updateProfile(user:User)
   {
-    return this.http.patch<User>(this.API_URL + "/users", user );
+    return this.http.patch<User>(this.API_URL + "/user", user );
   }
 }
