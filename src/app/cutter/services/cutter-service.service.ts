@@ -14,20 +14,17 @@ export class CutterServiceService {
 
   private API_URL = environment.API_URL;
 
-  constructor(private http:HttpClient, private userService:UserService) { }
+  constructor(private http: HttpClient, private userService: UserService) { }
 
-  public sendOrder(project:ProjectModel)
-  {
-    if(this.userService.isLogged())
-    {
-      return this.http.post<ResultBarsModule>( this.API_URL + "/cut", project);
+  public sendOrder(project: ProjectModel) {
+    if (this.userService.isLogged()) {
+      return this.http.post<ResultBarsModule>(this.API_URL + "/cut", project);
     }
-    else 
-      return this.http.post<ResultBarsModule>( this.API_URL + "/cutfree", project);
+    else
+      return this.http.post<ResultBarsModule>(this.API_URL + "/cutfree", project);
   }
 
-  public updateProject(project:ProjectModel)
-  {
-    return this.http.patch<any>( this.API_URL + "/users/orders/"+project.id, project);
+  public updateProject(project: ProjectModel) {
+    return this.http.patch<any>(this.API_URL + "/users/orders/" + project.id, project);
   }
 }

@@ -12,7 +12,7 @@ export class UserService {
 
   private API_URL = environment.API_URL;
   public loggedUser  :User={};
-  public $userStream :Observable<User>;
+  public $userStream :Observable<User> | undefined;
   public userDataLoaded:boolean=false;
 
   constructor(private http:HttpClient, private jwtService:JwtService) { }
