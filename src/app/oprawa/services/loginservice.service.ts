@@ -13,44 +13,32 @@ export class LoginserviceService {
   private API_URL = environment.API_URL;
 
   authenticated = false;
-  token       :any;
+  token: any;
 
-  constructor(private http:HttpClient, private jwtService:JwtService) {  }
+  constructor(private http: HttpClient, private jwtService: JwtService) { }
 
-  public register(user:User)
-  {
-    return this.http.post<User>( this.API_URL + "/user/register", user );
+  public register(user: User) {
+    return this.http.post<User>(this.API_URL + "/user/register", user);
   }
-  public login(username:string, password:string)
-  {
-    return this.jwtService.jwtLogin(username,password);
+  public login(username: string, password: string) {
+    return this.jwtService.jwtLogin(username, password);
   }
-  public logout()
-  {
+  public logout() {
     return this.jwtService.logout();
   }
 
 
 
-  public loadProject(user:User, projectId:any)
-  {
-    console.log("LoadProject(User): ");
-    console.log(user);
-    return this.http.get<ProjectModel>(this.API_URL + "/user/orders/"+projectId );
+  public loadProject(user: User, projectId: any) {
+    return this.http.get<ProjectModel>(this.API_URL + "/user/project/" + projectId);
   }
-  public modifyProject(project:ProjectModel, projectId:any)
-  {
-    console.log("EDITProject(ProjectModel)");
-    console.log(project);
-    return this.http.patch<ProjectModel>(this.API_URL + "/user/orders/" + projectId, project );
+  public modifyProject(project: ProjectModel, projectId: any) {
+    return this.http.patch<ProjectModel>(this.API_URL + "/user/project/" + projectId, project);
   }
-  public addProject()
-  {
-    console.log("ADDProject(): ");
-    return this.http.post<ProjectModel>(this.API_URL + "/user/orders/", null );
+  public addProject() {
+    return this.http.post<ProjectModel>(this.API_URL + "/user/project/", null);
   }
-  public removeProject(projectId:any){
-    console.log("REMOVEProject(id): " + projectId);
-    return this.http.delete<void>(this.API_URL + "/user/orders/" + projectId);
+  public removeProject(projectId: any) {
+    return this.http.delete<void>(this.API_URL + "/user/project/" + projectId);
   }
 }
