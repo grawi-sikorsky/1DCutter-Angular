@@ -30,15 +30,15 @@ export class LoginserviceService {
 
 
   public loadProject(user: User, projectId: any) {
-    return this.http.get<ProjectModel>(this.API_URL + "/user/project/" + projectId);
+    return this.http.get<ProjectModel>(this.API_URL + "/project/" + projectId);
   }
   public modifyProject(project: ProjectModel, projectId: any) {
-    return this.http.patch<ProjectModel>(this.API_URL + "/user/project/" + projectId, project);
+    return this.http.patch<ProjectModel>(this.API_URL + "/project/" + projectId, project);
   }
   public addProject() {
-    return this.http.post<ProjectModel>(this.API_URL + "/user/project/", null);
+    return this.http.post<ProjectModel>(this.API_URL + "/project/", null);
   }
   public removeProject(projectId: any) {
-    return this.http.delete<void>(this.API_URL + "/user/project/" + projectId);
+    return this.http.delete<void>(this.API_URL + "/project/" + projectId);
   }
 }
