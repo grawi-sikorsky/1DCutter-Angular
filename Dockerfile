@@ -1,20 +1,9 @@
-# Stage 1
-
-FROM node:latest as build-step
-
-RUN mkdir -p /app
-
+#stage 1
+FROM node:latest as node
 WORKDIR /app
-
-COPY package.json /app
-
+COPY . .
 RUN npm install
-
-COPY . /app
-
 RUN npm run build --prod
-
-# Stage 2
-FROM nginx:1.17.1-alpine
-
-COPY --from=build-step /app/docs /usr/share/nginx/html
+#stage 2
+FROM nginx:latest
+COPY --from=node /app/dist/OneDCutter-A /usr/share/nginx/html
