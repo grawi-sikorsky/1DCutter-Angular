@@ -7,3 +7,4 @@ RUN npm run build --prod
 #stage 2
 FROM nginx:latest
 COPY --from=node /app/dist/OneDCutter-A /usr/share/nginx/html
+EXPOSE 80
