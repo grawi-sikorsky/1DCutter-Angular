@@ -5,7 +5,6 @@ import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/lega
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtModule } from '@auth0/angular-jwt';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CutFormComponent } from './cutter/components/cut-form/cut-form.component';
@@ -24,7 +23,7 @@ import { UserloginComponent } from './oprawa/components/userlogin/userlogin.comp
 import { UserregisterComponent } from './oprawa/components/userregister/userregister.component';
 import { UserService } from './oprawa/services/user.service';
 import { ResultService } from './cutter/services/result.service';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 export function tokenGetter() {
   return localStorage.getItem("jwtToken");
@@ -52,8 +51,8 @@ export function tokenGetter() {
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule,
     BrowserAnimationsModule,
+    NgbModule,
     MatDialogModule,
     MaterialModule,
     JwtModule,
